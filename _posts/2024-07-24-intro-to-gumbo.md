@@ -32,7 +32,7 @@ $$\delta_{t}^V = r_t + \gamma V(s_{t+1}) - V(s_t)$$
 
 is the TD error for some value function \\(V\\). This can be modeled as a discrete convolution of the TD residuals with a kernel of the \\((\gamma \lambda)^l\\) geometric series.
 
-{% highlight python
+```python
 import torch
 import torch.nn.functional as F
 
@@ -55,6 +55,6 @@ def gae_estimate(rewards, values, final_value):
     advantages = F.conv1d(td_errors, kernel, padding=T - 1).view(-1)[-T:]
 
     return advantages
-%}
+```
 
 Ordinarily implemented with a for loop, GAE calculation via a convolution provides a significant speedup. Other optimizations could be made to this i.e. pre-computing the kernel instead of calculating it each function call. I'm happy with it for now, though.
