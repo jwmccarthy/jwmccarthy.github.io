@@ -2,7 +2,7 @@
 layout: post
 title: "Cooking Up RL (pt. 2) - Advantage Estimation"
 categories: RL, PyTorch, Optimization
-custom_excerpt: "Documenting interesting bits from the development process of Gumbo, my reinforcement learning framework."
+custom_excerpt: "Investigating interesting advantage estimation optimization techniques."
 ---
 
 Someone important once said that early optimization is the enemy of progress, but in some cases it's fun. This post outlines one of those cases as it pertains to advantage estimation in my RL framework!
