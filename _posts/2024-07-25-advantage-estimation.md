@@ -7,7 +7,7 @@ custom_excerpt: "Optimizing advantage estimation via convolution"
 
 Someone important once said that early optimization is the enemy of progress, but in some cases it's fun. This post outlines one of those cases as it pertains to advantage estimation in my RL framework!
 
-Generalized Advantage Estimation (GAE) is commonly used in policy-gradient methods to estimate the advantages with lower variance. The form of the GAE estimate is
+Generalized Advantage Estimation[^1] (GAE) is commonly used in policy-gradient methods to estimate the advantages with lower variance. The form of the GAE estimate is
 
 $$\hat{A}_t^{GAE(\gamma, \lambda)} = \sum_{l=0}^{\infty}(\gamma\lambda)^l \delta_{t+l}^V$$
 
@@ -44,7 +44,7 @@ def gae_estimate(rewards, values, final_value):
 
 Ordinarily implemented with a for loop, GAE calculation via a convolution provides a decent speedup for reasonably-sized episodes, but it suffers as the array length gets long. 
 
-Fortunately, there's a more efficient alternative which leverages the Fast Fourier Transform (FFT). By the convolution theorem, for functions \\(f\\) and \\(g\\),
+Fortunately, there's a more efficient alternative which leverages the Fast Fourier Transform (FFT). By the convolution theorem[^2], for functions \\(f\\) and \\(g\\),
 
 $$FT(f*g) = FT(f) \cdot FT(g)$$
 
@@ -80,4 +80,6 @@ We can see orders of magnitude improvements in runtime with the FFT convolution,
 
 ### References
 
+[^1]: test 1
 
+[^2]: test 2
