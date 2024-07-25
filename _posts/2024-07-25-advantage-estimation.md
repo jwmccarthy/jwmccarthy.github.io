@@ -76,6 +76,10 @@ The run times on various input sizes are shown below. Warm up runs were performe
 ![GAE Calculation Runtimes Compared](/assets/gae_runtime.png)
 We can see orders of magnitude improvements in runtime with the FFT convolution, which for more complex environments and longer experience episodes will save us a lot of compute time. Pretty cool!
 
-[^1]: test 1
+---
 
-[^2]: test 2
+#### References
+
+[^1]: Schulman, J., Moritz, P., Levine, S., Jordan, M., & Abbeel, P. (2015). High-Dimensional Continuous Control Using Generalized Advantage Estimation. arXiv preprint arXiv:1506.02438. Retrieved from https://doi.org/10.48550/arXiv.1506.02438.
+
+[^2]: "Convolution theorem." Wikipedia, en.wikipedia.org/wiki/Convolution_theorem
