@@ -22,7 +22,9 @@ My solution was to create a custom class that acted as a hybrid between these tw
 
 ### Advantage Estimation
 
-This is just a quick note about something I think is cool. Generalized Advantage Estimation (GAE) is commonly used in policy-gradient methods to estimate the advantages with lower variance. The form of the GAE estimate is
+This section started small but lead me to an improvement that I'll be implementing in my framework.
+
+Generalized Advantage Estimation (GAE) is commonly used in policy-gradient methods to estimate the advantages with lower variance. The form of the GAE estimate is
 
 $$\hat{A}_t^{GAE(\gamma, \lambda)} = \sum_{l=0}^{\infty}(\gamma\lambda)^l \delta_{t+l}^V$$
 
@@ -47,7 +49,7 @@ def gae_estimate(rewards, values, final_value):
 
     # compute TD errors
     next_vals = torch.cat([values[1:], final_value])
-    td_errors = (rewards + self.gamma * next_vals - values).view(1, 1, -1)
+    td_errors = (rewards + gamma * next_vals - values).view(1, 1, -1)
 
     # conv kernel of discount factors
     kernel = geometric_series(lmbda * gamma, T).view(1, 1, -1)
@@ -57,4 +59,27 @@ def gae_estimate(rewards, values, final_value):
     return advantages
 ```
 
-Ordinarily implemented with a for loop, GAE calculation via a convolution provides a significant speedup. Other optimizations could be made to this i.e. pre-computing the kernel instead of calculating it each function call. I'm happy with it for now, though.
+Ordinarily implemented with a for loop, GAE calculation via a convolution provides a decent speedup for reasonably-sized episodes, but it suffers as the array length gets long. 
+
+Fortunately, there's a more efficient alternative. The Torchaudio library contains an FFT convolution method, which is possible because the Fourier transform of a convolution of two functions is equivalent to the elementwise product of Fourier transforms of each function. We can implement this as follows:
+
+```python
+from torchaudio.functional import fftconvolve
+
+def gae_estimate_fft(rewards, values, final_value):
+    T = len(rewards)
+
+    # compute TD errors
+    next_vals = torch.cat([values[1:], final_value])
+    td_errors = rewards + gamma * next_vals - values
+
+    kernel = geometric_series(lmbda * gamma, T).flip(0)
+
+    advantages = fftconvolve(td_errors, kernel)[-T:]
+
+    return advantages
+```
+
+The run times on various input sizes are shown below. Warm up runs were performed for GPU methods to obtain better runtime estimates.
+
+![GAE Calculation Method Runtimes Compared](/assets/gae_runtime.png)
