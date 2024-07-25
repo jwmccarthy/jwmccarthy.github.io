@@ -70,10 +70,11 @@ from torchaudio.functional import fftconvolve
 def gae_estimate_fft(rewards, values, final_value):
     T = len(rewards)
 
-    # compute TD errors
+    # extra dimensions not needed
     next_vals = torch.cat([values[1:], final_value])
     td_errors = rewards + gamma * next_vals - values
 
+    # fftconvolve expects reversed kernel
     kernel = geometric_series(lmbda * gamma, T).flip(0)
 
     advantages = fftconvolve(td_errors, kernel)[-T:]
