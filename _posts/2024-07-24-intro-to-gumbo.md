@@ -5,7 +5,7 @@ categories: RL, PyTorch
 custom_excerpt: "Assorted topics related to the development of my Reinforcement Learning framework"
 ---
 
-What Am I Even Doing?
+### What Am I Even Doing?
 
 Hello! Thanks for stopping by. Apologies in advance for the tonal and thematic scratchwork that is my writing. I don't expect it'll ever get much better, but who's to say what better is anyway?
 
