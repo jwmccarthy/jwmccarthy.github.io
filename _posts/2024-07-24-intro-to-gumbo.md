@@ -68,11 +68,13 @@ Ordinarily implemented with a for loop, GAE calculation via a convolution provid
 
 Fortunately, there's a more efficient alternative which leverages the Fast Fourier Transform (FFT). By the convolution theorem, for functions \\(f\\) and \\(g\\),
 
-$$FT(f*g) = FT(f) \dot FT(g)$$
+$$FT(f*g) = FT(f) \cdot FT(g)$$
 
 which means we can obtain the convolution of \\(f\\) and \\(g\\) as
 
-$$f*g = FT^{-1}(FT(f) \dot FT(g))$$
+$$f*g = FT^{-1}(FT(f) \cdot FT(g))$$
+
+The Torchaudio library provides an implementation of this which we can leverage for advantage estimation.
 
 ```python
 from torchaudio.functional import fftconvolve
@@ -92,5 +94,5 @@ def gae_estimate_fft(rewards, values, final_value):
     return advantages
 ```
 
-The run times on various input sizes are shown below. Warm up runs were performed for GPU methods to obtain better runtime estimates. I'm not entirely sure why the FFT convolution method was slower than others for smaller inputs, but I'll look into that later.
+The run times on various input sizes are shown below. Warm up runs were performed for GPU methods to obtain better runtime estimates.
 ![GAE Calculation Runtimes Compared](/assets/gae_runtime.png)
