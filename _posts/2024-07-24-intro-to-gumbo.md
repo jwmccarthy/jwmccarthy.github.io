@@ -82,4 +82,4 @@ def gae_estimate_fft(rewards, values, final_value):
 ```
 
 The run times on various input sizes are shown below. Warm up runs were performed for GPU methods to obtain better runtime estimates. I'm not entirely sure why the FFT convolution method was slower than others for smaller inputs, but I'll look into that later.
-![GAE Calculation Runtimes Compared](/assets/gae_runtime.png){: max-width="500"}
+![GAE Calculation Runtimes Compared](/assets/gae_runtime.png)
