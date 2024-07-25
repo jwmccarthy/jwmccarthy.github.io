@@ -15,7 +15,7 @@ Proximal Policy Optimization (PPO) is among the current SOTA RL algorithms, and 
 
 ---
 
-### Data
+### Experience Data
 
 None of the frameworks I investigated prior to building my own handled the collection and processing of training data in a way that I liked. A common solution was lightweight dataclasses, which are simple but lack functionality. Others were closer to what I wanted. [TorchRL](https://pytorch.org/rl/stable/index.html), for instance, uses what they call a TensorDict, which is a Python dictionary that allows for certain tensor operations.
 
