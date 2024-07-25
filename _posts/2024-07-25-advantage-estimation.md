@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Making Gubmo (pt. 2) - Advantage Estimation"
+title: "Cooking Up RL (pt. 2) - Advantage Estimation"
 categories: RL, PyTorch, Optimization
 custom_excerpt: "Documenting interesting bits from the development process of Gumbo, my reinforcement learning framework."
 ---
