@@ -1,13 +1,11 @@
 ---
 layout: post
-title: "Working Title (pt.1)"
-categories: RL, PyTorch
-custom_excerpt: "Assorted topics related to the development of my Reinforcement Learning framework"
+title: "Cheffing Up RL (pt. 2) - Advantage Estimation"
+categories: RL, PyTorch, Optimization
+custom_excerpt: "Documenting interesting bits from the development process of Gumbo, my reinforcement learning framework."
 ---
 
-### Advantage Estimation
-
-This section started small but lead me to an improvement that I'll be implementing in my framework.
+Someone important once said that early optimization is the enemy of progress, but in some cases it's fun. This post outlines one of those cases as it pertains to advantage estimation in my RL framework!
 
 Generalized Advantage Estimation (GAE) is commonly used in policy-gradient methods to estimate the advantages with lower variance. The form of the GAE estimate is
 
