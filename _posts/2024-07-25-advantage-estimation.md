@@ -82,4 +82,4 @@ We can see orders of magnitude improvements in runtime with the FFT convolution,
 
 [^1]: Schulman, J., Moritz, P., Levine, S., Jordan, M., & Abbeel, P. (2015). High-Dimensional Continuous Control Using Generalized Advantage Estimation. arXiv preprint arXiv:1506.02438. Retrieved from [https://doi.org/10.48550/arXiv.1506.02438](https://doi.org/10.48550/arXiv.1506.02438).
 
-[^2]: "Convolution theorem." Wikipedia, [en.wikipedia.org/wiki/Convolution_theorem](en.wikipedia.org/wiki/Convolution_theorem)
+[^2]: "Convolution theorem." Wikipedia, [en.wikipedia.org/wiki/Convolution_theorem](https://en.wikipedia.org/wiki/Convolution_theorem).
