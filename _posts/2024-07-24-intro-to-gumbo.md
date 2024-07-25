@@ -66,7 +66,13 @@ def gae_estimate(rewards, values, final_value):
 
 Ordinarily implemented with a for loop, GAE calculation via a convolution provides a decent speedup for reasonably-sized episodes, but it suffers as the array length gets long. 
 
-Fortunately, there's a more efficient alternative. The Torchaudio library contains an FFT convolution method, which is possible because the Fourier transform of a convolution of two functions is equivalent to the elementwise product of Fourier transforms of each function. We can implement this as follows:
+Fortunately, there's a more efficient alternative which leverages the Fast Fourier Transform (FFT). By the convolution theorem, for functions \\(f\\) and \\(g\\),
+
+$$FT(f*g) = FT(f) \dot FT(g)$$
+
+which means we can obtain the convolution of \\(f\\) and \\(g\\) as
+
+$$f*g = FT^{-1}(FT(f) \dot FT(g))$$
 
 ```python
 from torchaudio.functional import fftconvolve
