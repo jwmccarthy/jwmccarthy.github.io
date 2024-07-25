@@ -5,6 +5,8 @@ categories: RL, PyTorch
 custom_excerpt: "Assorted topics related to the development of my Reinforcement Learning framework"
 ---
 
+What Am I Even Doing?
+
 Hello! Thanks for stopping by. Apologies in advance for the tonal and thematic scratchwork that is my writing. I don't expect it'll ever get much better, but who's to say what better is anyway?
 
 This is my first post but it finds us in the middle of the action. I'm currently working on building a reinforcement learning framework from scratch using PyTorch as the basis for all the components. RL caught my eye with the recent influx of machine learning bots in Rocket League. It seemed like a fun project to get up to speed with the latest methods in reinforcement learning (I am an optimist). Rather than implement various algorithms in existing frameworks, I wanted to create my own. This post will outline a few features of the framework as it exists today.
