@@ -15,9 +15,11 @@ Proximal Policy Optimization (PPO) is among the current SOTA RL algorithms, and 
 
 ### Data
 
-None of the frameworks I investigated prior to building my own handled the collection and processing of training data in a way that I liked. Data collection often included on-the-fly value estimation, action log probability storage, etc. Data storage solutions also varied widely between frameworks. [TorchRL](https://pytorch.org/rl/stable/index.html), for instance, uses what they call a TensorDict, which is a Python dictionary that allows for certain tensor operations. Others use data classes for simplicity and dot attribute access.
+None of the frameworks I investigated prior to building my own handled the collection and processing of training data in a way that I liked. A common solution was lightweight dataclasses, which are simple but lack functionality. Others were closer to what I wanted. [TorchRL](https://pytorch.org/rl/stable/index.html), for instance, uses what they call a TensorDict, which is a Python dictionary that allows for certain tensor operations.
 
-My solution was to create a custom class that acted as a hybrid between these two methods. This [``TensorDataset``](https://github.com/jwmccarthy/Gumbo/blob/main/gumbo/data/datasets.py) allows for dot attribute access and setting, tensor operations & indexing, dataset unions, and device allocation. The accompanying ``Subset`` serves as a way to partition the broader data into slices that can represent individual episodes while still referencing a common underlying memory. It also stores auxiliary information, such as the final observation following episode truncation, which is important for bootstrapping.
+My solution was to create a custom class that acted as a hybrid between these two methods. This [``TensorDataset``](https://github.com/jwmccarthy/Gumbo/blob/main/gumbo/data/datasets.py) allows for dot attribute access & setting, tensor operations & indexing, dataset unions, and device allocation. The accompanying ``Subset`` serves as a way to partition the broader data into slices that can represent individual episodes while still referencing a common underlying memory. It also stores auxiliary information, such as the final observation following episode truncation, which is important for bootstrapping.
+
+The [``EpisodicBuffer``](https://github.com/jwmccarthy/Gumbo/blob/main/gumbo/data/buffers.py) class serves as the wrapper for managing ``TensorDataset`` instances as it pertains to experience collection. When an episode terminates, a ``Subset`` instance is created that can be used to reference data associated with said episode. Operations (such as advantage estimation) can then be performed in an episode-wise fashion.
 
 ---
 
