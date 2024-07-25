@@ -52,7 +52,7 @@ which means we can obtain the convolution of \\(f\\) and \\(g\\) as
 
 $$f*g = FT^{-1}(FT(f) \cdot FT(g))$$
 
-The Torchaudio library provides an implementation of this which we can leverage for advantage estimation.
+The Torchaudio library provides an implementation of this which we can plug in to the code above.
 
 ```python
 from torchaudio.functional import fftconvolve
