@@ -52,7 +52,7 @@ which means we can obtain the convolution of \\(f\\) and \\(g\\) as
 
 $$f*g = FT^{-1}(FT(f) \cdot FT(g))$$
 
-The Torchaudio library provides an implementation of this which we can plug into the code above.
+The FFT and inverse FFT are both \\(O(n \log n)\\), which bests the \\(O(n^2)\\) complexity of the matrix multiplication convolution used in the previous example. The Torchaudio library provides an implementation of the FFT convolution which we can plug into the code above.
 
 ```python
 from torchaudio.functional import fftconvolve
@@ -75,3 +75,9 @@ def gae_estimate_fft(rewards, values, final_value):
 The run times on various input sizes are shown below. Warm up runs were performed for GPU methods to obtain better runtime estimates.
 ![GAE Calculation Runtimes Compared](/assets/gae_runtime.png)
 We can see orders of magnitude improvements in runtime with the FFT convolution, which for more complex environments and longer experience episodes will save us a lot of compute time. Pretty cool!
+
+---
+
+### References
+
+
