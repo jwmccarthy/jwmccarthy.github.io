@@ -2,7 +2,7 @@
 layout: post
 title: "Cooking Up RL (pt. 2) - Advantage Estimation"
 categories: RL, PyTorch, Optimization
-custom_excerpt: "Investigating interesting advantage estimation optimization techniques."
+custom_excerpt: "Optimizing advantage estimation via convolution"
 ---
 
 Someone important once said that early optimization is the enemy of progress, but in some cases it's fun. This post outlines one of those cases as it pertains to advantage estimation in my RL framework!
