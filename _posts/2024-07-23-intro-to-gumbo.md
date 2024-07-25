@@ -1,3 +1,9 @@
+---
+layout: post
+title: "Cheffing Up RL (pt. 1) - Intro to Gumbo"
+categories: RL, PyTorch, Optimization
+custom_excerpt: "Documenting interesting bits from the development process of Gumbo, my reinforcement learning framework."
+---
 
 ### What Am I Even Doing?
 
