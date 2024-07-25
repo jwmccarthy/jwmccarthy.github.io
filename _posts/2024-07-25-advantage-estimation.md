@@ -76,10 +76,6 @@ The run times on various input sizes are shown below. Warm up runs were performe
 ![GAE Calculation Runtimes Compared](/assets/gae_runtime.png)
 We can see orders of magnitude improvements in runtime with the FFT convolution, which for more complex environments and longer experience episodes will save us a lot of compute time. Pretty cool!
 
----
-
-### References
-
 [^1]: test 1
 
 [^2]: test 2
