@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Cooking Up RL (pt. 2) - Advantage Estimation"
+title: "Speedy Advantage Estimation"
 categories: RL, PyTorch, Optimization
 custom_excerpt: "Optimizing advantage estimation via convolution"
 ---
