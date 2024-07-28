@@ -13,9 +13,15 @@ With any reinforcement learning algorithm, we will have to collect data describi
 
 These transitions are collected in a loop and at each step stored in an ``EpisodicBuffer`` instance. This buffer holds data in PyTorch tensors via a ``TensorDataset``, which I have constructed as a dataclass with added tensor-like functionality. Additionally, this buffer contains episode ``Subsets``, created upon the termination of an episode, that reference particular locations in the common tensor storage. These episodes also contain auxiliary data, such as episode statistics or, importantly, terminal observations (useful for bootstraping reward).
 
-![Gumbo data architecture](/assets/gumbo_data_collect.png)
+In off-policy methods we will keep experiences from previous training iterations, so in those cases the buffer will have memory yet to be assigned as indicated by red region in the diagram. On-policy methods will fill the entire buffer prior to each training iteration.
+
+![EpisodicBuffer usage](/assets/gumbo_data_buffer.png)
 
 The episodic nature of the buffer comes in handy for both logging model performance (episode lengths, cumulative reward, etc.) and certain derived attribute calculations. In particular, advantage estimation requires the terminal observation in the event of an episode truncation to accurately estimate future returns.
 
 ### Data Augmentation
+
+This section will demonstrate the training data augmentation process for PPO. Any data specific to the RL method implemented via Gumbo will have to specify the procedures that generate the data required for said method.
+
+![Augmenting full tensors](/assets/gumbo_data_augment_full.png)
 
