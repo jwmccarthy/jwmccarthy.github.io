@@ -6,3 +6,9 @@ custom_excerpt: "Visualizing how data collection, storage, and manipulation is h
 ---
 
 ![Gumbo data architecture](/assets/gumbo_data_vert.png){: align="left"}
+
+test text to float around image
+- here are some bullets
+- bla
+- bla 2
+- so on
