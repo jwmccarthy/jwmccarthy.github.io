@@ -19,9 +19,9 @@ In off-policy methods we will keep experiences from previous training iterations
 
 The episodic nature of the buffer comes in handy for both logging model performance (episode lengths, cumulative reward, etc.) and certain derived attribute calculations. In particular, advantage estimation requires the terminal observation in the event of an episode truncation to accurately estimate future returns.
 
-### Data Augmentation
+### Assembling Training Data
 
-This section will demonstrate the training data augmentation process for PPO. Any data specific to the RL method implemented via Gumbo will have to specify the procedures that generate the data required for said method.
+This section will demonstrate the training data generation process for PPO. Any data specific to the RL method implemented via Gumbo will have to specify the procedures that generate the data required for said method.
 
 First we can obtain quantities that are calculable across the entire dataset: action log probabilities & values. Observations are fed into the policy module to obtain the logits that define the action distribution. This distribution is then used to compute the log probabilities of each action in the dataset. Values are obtained as the direct output from some value estimation module which again takes the observation tensor as input.
 
@@ -31,7 +31,7 @@ Calling ``get_data()`` on our buffer returns the data within said buffer sliced 
 
 Next, we leverage the episodic nature of our data buffer to calculate the advantages.
 
-![Episodic training data augmentation](/assets/gumbo_data_3.png)
+![Episodic training data assembly](/assets/gumbo_data_3.png)
 
 At the end of all of this we have a completed training data set for performing policy & value parameter updates. Gumbo goes on to batch sample from this dataset during training, which is a simple task given that the ``TensorDataset`` contents may be accessed via array indexing.
 
