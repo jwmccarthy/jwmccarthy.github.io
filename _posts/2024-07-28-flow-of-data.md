@@ -9,7 +9,7 @@ Getting to the point: I think the way I'm handling data in Gumbo is interesting 
 
 ### Data Collection
 
-With any reinforcement learning algorithm, we will have to collect data describing policy-environment interactions. These are often split into episodes, which themselves are self-contained sequences of action-observation pairs. More specifically, the standard in RL is to model data collection as an MDP of state-action-state tuples \\((s_t, a_t, s_{t+1})\\), each of which has an associated reward obtained from the environment. 
+With any reinforcement learning algorithm, we will have to collect data describing policy-environment interactions. These are often split into episodes, which themselves are self-contained sequences of action-observation-reward tuples.
 
 These transitions are collected in a loop and at each step stored in an ``EpisodicBuffer`` instance. This buffer holds data in PyTorch tensors via a ``TensorDataset``, which I have constructed as a dataclass with added tensor-like functionality. Additionally, this buffer contains episode ``Subsets``, created upon the termination of an episode, that reference particular locations in the common tensor storage. These episodes also contain auxiliary data, such as episode statistics or, importantly, terminal observations (useful for bootstraping reward).
 
@@ -32,3 +32,7 @@ Calling ``get_data()`` on our buffer returns the data within said buffer which i
 Next, we leverage the episodic nature of our data buffer to calculate the advantages.
 
 ![Episodic training data augmentation](/assets/gumbo_data_3.png)
+
+At the end of all of this we have a completed training data set for performing policy & value parameter updates. Gumbo goes on to batch sample from this dataset during training, which is a simple task given that the ``TensorDataset`` contents may be accessed via array indexing.
+
+I plan to follow this post with more explainations of other functionality within the framework, so stay tuned if you care even a little tiny bit! 
