@@ -27,7 +27,7 @@ First we can obtain quantities that are calculable across the entire dataset: ac
 
 ![Augmenting full tensors](/assets/gumbo_data_2.png)
 
-Calling ``get_data()`` on our buffer returns the data within said buffer which is sliced to contain only the data up to the latest encountered index. This function returns a copy of the underlying data, so any additional attributes will not appear in the buffer after augmenting our dataset. However, PyTorch tensor slices will refer to the same underlying memory, so we aren't performing redundant memory copies (which is especially important when executing on the GPU).
+Calling ``get_data()`` on our buffer returns the data within said buffer sliced to contain only the data up to the latest encountered timestep. Slicing a ``TensorDataset`` object returns a copy of the original that contains the sliced tensors, so any additional attributes will not appear in the buffer after augmenting our dataset. However, PyTorch tensor slices will refer to the same underlying memory, so we aren't performing redundant memory copies (which is especially important when executing on the GPU).
 
 Next, we leverage the episodic nature of our data buffer to calculate the advantages.
 
