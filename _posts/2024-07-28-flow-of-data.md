@@ -23,5 +23,8 @@ The episodic nature of the buffer comes in handy for both logging model performa
 
 This section will demonstrate the training data augmentation process for PPO. Any data specific to the RL method implemented via Gumbo will have to specify the procedures that generate the data required for said method.
 
+First we can obtain quantities that are calculable across the entire dataset: action log probabilities & values. Observations are fed into the policy module to obtain the logits that define the action distribution. This distribution is then used to compute the log probabilities of each action in the dataset. Values are obtained as the direct output from some value estimation module.
+
 ![Augmenting full tensors](/assets/gumbo_data_augment_full.png)
 
+Next, we leverage the episodic nature of our data buffer to calculate the advantages.
