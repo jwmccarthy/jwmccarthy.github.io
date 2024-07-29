@@ -52,7 +52,9 @@ which means we can obtain the convolution of \\(f\\) and \\(g\\) as
 
 $$f*g = FT^{-1}(FT(f) \cdot FT(g))$$
 
-The FFT and inverse FFT are both \\(O(n \log n)\\), which bests the \\(O(n^2)\\) complexity of the matrix multiplication convolution used in the previous example. The Torchaudio library provides an implementation of the FFT convolution which we can plug into the code above.
+The FFT and inverse FFT are both \\(O(n \log n)\\), which bests the \\(O(n^2)\\) complexity of the matrix multiplication convolution used in the previous example. Obviously there are more factors that go into the measured execution time, such as the use of compiled vs. interpreted code, CPU vs. GPU, etc. When I refer to complexity, I'm purely talking about the underlying algorithm executed sequentially.
+
+Anyway, the Torchaudio library provides an implementation of the FFT convolution which we can plug into the code above.
 
 ```python
 from torchaudio.functional import fftconvolve
