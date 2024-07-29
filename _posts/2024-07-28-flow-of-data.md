@@ -31,4 +31,4 @@ Calling ``get_data()`` on our buffer returns the data within said buffer which i
 
 Next, we leverage the episodic nature of our data buffer to calculate the advantages.
 
-![Episodic training data augmentation](/assets/gumbo_data_2.png)
+![Episodic training data augmentation](/assets/gumbo_data_3.png)
