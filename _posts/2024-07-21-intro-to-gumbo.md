@@ -7,7 +7,7 @@ custom_excerpt: "Intro to the blog series that will cover the development of my 
 
 ### What Am I Even Doing?
 
-Hi! This is a blog that I'll use to document my progress in my personal projects. As of now, my time is dedicated solely to learning and implementing reinforcement learning algorithms. To do so, I'm developing an RL framework which I've called "Gumbo" for no particular reason. I guess the modular components resemble the ingredients of a soup? Anyway, this post is just meant as an introduction to the framework, an explaination of certain dependencies, and a demonstration of the current capabilities of this framework in training autonomous.
+Hi! This is a blog that I'll use to document my progress in my personal projects. As of now, my time is dedicated solely to learning and implementing reinforcement learning algorithms. To do so, I'm developing an RL framework which I've called "Gumbo" for no particular reason. I guess the modular components resemble the ingredients of a soup? Anyway, this post is just meant as an introduction to the framework, an explaination of certain dependencies, and a demonstration of the current capabilities of this framework in training autonomous agents.
 
 ### Dependencies
 
