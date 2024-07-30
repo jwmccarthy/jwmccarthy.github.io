@@ -32,7 +32,16 @@ Just as a quick demonstration of performance, here are agents trained via Gumbo 
 
 #### Lunar Lander
 
-<p align="middle" float="left">
-    <img src="/assets/lunar_lander_demo.gif" width="400"/>
-    <img src="/assets/lunar_lander_5_runs.png" width="400"/>
+The lunar lander environment has the agent control four thrusters on a small craft to land it safely from random initial conditions. It is penalized for thruster usage and crashes, and rewarded significantly for successfully landing.
+
+<p float="left" align="middle">
+    <img src="/assets/lunar_lander_demo.gif">
 </p>
+
+Look at it go! The agent learns to let gravity do the work for the early part of the descent, avoiding penalties for needless thruster usage. It then engages its vertical thruster (along with some orientation corrections) at just the right time to land safely within the target zone.
+
+Below is the moving average of the episodic return during training for five distinct training runs. The progress of the agents can vary widely, but after around 1M collected timesteps, they tend to converge on reward-maximizing behavior.
+
+![](/assets/lunar_lander_5_runs.png)
+
+#### Bipedal Walker
