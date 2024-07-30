@@ -33,6 +33,6 @@ Just as a quick demonstration of performance, here are agents trained via Gumbo 
 #### Lunar Lander
 
 <p align="middle" float="left">
-    <img src="/assets/lunar_lander_demo.gif" width="355"/>
-    <img src="/assets/lunar_lander_5_runs.png" width="350"/>
+    <img src="/assets/lunar_lander_demo.gif" width="400"/>
+    <img src="/assets/lunar_lander_5_runs.png" width="400"/>
 </p>
