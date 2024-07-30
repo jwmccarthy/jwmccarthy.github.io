@@ -2,7 +2,7 @@
 layout: post
 title: "Making Gumbo (Not Soup)"
 categories: RL, PyTorch, Optimization
-custom_excerpt: "An introduction to my blog series that will cover the development of my reinforcement learning framework called Gumbo"
+custom_excerpt: "Intro to the blog series that will cover the development of my reinforcement learning framework, Gumbo"
 ---
 
 ### What Am I Even Doing?
