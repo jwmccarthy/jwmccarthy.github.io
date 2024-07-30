@@ -22,7 +22,7 @@ The Gymnasium API was chosen due to the following reasons:
 Likewise, PyTorch was chosen as the basis for Gumbo's data and model components for fairly straightforward reasons:
 1. I have prior experience with it
 2. It is easy and intuitive to use
-3. I have an NVidia GPU
+3. I have an NVIDIA GPU
 
 Everything else within Gumbo is built from scratch on top of these libraries. I plan to document the way I'm handling data via PyTorch tensors in a future post, as I believe I'm storing and operating on episodic data in an interesting way.
 
