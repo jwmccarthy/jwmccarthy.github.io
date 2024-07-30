@@ -11,7 +11,7 @@ Hi! This is a blog that I'll use to document my progress in my personal projects
 
 ### Dependencies
 
-There are two key dependencies upon which Gumbo is built: the Gymnasium environment API and PyTorch.
+There are two key dependencies upon which Gumbo is built: the Gymnasium environment API and PyTorch. These are common choices in many other RL libraries, but I'll quickly go over my rationale for their usage.
 
 The Gymnasium API was chosen due to the following reasons:
 1. The interface is simple
