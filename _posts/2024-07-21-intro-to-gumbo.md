@@ -28,4 +28,11 @@ Everything else within Gumbo is built from scratch on top of these libraries. I 
 
 ### Performance
 
-Just as a quick demonstration of performance, here are agents trained via Gumbo and their episodic return over the course of training:
+Just as a quick demonstration of performance, here are agents trained via Gumbo and their episodic return over the course of training.
+
+#### Lunar Lander
+
+<p align="middle" float="left">
+    <img src="/assets/lunar_lander_demo.gif" width="355"/>
+    <img src="/assets/lunar_lander_5_runs.png" width="350"/>
+</p>
