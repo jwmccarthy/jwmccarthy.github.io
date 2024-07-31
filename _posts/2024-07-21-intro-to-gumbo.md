@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "RL From the Ground Up"
-categories: RL, PyTorch, Optimization
+categories: RL, Gymnasium, PyTorch
 custom_excerpt: "Intro to the blog series that will cover the development of my reinforcement learning framework, Gumbo"
 ---
 

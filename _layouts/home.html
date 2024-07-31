@@ -25,15 +25,17 @@ layout: base
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       {%- for post in posts -%}
         <li>
-          <h3> 
-            <a class="post-link" href="{{ post.url | relative_url }}">
-              {{ post.title | escape }}
-            </a> 
-          </h3>
-          {%- if site.show_excerpts -%}
-            {{ post.custom_excerpt }}
-          {%- endif -%}
-          <span class="post-meta">{{ post.date | date: date_format }}</span>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            <h2>{{ post.title | escape }}</h2>
+            <p class="post-excerpt">{{ post.custom_excerpt }}</p>
+            <i class="fas fa-calendar post-icon"></i><span class="post-meta">{{ post.date | date: date_format }}</span>
+            <i class="fas fa-tags post-icon-tag"></i>
+            <span class="post-icon">
+              {% for cat in post.categories %} 
+                {{ cat }}
+              {%endfor %}
+            </span>
+          </a>
         </li>
       {%- endfor -%}
     </ul>
