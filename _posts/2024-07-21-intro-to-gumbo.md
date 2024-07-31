@@ -30,7 +30,7 @@ Everything else within Gumbo is built from scratch on top of these libraries. I 
 
 Just as a quick demonstration of performance, here are agents trained via Gumbo and their episodic return over the course of training.
 
-#### Lunar Lander
+##### Lunar Lander
 
 The lunar lander environment has the agent control four thrusters on a small craft to land it safely from random initial conditions. It is penalized for thruster usage and crashes, and rewarded significantly for successfully landing.
 
@@ -44,4 +44,20 @@ Below is the moving average of the episodic return during training for five dist
 
 ![](/assets/lunar_lander_5_runs.png)
 
-#### Bipedal Walker
+##### Bipedal Walker
+
+The bipedal walker environment requires that the agent output continuous values representing the motor speed for each of its four joints. This is a slightly different task than the discrete action space of the lunar lander. I've put it here to demonstrate that Gumbo is capable of doing both in its present state. The reward function in this case is simple: the greater the distance, the more reward collected. 
+
+<p float="left" align="middle">
+    <img src="/assets/bipedal_walker_demo.gif">
+</p>
+
+This isn't quite a walk as much as it is a shuffle, but the agent has quite a pace to it! Using its back leg to stabilize and push while pulling with the front leg is a pretty clever and, as it turns out, reliable strategy for walking over variable height terrain.
+
+Once again, here are the episodic returns for five training runs.
+
+![](/assets/bipedal_walker_5_runs.png)
+
+### What Now?
+
+I have quite a long wish list of features I'd like to implement. Most of them allow me to expand the number of Gymnasium environments Gumbo can handle, such as Atari or MuJoCo. This entails things such as frame stacking, observation & action transformations, CNNs, RNNs, etc. I'd also like to implement more comprehensive logging procedures to allow for quicker debugging and performance reports. This is just the start, but I'm learning a lot creating this framework and I look forward to making it a more capable, well-oiled system!
