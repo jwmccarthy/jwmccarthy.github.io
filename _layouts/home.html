@@ -2,24 +2,6 @@
 layout: base
 ---
 
-<style>
-.clickable-box {
-  display: block;
-  background-color: #FFF; /* Background color for the box */
-  border: 2px solid #F0F0F0; /* Border for the box */
-  border-radius: 15px;
-  text-decoration: none; /* Remove underline from the link */
-  color: #000; /* Text color */
-  padding: 15px;
-  transition: background-color 0.3s; /* Smooth transition for background color */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.clickable-box:hover {
-  background-color: #F0F0F0; /* Background color on hover */
-}
-</style>
-
 <div class="home">
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
@@ -42,7 +24,7 @@ layout: base
     <ul class="post-list">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       {%- for post in posts -%}
-      <a class="post-link clickable-box" href="{{ post.url | relative_url }}">
+      <a class="post-link" href="{{ post.url | relative_url }}">
         <li>
           <span class="post-meta">{{ post.date | date: date_format }}</span>
           <h3>
