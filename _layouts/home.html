@@ -24,17 +24,17 @@ layout: base
     <ul class="post-list">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       {%- for post in posts -%}
-      <a class="post-link" href="{{ post.url | relative_url }}">
         <li>
-          <span class="post-meta">{{ post.date | date: date_format }}</span>
-          <h3>
-              {{ post.title | escape }}
-          </h3>
-          {%- if site.show_excerpts -%}
-            {{ post.custom_excerpt }}
-          {%- endif -%}
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            <span class="post-meta">{{ post.date | date: date_format }}</span>
+            <h3>
+                {{ post.title | escape }}
+            </h3>
+            {%- if site.show_excerpts -%}
+              {{ post.custom_excerpt }}
+            {%- endif -%}
+          </a>
         </li>
-      </a>
       {%- endfor -%}
     </ul>
 
