@@ -31,7 +31,7 @@ layout: base
                   {{ post.title | escape }}
               </h3>
               {%- if site.show_excerpts -%}
-                {{ post.custom_excerpt }}
+                <span>{{ post.custom_excerpt }}</span>
               {%- endif -%}
               <span class="post-meta">{{ post.date | date: date_format }}</span>
             </div>
