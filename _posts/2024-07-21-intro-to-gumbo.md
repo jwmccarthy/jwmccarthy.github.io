@@ -15,7 +15,7 @@ There are two key dependencies upon which Gumbo is built: the Gymnasium environm
 
 The Gymnasium API was chosen due to the following reasons:
 1. The interface is simple
-2. Many environments have already been implemented in it
+2. Many environments have already been implemented with the same API
 3. It is easy to adapt to custom environments
 4. Several other environments use the same API
 
