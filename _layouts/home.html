@@ -34,7 +34,7 @@ layout: base
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       {%- for post in posts -%}
       <li>
-        <a class="post-link" href="{{ post.url | relative_url }}">
+        <a class="post-link" style="display:block" href="{{ post.url | relative_url }}">
           <div class="post-container">
             <span class="post-meta">{{ post.date | date: date_format }}</span>
             <h3>
