@@ -46,7 +46,7 @@ Below is the moving average of the episodic return during training for five dist
 
 ##### Bipedal Walker
 
-The bipedal walker environment requires that the agent output continuous values representing the motor speed for each of its four joints. This is a slightly different task than the discrete action space of the lunar lander. I've put it here to demonstrate that Gumbo is capable of doing both in its present state. The reward function in this case is simple: the greater the distance, the more reward collected. 
+The bipedal walker environment requires that the agent output continuous values representing the motor speed for each of its four joints. The continuous control task requires a slightly different policy architecture than that of the discrete action lunar lander. I've put it here to demonstrate that Gumbo is capable of doing both in its present state. The reward function in this case is simple: the greater the distance, the more reward collected. 
 
 <p float="left" align="middle">
     <img src="/assets/bipedal_walker_demo.gif">
