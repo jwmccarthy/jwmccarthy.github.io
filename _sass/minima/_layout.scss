@@ -230,9 +230,19 @@
 .post-link {
   display: block;
   @include relative-font-size(1.5);
+  background-color: #FFF; /* Background color for the box */
+  border: 2px solid #F0F0F0; /* Border for the box */
+  border-radius: 15px;
+  text-decoration: none; /* Remove underline from the link */
+  color: #000; /* Text color */
+  padding: 15px;
+  transition: background-color 0.3s; /* Smooth transition for background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
+.post-link:hover {
+  background-color: #F0F0F0;
+}
 
 /**
  * Posts
