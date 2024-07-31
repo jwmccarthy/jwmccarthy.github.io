@@ -28,6 +28,7 @@
     text-decoration: none!important;
     transition-duration: 0.2s;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+    @include relative-font-size(1);
   }
   
   .post-link:hover {
