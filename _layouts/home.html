@@ -28,9 +28,9 @@ layout: base
           <a class="post-link" href="{{ post.url | relative_url }}">
             <h2>{{ post.title | escape }}</h2>
             <p class="post-excerpt">{{ post.custom_excerpt }}</p>
-            <i class="fas fa-calendar post-icon"></i><span class="post-meta">{{ post.date | date: date_format }}</span>
+            <i class="fas fa-calendar post-icon-cal"></i><span class="post-meta">{{ post.date | date: date_format }}</span>
             <i class="fas fa-tags post-icon-tag"></i>
-            <span class="post-icon">
+            <span class="post-meta">
               {% for cat in post.categories %} 
                 {{ cat }}
               {%endfor %}

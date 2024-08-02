@@ -5,40 +5,44 @@
     font-size: $small-font-size;
     color: $brand-color;
     padding-right: 15px;
-  }
+}
   
-  .post-icon {
+.post-icon-cal {
     font-size: $small-font-size;
-    color: $brand-color;
+    color: $icon-color2;
     padding-right: 7px;
-  }
+}
   
-  .post-icon-tag {
+.post-icon-tag {
     font-size: $small-font-size;
-    color: $brand-color;
+    color: $icon-color;
     padding-right: 3px;
-  }
+}
   
-  .post-link {
-    color: black;
+.post-link {
+    color: $lm-text-color;
     display: block;
-    border: 2px solid #F0F0F0;
-    border-radius: 15px;
+    border: 1px solid #e1ecf7;
+    border-radius: 10px;
     padding: 15px;
     text-decoration: none!important;
     transition-duration: 0.2s;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
     @include relative-font-size(1);
-  }
-  
-  .post-link:hover {
-    background-color: #F0F0F0;
-  }
-  
-  .post-link:visited {
-    color: black;
-  }
-  
-  .post-excerpt {
-    color: #444444;
-  }
+}
+
+.post-link:hover {
+    background-color: #e1ecf7;
+}
+
+.post-link:visited {
+    color: $lm-text-color;
+}
+
+.post-excerpt {
+    color: $lm-brand-color-dark;
+}
+
+.footer-col-right {
+    text-align: right;
+}
