@@ -77,7 +77,7 @@ I don't think I should run into CUDA's kernel size constraints, but it would be 
 
  7. __Sequentially solve impulses__ - Accumulate forces from contact points and sequentially solve impulses to apply to dynamic rigid bodies.
 
-It might make more sense to split these out into device functions to run in a single kernel from an optimization perspective, so I may reevaluate when I get to a point where I can evaluate the pros and cons of such a decision.
+It might make more sense to split these out into device functions to run in a single kernel from an optimization perspective, so I may reevaluate when I get to a point where I can weight the pros and cons of such a decision.
 
 ## Current Progress
 
