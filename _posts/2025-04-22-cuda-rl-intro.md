@@ -5,13 +5,12 @@ layout: post
 categories: reinforcement learning, physics simulation, cuda
 ---
 
-### Introduction
-
 Rocket League is my favorite game, but with its high skill ceiling and toxic community, it also makes me feel bad. Maybe if I can train one of the best Rocket League players to ever exist to fight my battles for me, I won't have to feel bad anymore...
 
 My plan is to develop a Reinforcement Learning agent that learns to play Rocket League through self-play in a simulated environment. [Seer][seer] and [Nexto][nexto], the most capable Rocket League bots at the moment, were also trained using this method, so credit to them for setting the example. To build on top of this approach, I plan to implement a highly-parallel Rocket League physics simulator to run on the GPU, thereby speeding up the training process potentially by orders of magnitude.
 
-### Rocket League Simulation
+
+### Available Environments
 
 The most significant bottleneck in training a Rocket League agent is the simulation speed. [RLGym][rlgym], the current standard reinforcement learning environment, offers a 10-50x speedup over the native simulation speed of 120 Hz. This has been sufficient given days, weeks, or even months of wall clock training time, but in order to reach higher levels of training time and performance with consumer hardware (i.e. RTX 3060), we need another approach.
 
