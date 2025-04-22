@@ -7,8 +7,8 @@ categories: reinforcement learning, physics simulation, cuda
 
 Rocket League is my favorite game, but with its high skill ceiling and toxic community, it also makes me feel bad. Maybe if I can train one of the best Rocket League players to ever exist to fight my battles for me, I won't have to feel bad anymore...
 
-My plan is to develop a Reinforcement Learning agent that learns to play Rocket League through self-play in a simulated environment. [Seer][seer] and [Nexto][nexto], the most capable Rocket League bots at the moment, were also trained using this method, so credit to them for setting the example. To build on top of this approach, I plan to implement a highly-parallel Rocket League physics simulator to run on the GPU, thereby speeding up the training process potentially by orders of magnitude.
 
+My plan is to develop a Reinforcement Learning agent that learns to play Rocket League through self-play in a simulated environment. [Seer][seer] and [Nexto][nexto], the most capable Rocket League bots at the moment, were also trained using this method, so credit to them for setting the example. To build on top of this approach, I plan to implement a highly-parallel Rocket League physics simulator to run on the GPU, thereby speeding up the training process potentially by orders of magnitude.
 
 ### Available Environments
 
@@ -32,7 +32,80 @@ By running simulations on the GPU, all data generated will be accessible to our 
 
 GPU architectures are optimized for the concurrent execution of many embarassingly-parallel operations. Matrix multiplications are a great example of tasks that can be heavily decomposed into many simple operations. 
 
-On the surface, Rocket League appears to be quite a complex system, contrary to the typical computations allocated for GPU processing. It turns out, however, that the game state of Rocket League is fairly simple.
+##### Physics State
+
+On the surface, Rocket League appears to be quite a complex system, contrary to the typical computations allocated for GPU processing. It turns out, however, that the game state of Rocket League is fairly small. 
+
+Here's a minimal look at the car states that require updates each tick:
+
+| Field | Data Type | Size (bytes) | Description |
+|-------|-----------|--------------|-------------|
+| Position | Vector | 16 | Position in world space |
+| Rotation Matrix | Matrix | 48 | Car orientation |
+| Linear Velocity | Vector | 16 | Speed and direction of linear motion |
+| Angular Velocity | Vec | 16 | Speed and direction of rotation |
+| Suspension Length | float[4] | 16 | Expansion/Contraction distance of suspension |
+| Jump Flag | bool | 1 | Whether the car has jumped |
+| Time Since Jump | float | 4 | Time since jump input |
+| Flip Flag | bool | 1 | Whether the car is currently flipping |
+| Supersonic Flag | bool | 1 | Whether the car is currently supersonic |
+| **Total** | | **119** | Accounts for struct padding |
+
+For up to 8 cars, this still comes in under 1 KB. Assuming similar memory requirements for other state information such as boost pad status, ball physics state, etc., we still only require a handful of KBs, which is entirely manageable for CUDA threads.
+
+##### Arena Mesh
+
+I conveniently left out the memory requirements for the arena mesh in the section above, but this is because there is a nice way to handle meshes that are constant between threads: CUDA texture memory.
+
+Given that the arena geometry is the same among all the games of Rocket League that will be happening in parallel, we can store a single instance of the mesh in CUDA's texture memory to reduce memory consumption and allow for concurrent access between threads.
+
+##### Kernel Size
+
+I don't think I should run into CUDA's kernel size constraints, but it would be nice to split this simulation environment into multiple kernels that run in sequence, both stylistically and for debugging purposes. At the moment, given what I understand about RocketSim and Bullet physics, this might be a good way to deliniate the physics kernels:
+
+###### 1. Dynamic collision broad phase
+Identify pairs of dynamic objects (cars, ball) that might be colliding.
+
+###### 2. Static collision broad phase
+Identify pairs of dynamic objects and subsets of static arena mesh that may be colliding.
+
+###### 3. Suspension collision broad phase
+Identify possibility of wheel contacts and suspension updates.
+
+###### 4. Dynamic collision narrow phase
+Accumulate contact points between dynamic bodies.
+
+###### 5. Static collision narrow phase
+Accumulate contact points between dynamic objects and static geometry.
+
+###### 6. Suspension updates
+Accumulate suspension contacts and compression.
+
+###### 7. Sequentially solve impulses
+Accumulate forces from contact points and sequentially solve impulses to apply to dynamic rigid bodies.
+
+It might make more sense to split these out into device functions to run in a single kernel from an optimization perspective, so I may reevaluate when I get to a point where I can evaluate the pros and cons of such a decision.
+
+### Current Progress
+
+#### Onboarding
+
+I've been using a few tools to navigate the RocketSim/Bullet physics codebase, which has helped me grasp the steps strictly necessary for simulating Rocket League physics. I'm starting from zero when it comes to complex simulations like this, so these have been invaluable in getting up to speed:
+
+###### [Sourcetrail][srctrail]
+A source explorer that provides a graph-based UI for navigating dependencies within large codebases.
+
+###### [Claude Code][claude]
+I can't help but think that using an LLM for code exploration is cheating a bit, but it's helpful to ask it questions for open-ended navigation of the codebase. I'm diligent about not asking it to code for me though, because the point of this project (alongside creating a Rocket League demon that will annihilate my enemies) is to learn!
+
+#### Build System
+
+I will be using CMake along with PyBind11 to compile my C++/CUDA code into a Python module. The API of the environment I develop will resemble the step-reset structure of [OpenAI Gym][openaigym]/[Gymnasium][gymnasium] environments, so it will easily integrate directly with existing RL frameworks.
+
+### Next Steps
+
+The only thing left to do is to build the thing. I'll update this blog as I reach certain milestones in the development process.
+
 
 [seer]:      https://www.youtube.com/@UltrawideGC/videos
 [nexto]:     https://github.com/Rolv-Arild/Necto
@@ -42,3 +115,7 @@ On the surface, Rocket League appears to be quite a complex system, contrary to 
 [rocketpy1]: https://github.com/mtheall/RocketSim
 [rocketpy2]: https://github.com/uservar/pyrocketsim
 [jarl]:      https://github.com/jwmccarthy/JARL
+[srctrail]:  https://github.com/CoatiSoftware/Sourcetrail
+[claude]:    https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview
+[openaigym]: https://www.gymlibrary.dev/index.html
+[gymnasium]: https://gymnasium.farama.org/
