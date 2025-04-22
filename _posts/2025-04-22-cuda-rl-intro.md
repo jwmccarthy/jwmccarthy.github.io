@@ -63,26 +63,19 @@ Given that the arena geometry is the same among all the games of Rocket League t
 
 I don't think I should run into CUDA's kernel size constraints, but it would be nice to split this simulation environment into multiple kernels that run in sequence, both stylistically and for debugging purposes. At the moment, given what I understand about RocketSim and Bullet physics, this might be a good way to deliniate the physics kernels:
 
-##### 1. Dynamic collision broad phase
-Identify pairs of dynamic objects (cars, ball) that might be colliding.
+ 1. __Dynamic collision broad phase__ - Identify pairs of dynamic objects (cars, ball) that might be colliding.
 
-##### 2. Static collision broad phase
-Identify pairs of dynamic objects and subsets of static arena mesh that may be colliding.
+ 2. __Static collision broad phase__ - Identify pairs of dynamic objects and subsets of static arena mesh that may be colliding.
+ 
+ 3. __Suspension collision broad phase__ - Identify possibility of wheel contacts and suspension updates.
 
-##### 3. Suspension collision broad phase
-Identify possibility of wheel contacts and suspension updates.
+ 4. __Dynamic collision narrow phase__ - Accumulate contact points between dynamic bodies.
 
-##### 4. Dynamic collision narrow phase
-Accumulate contact points between dynamic bodies.
+ 5. __Static collision narrow phase__ - Accumulate contact points between dynamic objects and static geometry.
 
-##### 5. Static collision narrow phase
-Accumulate contact points between dynamic objects and static geometry.
+ 6. __Suspension updates__ - Accumulate wheel contacts and suspension compression.
 
-##### 6. Suspension updates
-Accumulate suspension contacts and compression.
-
-##### 7. Sequentially solve impulses
-Accumulate forces from contact points and sequentially solve impulses to apply to dynamic rigid bodies.
+ 7. __Sequentially solve impulses__ - Accumulate forces from contact points and sequentially solve impulses to apply to dynamic rigid bodies.
 
 It might make more sense to split these out into device functions to run in a single kernel from an optimization perspective, so I may reevaluate when I get to a point where I can evaluate the pros and cons of such a decision.
 
