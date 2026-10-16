@@ -31,7 +31,10 @@
           return token;
         });
         let rendered = marked.parse(protectedMarkdown);
-        math.forEach((value, index) => { rendered = rendered.replace(`MATHBLOCK${index}END`, value); });
+        math.forEach((value, index) => {
+          const wrapper = value.startsWith('$$') ? `<div class="math-display">${value}</div>` : value;
+          rendered = rendered.replace(`MATHBLOCK${index}END`, wrapper);
+        });
         document.querySelector('#post').innerHTML = `<p class="post-date">${new Date(`${metadata.date}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>${rendered}`;
         return MathJax.startup.promise.then(() => MathJax.typesetPromise([document.querySelector('#post')]));
       })
