@@ -49,9 +49,10 @@ h2 { margin: 0 0 20px; font-size: 28px; }
 .site-footer { display: flex; flex-direction: row-reverse; justify-content: space-between; padding: 20px 0 35px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
 .site-footer a { color: var(--link); }
 .linkedin-link { display: inline-flex; align-items: center; }
-.linkedin-link svg { width: 22px; height: 22px; fill: currentColor; }
+.linkedin-link svg { width: 22px; height: 22px; padding: 3px; border-radius: 3px; background: currentColor; fill: #fff; }
 .github-link { display: inline-flex; align-items: center; }
 .github-link svg { width: 22px; height: 22px; fill: currentColor; }
+.social-links { display: flex; gap: 10px; color: #777; }
 article .mjx-container[display="true"] { margin: 1.25em 0 !important; text-align: center; }
 .math-display { text-align: center; }
 @media (max-width: 600px) {
