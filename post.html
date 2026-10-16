@@ -25,7 +25,7 @@
       .then((markdown) => {
         document.title = `${metadata.title} | Jack McCarthy`;
         document.querySelector('#post').innerHTML = `<p class="post-date">${new Date(`${metadata.date}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>${marked.parse(markdown)}`;
-        return MathJax.typesetPromise([document.querySelector('#post')]);
+        return MathJax.startup.promise.then(() => MathJax.typesetPromise([document.querySelector('#post')]));
       })
       .catch(() => { document.querySelector('#post').innerHTML = '<h1>Post not found</h1><p><a href="./">Return home</a></p>'; });
   </script>
