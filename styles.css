@@ -53,6 +53,7 @@ h2 { margin: 0 0 20px; font-size: 28px; }
 .github-link { display: inline-flex; align-items: center; }
 .github-link svg { width: 22px; height: 22px; fill: currentColor; }
 .social-links { display: flex; gap: 10px; color: #777; }
+.social-links a { color: #777; }
 article .mjx-container[display="true"] { margin: 1.25em 0 !important; text-align: center; }
 .math-display { text-align: center; }
 @media (max-width: 600px) {
