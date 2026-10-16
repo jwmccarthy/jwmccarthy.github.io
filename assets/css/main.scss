@@ -59,8 +59,13 @@
 }
 
 @media (min-width: 57.8125em) {
-  .masthead__menu-item--lg {
-    width: 16.9491525424%;
+  .greedy-nav .visible-links {
+    display: grid;
+    grid-template-columns: 16.9491525424% auto auto;
+  }
+
+  .greedy-nav .visible-links li {
+    display: block;
   }
 
   .sidebar {
