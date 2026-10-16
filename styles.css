@@ -48,6 +48,8 @@ h2 { margin: 0 0 20px; font-size: 28px; }
 .about p:last-child { max-width: 600px; color: var(--muted); }
 .site-footer { display: flex; justify-content: space-between; padding: 20px 0 35px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
 .site-footer a { color: var(--link); }
+.linkedin-link { display: inline-flex; align-items: center; }
+.linkedin-link svg { width: 22px; height: 22px; fill: currentColor; }
 @media (max-width: 600px) {
   .site-header { display: block; }
   nav { margin-top: 12px; }
