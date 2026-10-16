@@ -4,13 +4,13 @@ const posts = [
     date: '2026-10-16',
     title: 'A small place to think in public',
     excerpt: 'Why I am making room for short notes, unfinished ideas, and the things I learn while building.',
-    url: '#'
+    url: 'posts/a-small-place-to-think-in-public.html'
   },
   {
     date: '2026-09-28',
     title: 'The value of keeping a notebook',
     excerpt: 'A few reasons a low-pressure writing habit is still one of my favorite tools.',
-    url: '#'
+    url: 'posts/the-value-of-keeping-a-notebook.html'
   }
 ];
 
