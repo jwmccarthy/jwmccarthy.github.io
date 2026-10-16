@@ -42,7 +42,9 @@
           rendered = rendered.replace(`MATHBLOCK${index}END`, wrapper);
         });
         const date = `<p class="post-date">${new Date(`${metadata.date}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>`;
-        document.querySelector('#post').innerHTML = rendered.replace('</h1>', `</h1>${date}`);
+        rendered = rendered.replace('</h1>', `</h1>${date}`);
+        rendered = rendered.replace(/(<h1>[\s\S]*?<\/h1><p class="post-date">[\s\S]*?<\/p><p>[\s\S]*?<\/p>)/, '<div class="post-heading-box">$1</div>');
+        document.querySelector('#post').innerHTML = rendered;
         return MathJax.startup.promise.then(() => MathJax.typesetPromise([document.querySelector('#post')]));
       })
       .catch(() => { document.querySelector('#post').innerHTML = '<h1>Post not found</h1><p><a href="./">Return home</a></p>'; });
