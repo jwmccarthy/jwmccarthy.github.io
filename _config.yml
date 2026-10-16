@@ -7,11 +7,16 @@ repository: "jwmccarthy/jwmccarthy.github.io"
 read_more: "disabled"
 breadcrumbs: false
 minimal_mistakes_skin: "default"
+theme: minima
+header_pages:
+  - _pages/projects.md
+minima:
+  social_links:
+    - { platform: github, user_url: "https://github.com/jwmccarthy" }
+    - { platform: linkedin, user_url: "https://www.linkedin.com/in/jwmccarthy11/" }
 search: false
 markdown: kramdown
 highlighter: rouge
-kramdown:
-  math_engine: mathjax
 permalink: /posts/:title/
 include:
   - _pages
