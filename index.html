@@ -11,18 +11,22 @@
   <header class="site-header">
     <a class="wordmark" href="./">Jack McCarthy</a>
     <nav aria-label="Main navigation">
-      <a href="blog.html">Blog</a>
+      <a href="./" aria-current="page">Blog</a>
       <a href="projects.html">Projects</a>
     </nav>
   </header>
 
-  <main>
-    <section class="profile-intro">
+  <main class="blog-layout">
+    <aside class="profile-sidebar">
       <h1>Jack McCarthy</h1>
       <p>MLE @ Instacart</p>
       <p>I write about machine learning, building things, and what I'm learning along the way.</p>
+      <div class="profile-links"><a href="https://github.com/jwmccarthy">GitHub</a><a href="https://www.linkedin.com/in/jwmccarthy11/">LinkedIn</a></div>
+    </aside>
+    <section class="blog-content" aria-label="Blog posts">
+      <h2>Blog</h2>
+      <div id="posts" class="timeline" aria-live="polite"></div>
     </section>
-
   </main>
 
   <footer class="site-footer">
@@ -36,6 +40,6 @@
     </a>
     </div>
   </footer>
-
+  <script src="posts.js"></script>
 </body>
 </html>

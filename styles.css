@@ -35,6 +35,12 @@ h2 { margin: 0 0 20px; font-size: 28px; }
 .intro-copy { margin: 0; color: var(--muted); }
 .home-intro { max-width: 620px; margin: 45px 0 0; color: var(--muted); font-size: 18px; }
 .profile-intro { max-width: 620px; margin: 90px 0 140px; }
+.blog-layout { display: grid; grid-template-columns: 220px 1fr; gap: 70px; padding-top: 70px; }
+.profile-sidebar { position: sticky; top: 30px; align-self: start; }
+.profile-sidebar h1 { margin-bottom: 8px; font-size: 28px; }
+.profile-sidebar p { margin: 6px 0; color: var(--muted); }
+.profile-links { display: flex; flex-direction: column; gap: 5px; margin-top: 20px; }
+.blog-content h2 { margin-bottom: 18px; font-size: 28px; }
 .profile-intro h1, .page-heading h1 { margin-bottom: 8px; font-size: 36px; }
 .profile-intro p { margin: 6px 0; color: var(--muted); font-size: 18px; }
 .page-heading { padding: 55px 0 35px; }
@@ -78,6 +84,8 @@ article .mjx-container[display="true"] { margin: 1.25em 0 !important; text-align
   .intro { padding-top: 36px; }
   h1 { font-size: 30px; }
   .profile-intro { margin: 60px 0 90px; }
+  .blog-layout { display: block; padding-top: 40px; }
+  .profile-sidebar { position: static; margin-bottom: 55px; }
   .timeline::before { left: 72px; }
   .timeline-item { grid-template-columns: 56px 32px 1fr; }
   .timeline-item .post-title { padding-left: 8px; font-size: 16px; }
