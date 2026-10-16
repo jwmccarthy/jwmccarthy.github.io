@@ -1,0 +1,29 @@
+---
+---
+@import "minima";
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-social {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.footer-social a {
+  color: #828282;
+}
+
+.footer-social svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: currentColor;
+}
+
+.footer-copyright {
+  color: #828282;
+  font-size: 0.875rem;
+}
