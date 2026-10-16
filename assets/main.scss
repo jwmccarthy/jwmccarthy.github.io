@@ -27,3 +27,29 @@
   color: #828282;
   font-size: 0.875rem;
 }
+
+.post {
+  max-width: 720px;
+  margin: 3rem auto 5rem;
+}
+
+.post-title {
+  text-align: center;
+}
+
+.post-meta {
+  text-align: center;
+}
+
+.post-content {
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.post-content h2 {
+  margin-top: 2.5rem;
+}
+
+.post-content .MathJax_Display {
+  margin: 1.5rem 0 !important;
+}
