@@ -50,6 +50,7 @@ h2 { margin: 0 0 20px; font-size: 28px; }
 .site-footer a { color: var(--link); }
 .linkedin-link { display: inline-flex; align-items: center; }
 .linkedin-link svg { width: 22px; height: 22px; fill: currentColor; }
+article .mjx-container[display="true"] { margin: 1.25em 0 !important; text-align: center; }
 @media (max-width: 600px) {
   .site-header { display: block; }
   nav { margin-top: 12px; }
