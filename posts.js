@@ -13,7 +13,6 @@ const postList = document.querySelector('#posts');
 
 postList.innerHTML = posts.map((post) => `
   <a class="post" href="${post.url}">
-    <time class="post-date" datetime="${post.date}">${new Date(`${post.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
-    <div><h3 class="post-title">${post.title}</h3><p class="post-excerpt">${post.excerpt}</p></div>
+    <div><h3 class="post-title">${post.title}</h3><time class="post-date" datetime="${post.date}">${new Date(`${post.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time><p class="post-excerpt">${post.excerpt}</p></div>
     <span class="post-arrow" aria-hidden="true">↗</span>
   </a>`).join('');
