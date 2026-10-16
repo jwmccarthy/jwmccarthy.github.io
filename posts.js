@@ -10,9 +10,7 @@ const posts = [
 ];
 
 const postList = document.querySelector('#posts');
-const postCount = document.querySelector('#post-count');
 
-postCount.textContent = `${posts.length} ${posts.length === 1 ? 'note' : 'notes'}`;
 postList.innerHTML = posts.map((post) => `
   <a class="post" href="${post.url}">
     <time class="post-date" datetime="${post.date}">${new Date(`${post.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
