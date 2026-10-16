@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Personal notes, ideas, and things worth remembering.">
+  <title>Jack's notebook</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="./">jack<span>.notes</span></a>
+    <nav aria-label="Main navigation">
+      <a href="#writing">Writing</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="intro-title">
+      <p class="eyebrow">A personal notebook</p>
+      <h1 id="intro-title">Thoughts in progress,<br><em>shared as I go.</em></h1>
+      <p class="intro-copy">Notes on building things, learning out loud, and paying attention to the details.</p>
+    </section>
+
+    <section id="writing" class="writing" aria-labelledby="writing-title">
+      <div class="section-heading">
+        <h2 id="writing-title">Latest writing</h2>
+        <span id="post-count" class="post-count"></span>
+      </div>
+      <div id="posts" class="post-list" aria-live="polite"></div>
+    </section>
+
+    <section id="about" class="about" aria-labelledby="about-title">
+      <p class="eyebrow">A little context</p>
+      <h2 id="about-title">Hello, I'm Jack.</h2>
+      <p>This is a quiet corner of the internet for ideas that are too useful to lose and too unfinished to call a book.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© 2026 Jack</span>
+    <a href="mailto:hello@example.com">Get in touch <span aria-hidden="true">↗</span></a>
+  </footer>
+
+  <script src="posts.js"></script>
+</body>
+</html>
