@@ -4,7 +4,8 @@ const posts = [
     date: '2026-10-16',
     title: 'A small place to think in public',
     excerpt: 'Why I am making room for short notes, unfinished ideas, and the things I learn while building.',
-    url: 'posts/a-small-place-to-think-in-public.html'
+    url: 'post.html?post=a-small-place-to-think-in-public',
+    file: 'posts/a-small-place-to-think-in-public.md'
   }
 ];
 

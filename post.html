@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Post | Jack McCarthy</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="./">Jack McCarthy</a>
+    <nav aria-label="Main navigation"><a href="./#writing">Writing</a><a href="about.html">About</a></nav>
+  </header>
+  <main><article id="post" class="intro"><p>Loading post...</p></article></main>
+  <footer class="site-footer"><span>© 2026 Jack McCarthy</span><a href="about.html">About Me</a></footer>
+  <script src="posts.js"></script>
+  <script>
+    const post = new URLSearchParams(window.location.search).get('post');
+    const metadata = posts.find((item) => item.url.includes(`post=${post}`));
+    fetch(metadata ? metadata.file : '')
+      .then((response) => response.ok ? response.text() : Promise.reject(new Error('Post not found')))
+      .then((markdown) => {
+        document.title = `${metadata.title} | Jack McCarthy`;
+        document.querySelector('#post').innerHTML = `<p class="post-date">${new Date(`${metadata.date}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>${marked.parse(markdown)}`;
+      })
+      .catch(() => { document.querySelector('#post').innerHTML = '<h1>Post not found</h1><p><a href="./">Return home</a></p>'; });
+  </script>
+</body>
+</html>
