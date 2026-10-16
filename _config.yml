@@ -1,0 +1,26 @@
+locale: "en-US"
+title: "Jack McCarthy"
+name: "Jack McCarthy"
+url: "https://jwmccarthy.github.io"
+baseurl: ""
+repository: "jwmccarthy/jwmccarthy.github.io"
+read_more: "disabled"
+breadcrumbs: false
+minimal_mistakes_skin: "default"
+search: false
+markdown: kramdown
+highlighter: rouge
+permalink: /posts/:title/
+include:
+  - _pages
+author:
+  name: "Jack McCarthy"
+  avatar: "profile-placeholder.svg"
+  bio: "MLE @ Instacart"
+  location:
+  github: "jwmccarthy"
+  linkedin: "jwmccarthy11"
+collections:
+  portfolio:
+    output: true
+    permalink: /projects/:path/
