@@ -32,6 +32,11 @@
 
 @import "page";
 
+::selection {
+  color: #173b47;
+  background: #b9dce8;
+}
+
 .page__date time {
   display: inline-block;
   padding: 0.1em 0.7em;
