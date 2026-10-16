@@ -8,6 +8,11 @@
   justify-content: space-between;
 }
 
+.footer-row::after {
+  display: none;
+  content: none;
+}
+
 .footer-social {
   display: flex;
   gap: 0.75rem;
@@ -31,8 +36,10 @@
 }
 
 .footer-copyright {
+  margin-left: auto;
   color: #828282;
   font-size: 0.875rem;
+  text-align: right;
 }
 
 .post {
