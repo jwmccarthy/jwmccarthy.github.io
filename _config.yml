@@ -10,6 +10,8 @@ minimal_mistakes_skin: "default"
 search: false
 markdown: kramdown
 highlighter: rouge
+kramdown:
+  math_engine: mathjax
 permalink: /posts/:title/
 include:
   - _pages
