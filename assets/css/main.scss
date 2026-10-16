@@ -43,6 +43,27 @@
   border-radius: 999px;
 }
 
+.archive__item {
+  margin-bottom: 0.8em;
+  padding: 0.9em 1em;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+}
+
+.archive__item-title {
+  margin-top: 0;
+  margin-bottom: 0.35em;
+}
+
+.archive__item .page__date {
+  margin: 0.35em 0 0;
+}
+
+.archive__item-excerpt {
+  margin-top: 0.7em;
+  margin-bottom: 0;
+}
+
 @media (min-width: 57.8125em) {
   .sidebar {
     padding-right: 1.5em;
