@@ -8,15 +8,6 @@
   justify-content: space-between;
 }
 
-.site-footer {
-  border-top: 0;
-}
-
-.site-footer .footer-row {
-  border-top: 1px solid #e8e8e8;
-  padding-top: 1.5rem;
-}
-
 .footer-row::after {
   display: none;
   content: none;
