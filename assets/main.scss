@@ -2,6 +2,18 @@
 ---
 @import "minima";
 
+a,
+a:visited {
+  color: #555;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: #000;
+  text-decoration: none;
+}
+
 .footer-row {
   display: flex;
   align-items: center;
