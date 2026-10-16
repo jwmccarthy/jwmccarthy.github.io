@@ -40,6 +40,13 @@
   border: 1px solid #bdc1c4;
   border-radius: 999px;
 }
+
+@media (min-width: 57.8125em) {
+  .sidebar {
+    padding-right: 1.5em;
+    border-right: 1px solid #f2f3f3;
+  }
+}
 @import "archive";
 @import "sidebar";
 
