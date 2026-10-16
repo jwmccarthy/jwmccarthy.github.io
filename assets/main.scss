@@ -3,6 +3,7 @@
 @import "minima";
 
 .footer-row {
+  max-width: 1100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,6 +22,13 @@
   width: 1.25rem;
   height: 1.25rem;
   fill: currentColor;
+}
+
+.footer-social .linkedin-link svg {
+  padding: 0.15rem;
+  border-radius: 0.15rem;
+  background: currentColor;
+  fill: #fff;
 }
 
 .footer-copyright {
