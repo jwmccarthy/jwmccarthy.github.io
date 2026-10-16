@@ -34,6 +34,18 @@ h1 { margin: 0 0 10px; font-size: 36px; }
 h2 { margin: 0 0 20px; font-size: 28px; }
 .intro-copy { margin: 0; color: var(--muted); }
 .home-intro { max-width: 620px; margin: 45px 0 0; color: var(--muted); font-size: 18px; }
+.profile-intro { max-width: 620px; margin: 90px 0 140px; }
+.profile-intro h1, .page-heading h1 { margin-bottom: 8px; font-size: 36px; }
+.profile-intro p { margin: 6px 0; color: var(--muted); font-size: 18px; }
+.page-heading { padding: 55px 0 35px; }
+.page-heading p { margin: 0; color: var(--muted); }
+.timeline { position: relative; margin: 15px 0 90px; padding: 10px 0; }
+.timeline::before { position: absolute; top: 0; bottom: 0; left: 108px; width: 1px; background: #d9e1e6; content: ''; }
+.timeline-item { position: relative; display: grid; grid-template-columns: 88px 40px 1fr; align-items: center; min-height: 58px; color: var(--text); text-decoration: none; }
+.timeline-item:hover .post-title { color: var(--link); text-decoration: underline; }
+.timeline-item .post-date { margin: 0; text-align: right; }
+.timeline-dot { z-index: 1; justify-self: center; width: 11px; height: 11px; border: 2px solid #8b9aa3; border-radius: 50%; background: #fff; }
+.timeline-item .post-title { display: block; padding-left: 16px; font-size: 18px; }
 .section-heading { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px solid var(--border); }
 .section-heading h2 { margin-bottom: 8px; }
 .post-count { color: var(--muted); font-size: 13px; }
@@ -65,4 +77,8 @@ article .mjx-container[display="true"] { margin: 1.25em 0 !important; text-align
   nav { margin-top: 12px; }
   .intro { padding-top: 36px; }
   h1 { font-size: 30px; }
+  .profile-intro { margin: 60px 0 90px; }
+  .timeline::before { left: 72px; }
+  .timeline-item { grid-template-columns: 56px 32px 1fr; }
+  .timeline-item .post-title { padding-left: 8px; font-size: 16px; }
 }

@@ -12,7 +12,8 @@ const posts = [
 const postList = document.querySelector('#posts');
 
 postList.innerHTML = posts.map((post) => `
-  <a class="post" href="${post.url}">
-    <div><h3 class="post-title">${post.title}</h3><time class="post-date" datetime="${post.date}">${new Date(`${post.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time><p class="post-excerpt">${post.excerpt}</p></div>
-    <span class="post-arrow" aria-hidden="true">↗</span>
+  <a class="timeline-item" href="${post.url}">
+    <time class="post-date" datetime="${post.date}">${new Date(`${post.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+    <span class="timeline-dot" aria-hidden="true"></span>
+    <span class="post-title">${post.title}</span>
   </a>`).join('');
