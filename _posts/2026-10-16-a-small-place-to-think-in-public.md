@@ -1,4 +1,5 @@
 ---
+layout: post
 title: "A small place to think in public"
 date: 2026-10-16
 excerpt: "Why I am making room for short notes, unfinished ideas, and the things I learn while building."
