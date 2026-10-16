@@ -10,8 +10,8 @@ Instead of comparing state-action pairs, GAIfO trains a discriminator to disting
 
 The discriminator objective can be written as:
 
-$$
+\begin{equation}
 \max_D \; \mathbb{E}_{\tau_E}[\log D(s_t, s_{t+1})] + \mathbb{E}_{\tau_\pi}[\log(1 - D(s_t, s_{t+1}))]
-$$
+\end{equation}
 
 Here, \(D\) estimates whether a transition came from the expert. As the learner's transitions become more like the expert's, the discriminator can no longer reliably tell them apart.

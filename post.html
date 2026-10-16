@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Post | Jack McCarthy</title>
   <link rel="stylesheet" href="styles.css">
-  <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+  <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], tags: 'ams' } };</script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
@@ -25,7 +25,7 @@
       .then((markdown) => {
         document.title = `${metadata.title} | Jack McCarthy`;
         const math = [];
-        const protectedMarkdown = markdown.replace(/\$\$[\s\S]*?\$\$|\\\([\s\S]*?\\\)/g, (match) => {
+        const protectedMarkdown = markdown.replace(/\$\$[\s\S]*?\$\$|\\begin\{equation\}[\s\S]*?\\end\{equation\}|\\\([\s\S]*?\\\)/g, (match) => {
           const token = `MATHBLOCK${math.length}END`;
           math.push(match);
           return token;
