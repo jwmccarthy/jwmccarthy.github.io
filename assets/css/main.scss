@@ -46,6 +46,11 @@
 .archive__item-title {
   margin-top: 0;
   margin-bottom: 0.35em;
+  font-size: 1em;
+}
+
+.archive__item .page__date {
+  margin: 0;
 }
 
 @media (min-width: 57.8125em) {
