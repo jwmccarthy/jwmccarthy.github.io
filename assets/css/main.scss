@@ -31,6 +31,15 @@
 @import "forms";
 
 @import "page";
+
+.page__date time {
+  display: inline-block;
+  padding: 0.2em 0.7em;
+  color: #7a8288;
+  font-size: 0.75em;
+  border: 1px solid #bdc1c4;
+  border-radius: 999px;
+}
 @import "archive";
 @import "sidebar";
 
