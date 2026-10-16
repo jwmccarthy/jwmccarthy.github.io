@@ -59,6 +59,10 @@
 }
 
 @media (min-width: 57.8125em) {
+  .masthead__menu-item--lg {
+    padding-right: calc(2em + 4.2rem);
+  }
+
   .sidebar {
     padding-right: 1.5em;
   }
