@@ -36,7 +36,8 @@ h2 { margin: 0 0 20px; font-size: 28px; }
 .home-intro { max-width: 620px; margin: 45px 0 0; color: var(--muted); font-size: 18px; }
 .profile-intro { max-width: 620px; margin: 90px 0 140px; }
 .blog-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 110px; padding-top: 70px; }
-.profile-sidebar { position: sticky; top: 30px; align-self: start; }
+.profile-sidebar { position: sticky; top: 30px; align-self: start; color: #494e52; }
+.profile-image { display: block; width: 175px; margin-bottom: 16px; border: 1px solid #f2f3f3; border-radius: 50%; padding: 5px; }
 .profile-sidebar h1 { margin-bottom: 8px; font-size: 28px; }
 .profile-sidebar p { margin: 6px 0; color: var(--muted); }
 .profile-links { display: flex; flex-direction: column; gap: 5px; margin-top: 20px; }
