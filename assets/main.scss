@@ -76,6 +76,13 @@ a:focus {
   margin-top: 2.5rem;
 }
 
+.post-hero-image {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto 2rem;
+  border-radius: 12px;
+}
+
 .post-content .MathJax_Display {
   margin: 1.5rem 0 !important;
   text-align: center !important;
