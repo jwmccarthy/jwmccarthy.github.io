@@ -74,9 +74,9 @@
 }
 
 .post-year {
-  margin: 1.25rem 0 0.15rem;
+  margin: 0.8rem 0 0.1rem;
   padding-bottom: 0.35rem;
-  font-size: 1.15rem;
+  font-size: 1rem;
 }
 
 .post-row {
@@ -85,7 +85,7 @@
   justify-content: space-between;
   gap: 2rem;
   padding: 0.65rem 0;
-  border-bottom: 1px solid #f2f2f2;
+  border-bottom: 1px solid #d9d9d9;
 }
 
 .post-row time {
@@ -95,5 +95,5 @@
 }
 
 .post-year + .post-row {
-  border-top: 1px solid #f2f2f2;
+  border-top: 1px solid #d9d9d9;
 }
