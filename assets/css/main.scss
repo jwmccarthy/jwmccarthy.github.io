@@ -44,7 +44,17 @@
 @media (min-width: 57.8125em) {
   .sidebar {
     padding-right: 1.5em;
+    border-right: 0;
+    position: relative;
+  }
+
+  .sidebar::after {
+    position: absolute;
+    top: 0;
+    right: -0.85%;
+    bottom: 0;
     border-right: 1px solid #f2f3f3;
+    content: "";
   }
 }
 @import "archive";
