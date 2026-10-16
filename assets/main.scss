@@ -76,7 +76,6 @@
 .post-year {
   margin: 2rem 0 0.4rem;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid #e8e8e8;
   font-size: 1.15rem;
 }
 
@@ -93,4 +92,8 @@
   flex: 0 0 auto;
   color: #828282;
   font-size: 0.875rem;
+}
+
+.post-year + .post-row {
+  border-top: 1px solid #f2f2f2;
 }
