@@ -1,33 +1,15 @@
-locale: "en-US"
-title: "Jack McCarthy"
-name: "Jack McCarthy"
-url: "https://jwmccarthy.github.io"
+title: Jack McCarthy
+description: Machine Learning Engineer at Instacart
+url: https://jwmccarthy.github.io
 baseurl: ""
-repository: "jwmccarthy/jwmccarthy.github.io"
-read_more: "disabled"
-breadcrumbs: false
-minimal_mistakes_skin: "default"
 theme: minima
 header_pages:
-  - _pages/projects.md
+  - projects.md
 minima:
   social_links:
     - { platform: github, user_url: "https://github.com/jwmccarthy" }
     - { platform: linkedin, user_url: "https://www.linkedin.com/in/jwmccarthy11/" }
-search: false
 markdown: kramdown
-highlighter: rouge
 permalink: /posts/:title/
-include:
-  - _pages
-author:
-  name: "Jack McCarthy"
-  avatar: "profile-placeholder.svg"
-  bio: "Machine Learning Engineer at Instacart"
-  location:
-  github: "jwmccarthy"
-  linkedin: "jwmccarthy11"
-collections:
-  portfolio:
-    output: true
-    permalink: /projects/:path/
+kramdown:
+  math_engine: mathjax

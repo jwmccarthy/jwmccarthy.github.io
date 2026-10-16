@@ -3,8 +3,6 @@ title: "A small place to think in public"
 date: 2026-10-16
 excerpt: "Why I am making room for short notes, unfinished ideas, and the things I learn while building."
 mathjax: true
-layout: post
-author_profile: false
 ---
 
 Writing things down helps me notice what I am learning. This blog is a simple place to keep those notes and share the useful ones.
