@@ -50,11 +50,12 @@
   }
 
   .sidebar::after {
+    display: block;
     position: absolute;
     top: 0;
     right: -0.85%;
-    bottom: 0;
-    border-right: 1px solid #f2f3f3;
+    height: 100%;
+    border-right: 1px solid #bdc1c4;
     content: "";
   }
 }
