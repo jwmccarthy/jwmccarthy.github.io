@@ -3,7 +3,7 @@
   --muted: #555;
   --link: #2a7ae2;
   --border: #e8e8e8;
-  --max-width: 800px;
+  --max-width: 1100px;
 }
 
 * { box-sizing: border-box; }
@@ -35,7 +35,7 @@ h2 { margin: 0 0 20px; font-size: 28px; }
 .intro-copy { margin: 0; color: var(--muted); }
 .home-intro { max-width: 620px; margin: 45px 0 0; color: var(--muted); font-size: 18px; }
 .profile-intro { max-width: 620px; margin: 90px 0 140px; }
-.blog-layout { display: grid; grid-template-columns: 220px 1fr; gap: 70px; padding-top: 70px; }
+.blog-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 110px; padding-top: 70px; }
 .profile-sidebar { position: sticky; top: 30px; align-self: start; }
 .profile-sidebar h1 { margin-bottom: 8px; font-size: 28px; }
 .profile-sidebar p { margin: 6px 0; color: var(--muted); }
