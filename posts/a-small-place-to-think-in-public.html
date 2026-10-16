@@ -19,8 +19,12 @@
       <h1>A small place to think in public</h1>
       <p class="intro-copy">Why I am making room for short notes, unfinished ideas, and the things I learn while building.</p>
       <p>Writing things down helps me notice what I am learning. This blog is a simple place to keep those notes and share the useful ones.</p>
-      <p>For example, a useful idea can be as simple as the quadratic formula:</p>
-      <p>$$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$</p>
+      <h2>GAIfO in brief</h2>
+      <p>Generative Adversarial Imitation from Observation (GAIfO) is an imitation-learning algorithm for situations where we can observe an expert's states but do not have access to the expert's actions.</p>
+      <p>Instead of comparing state-action pairs, GAIfO trains a discriminator to distinguish expert state transitions, $(s_t, s_{t+1})$, from transitions produced by the learner. The learner then uses the discriminator's feedback as a reward and improves its policy.</p>
+      <p>The discriminator objective can be written as:</p>
+      <p>$$\\max_D \\; \\mathbb{E}_{\\tau_E}[\\log D(s_t, s_{t+1})] + \\mathbb{E}_{\\tau_\\pi}[\\log(1 - D(s_t, s_{t+1}))]$$</p>
+      <p>Here, $D$ estimates whether a transition came from the expert. As the learner's transitions become more like the expert's, the discriminator can no longer reliably tell them apart.</p>
     </article>
   </main>
   <footer class="site-footer"><span>© 2026 Jack McCarthy</span><a href="../about.html">About Me</a></footer>
