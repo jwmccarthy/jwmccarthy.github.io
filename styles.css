@@ -37,7 +37,7 @@ h2 { margin: 0 0 20px; font-size: 28px; }
 .section-heading h2 { margin-bottom: 8px; }
 .post-count { color: var(--muted); font-size: 13px; }
 .post-list { margin: 45px 0 70px; }
-.post { display: block; padding: 20px 0; border-bottom: 1px solid var(--border); text-decoration: none; }
+.post { display: block; margin-bottom: 14px; padding: 20px; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; }
 .post-title { display: inline; margin: 0; color: var(--link); font-size: 20px; }
 .post:hover .post-title { text-decoration: underline; }
 .post-date { display: block; margin-bottom: 4px; color: var(--muted); font-size: 13px; }
