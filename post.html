@@ -47,7 +47,7 @@
         article.innerHTML = rendered;
         const headingBox = document.createElement('div');
         headingBox.className = 'post-heading-box';
-        while (article.firstElementChild && headingBox.children.length < 3) {
+        while (article.firstElementChild && headingBox.children.length < 2) {
           headingBox.append(article.firstElementChild);
         }
         article.prepend(headingBox);
