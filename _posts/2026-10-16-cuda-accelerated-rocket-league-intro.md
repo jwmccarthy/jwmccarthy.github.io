@@ -34,11 +34,11 @@ Actions by default are continuous; set `discrete_actions=True` to use discrete c
 
 | Action | Continuous | Discrete |
 |---|---|---|
-| Horizontal | $[-1, 1]$ | $\{0, 1, 2\}$ |
-| Vertical | $[-1, 1]$ | $\{0, 1, 2\}$ |
-| Throttle | $[-1, 1]$ | $\{0, 1, 2\}$ |
-| Powerslide | $[0, 1]$ | $\{0, 1\}$ |
-| Boost | $[0, 1]$ | $\{0, 1\}$ |
-| Air roll | $[-1, 1]$ | $\{0, 1, 2\}$ |
-| Jump | $[0, 1]$ | $\{0, 1\}$ |
+| Horizontal | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ |
+| Vertical | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ |
+| Throttle | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ |
+| Powerslide | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ |
+| Boost | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ |
+| Air roll | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ |
+| Jump | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ |
 {: .action-table}
