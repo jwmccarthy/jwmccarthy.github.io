@@ -167,6 +167,16 @@ div.highlighter-rouge.code-block {
   background: #f7efec;
 }
 
+.post-content .action-table {
+  width: auto;
+  font-size: 0.85rem;
+}
+
+.post-content .action-table th,
+.post-content .action-table td {
+  padding: 0.2rem 0.5rem;
+}
+
 .code-block-footer {
   display: flex;
   justify-content: flex-end;

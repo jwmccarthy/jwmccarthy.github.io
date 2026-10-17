@@ -41,3 +41,4 @@ Actions by default are continuous; set `discrete_actions=True` to use discrete c
 | Boost | $[0, 1]$ | $\{0, 1\}$ |
 | Air roll | $[-1, 1]$ | $\{0, 1, 2\}$ |
 | Jump | $[0, 1]$ | $\{0, 1\}$ |
+{: .action-table}
