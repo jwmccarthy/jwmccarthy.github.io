@@ -122,7 +122,7 @@ Uniform grid lookup finds each car's occupied cell, then a prefix scan packs its
 Actions are decoded into controls, and their modifiers are accumulated as impulses.
 
 #### 3. Narrow Phase
-The Separating Axis Theorem (SAT) identifies car-arena and car-car collisions. Sphere-versus-OBB and sphere-versus-triangle closest-point tests generate car-ball and ball-arena contacts, while clipping constructs the car contact manifolds.
+The [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) is used to identify car-arena and car-car collisions. Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) constructs the car contact manifolds.
 
 #### 4. Solve
 A warm-started sequential impulse solver resolves contacts and adds their impulses to the accumulators.
