@@ -91,6 +91,11 @@ By default CARL normalizes observations via the maximum values of arena extent, 
 ### Game State
 The game state resides entirely on the GPU in a struct-of-arrays layout. During simulation, the kernels index into these arrays to perform data-dependent computations or modify state information.
 
+<figure class="post-figure">
+  <img src="{{ '/images/aos-soa-memory-layout.png' | relative_url }}" alt="Comparison of array-of-structures and struct-of-arrays memory layouts">
+  <figcaption>Array-of-structures and struct-of-arrays memory layouts. Illustration from <a href="https://www.researchgate.net/publication/355943826/figure/fig4/AS:1135175345930250@1647658301180/Illustration-of-particles-coordinates-memory-layout-for-AOS-and-SOA.png">ResearchGate</a>.</figcaption>
+</figure>
+
 SoA is the optimal approach for data storage in GPU applications due to the enforcement of coalesced fetch instructions for contiguous elements. If we were instead to store arrays of structs, each associated with a single game's state, the GPU would be forced to perform strided accesses, leading to more memory transactions. We'd also be pulling in full structs worth of data we may not need at the time.
 
 ### Arena Geometry
@@ -101,4 +106,4 @@ CARL organizes its simulation step into a sequence of kernel calls. This structu
 
 #### <strong>1.</strong> Arena Broad Phase
 
-#### <strong>2.</strong> <code></code>
+#### <strong>2.</strong> 

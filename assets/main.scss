@@ -298,6 +298,24 @@ div.highlighter-rouge.code-block {
   border-radius: 12px;
 }
 
+.post-figure {
+  width: 85%;
+  margin: 1.5rem auto;
+}
+
+.post-figure img {
+  display: block;
+  width: 100%;
+}
+
+.post-figure figcaption {
+  margin-top: 0.5rem;
+  color: #828282;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
 .post-content .MathJax_Display {
   margin: 1.5rem 0 !important;
   text-align: center !important;
