@@ -139,4 +139,6 @@ Semi-implicit Euler integration applies the accumulated impulses to the cars and
   <li>Lu, C. (n.d.). <a href="https://chrislu.page/blog/meta-disco/"><em>Meta-Discoveries from PureJaxRL</em></a>.</li>
   <li>ZealanL. (n.d.). <a href="https://github.com/ZealanL/RocketSim"><em>RocketSim</em></a> [Source code]. GitHub.</li>
   <li>Coumans, E. (n.d.). <a href="https://github.com/bulletphysics/bullet3"><em>Bullet Physics SDK</em></a> [Source code]. GitHub.</li>
+  <li>Wikipedia contributors. (n.d.). <a href="https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem"><em>Separating axis theorem</em></a>.</li>
+  <li>Wikipedia contributors. (n.d.). <a href="https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm"><em>Sutherland-Hodgman algorithm</em></a>.</li>
 </ol>
