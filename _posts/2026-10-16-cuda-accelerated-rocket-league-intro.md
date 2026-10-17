@@ -30,7 +30,7 @@ observation, reward, terminated, truncated, info = env.step(actions)
 ```
 Internally, CARL represents actions with shape $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$, though users may treat each car as its own "environment" such that the action space is of shape $(n_{\mathrm{sim}} * n_{\mathrm{cars}}, 7)$.
 
-Set `discrete_actions=True` to use discrete controls; otherwise CARL uses continuous controls.
+Actions by default are continuous; set `discrete_actions=True` to use discrete controls instead.
 
 | Action space | Shape | Range |
 |---|---|---|
