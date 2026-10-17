@@ -13,7 +13,6 @@ body {
   background: #c47c63;
 }
 
-.site-nav,
 button,
 input,
 textarea {
@@ -268,7 +267,8 @@ div.highlighter-rouge.code-block {
   white-space: nowrap;
 }
 
-.site-title {
+.site-title,
+.site-nav {
   font-family: 'Lora', Georgia, serif;
 }
 
