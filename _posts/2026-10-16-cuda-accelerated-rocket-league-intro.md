@@ -28,9 +28,9 @@ actions = torch.zeros(
 
 observation, reward, terminated, truncated, info = env.step(actions)
 ```
-Internally, CARL represents actions with shape $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$, though users may treat each car as its own "environment" such that the action space is of shape $(n_{\mathrm{sim}} * n_{\mathrm{cars}}, 7)$.
+Internally, CARL represents actions with shape $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$, though users may treat each car as its own "environment", where actions are submitted in the shape $(n_{\mathrm{sim}} * n_{\mathrm{cars}}, 7)$.
 
-Actions by default are continuous; set `discrete_actions=True` to use discrete controls instead.
+Actions by default are continuous, though the user can specify discrete actions via `discrete_actions=True`. In that case, the maximum continuous action is applied.
 
 | Action | Continuous | Discrete | Effect |
 |---|---|---|---|
@@ -42,3 +42,16 @@ Actions by default are continuous; set `discrete_actions=True` to use discrete c
 | Air roll | $[-1, 1]$ | $0, 1, 2$ | Roll the car while airborne |
 | Jump | $[0, 1]$ | $0, 1$ | Jump from the ground or dodge in the air |
 {: .action-table}
+
+The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm{obs}})$, where each `float32` row describes one car's view of the game.
+
+| Block | Contents |
+|---|---|
+| Ball | Position, linear velocity, and angular velocity |
+| Cars | Position, velocity, angular velocity, orientation, boost, and state flags |
+| Boost pads | Active state and distance to the observing car |
+| Self to ball | Relative position and velocity |
+| Self to other cars | Relative position and velocity for every other car |
+| Goals | Ball displacement to each goal, relative to the observing team |
+| Ego | Flip and jump availability, plus remaining dodge-window time |
+{: .action-table .observation-table}

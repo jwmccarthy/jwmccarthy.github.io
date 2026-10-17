@@ -191,6 +191,11 @@ div.highlighter-rouge.code-block {
   text-align: center;
 }
 
+.post-content .observation-table th:nth-child(2),
+.post-content .observation-table td:nth-child(2) {
+  text-align: left;
+}
+
 .post-content .action-table th {
   color: #fff;
   font-weight: 600;
