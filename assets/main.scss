@@ -172,7 +172,7 @@ div.highlighter-rouge.code-block {
   margin-right: auto;
   margin-left: auto;
   overflow: hidden;
-  border: 0;
+  border: 1px solid #fff;
   border-radius: 6px;
   border-collapse: separate;
   border-spacing: 0;
@@ -188,12 +188,12 @@ div.highlighter-rouge.code-block {
   color: #fff;
   font-weight: 400;
   background: #d8c0ba;
-  border: 0;
+  border: 1px solid #fff;
 }
 
 .post-content .action-table td {
   background: #f7efec;
-  border: 0;
+  border: 1px solid #fff;
 }
 
 .post-content .action-table tr:nth-child(even) td {
