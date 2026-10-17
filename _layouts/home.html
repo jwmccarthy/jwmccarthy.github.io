@@ -14,7 +14,7 @@ layout: default
         {%- assign current_year = post_year -%}
       {%- endif -%}
       <div class="post-row">
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <a href="{{ post.url | relative_url }}">{{ post.title | strip_html }}</a>
         <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d" }}</time>
       </div>
     {%- endfor -%}
