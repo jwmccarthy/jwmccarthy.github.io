@@ -171,6 +171,11 @@ div.highlighter-rouge.code-block {
   width: 70%;
   margin-right: auto;
   margin-left: auto;
+  overflow: hidden;
+  border: 0;
+  border-radius: 6px;
+  border-collapse: separate;
+  border-spacing: 0;
   font-size: 0.85rem;
 }
 
