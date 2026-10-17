@@ -145,6 +145,7 @@ CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss
 [Semi-implicit Euler integration](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) applies the accumulated impulses to the cars and ball, while quaternion updates advance car orientation. CARL also applies Rocket League-specific adjustments such as ball drag and gravity, linear and angular speed caps, and an extra ball velocity impulse for each new car-ball hit. This hit impulse is capped and scaled by relative speed, with its direction adjusted by the car's orientation.
 
 ### I/O
+Currently CARL expects on-device tensors for action inputs
 
 ## References
 
