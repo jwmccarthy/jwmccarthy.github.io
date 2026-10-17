@@ -115,4 +115,8 @@ CARL organizes its simulation step into a sequence of kernel calls. This structu
 <ol>
   <li id="reference-zhao-et-al-2022">Zhao, W.-L., Wang, W., and Wang, Q. (2022). <a href="https://doi.org/10.1007/s11227-021-04153-0"><em>Optimization of cosmological N-body simulation with FMM-PM on SIMT accelerators</em></a>. <em>The Journal of Supercomputing</em>, 78.</li>
   <li id="reference-le-grand-2007">Le Grand, S. (2007). <a href="https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda"><em>Broad-Phase Collision Detection with CUDA</em></a>. In <em>GPU Gems 3</em>.</li>
+  <li>NVIDIA. (n.d.). <a href="https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html"><em>Isaac Lab</em></a>.</li>
+  <li>Lu, C. (n.d.). <a href="https://chrislu.page/blog/meta-disco/"><em>Meta-Discoveries from PureJaxRL</em></a>.</li>
+  <li>ZealanL. (n.d.). <a href="https://github.com/ZealanL/RocketSim"><em>RocketSim</em></a> [Source code]. GitHub.</li>
+  <li>Coumans, E. (n.d.). <a href="https://github.com/bulletphysics/bullet3"><em>Bullet Physics SDK</em></a> [Source code]. GitHub.</li>
 </ol>
