@@ -28,4 +28,11 @@ actions = torch.zeros(
 
 observation, reward, terminated, truncated, info = env.step(actions)
 ```
-Internally, CARL represents actions with shape $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$.
+Internally, CARL represents actions with shape $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$, though users may treat each car as its own "environment" such that the action space is of shape $(n_{\mathrm{sim}} * n_{\mathrm{cars}}, 7)$.
+
+Set `discrete_actions=True` to use discrete controls; otherwise CARL uses continuous controls.
+
+| Action space | Shape | Range |
+|---|---|---|
+| Continuous | $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$ | Horizontal, vertical, throttle, and air roll: $[-1, 1]$; powerslide, boost, and jump: $[0, 1]$ |
+| Discrete | $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$ | $(3, 3, 3, 2, 2, 3, 2)$ for horizontal, vertical, throttle, powerslide, boost, air roll, and jump |
