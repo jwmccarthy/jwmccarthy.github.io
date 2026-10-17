@@ -91,12 +91,12 @@ By default CARL normalizes observations via the maximum values of arena extent, 
 ### Game State
 The game state resides entirely on the GPU in a struct-of-arrays layout. During simulation, the kernels index into these arrays to perform data-dependent computations or modify state information.
 
+SoA is the optimal approach for data storage in GPU applications due to the enforcement of coalesced fetch instructions for contiguous elements. If we were instead to store arrays of structs, each associated with a single game's state, the GPU would be forced to perform strided accesses, leading to more memory transactions. We'd also be pulling in full structs worth of data we may not need at the time.
+
 <figure class="post-figure">
   <img src="{{ '/images/aos-soa-memory-layout.png' | relative_url }}" alt="Comparison of array-of-structures and struct-of-arrays memory layouts">
-  <figcaption>Array-of-structures and struct-of-arrays memory layouts. Figure by Zhao, W.-L., Wang, W., and Wang, Q. (2022), <a href="https://doi.org/10.1007/s11227-021-04153-0"><em>Optimization of cosmological N-body simulation with FMM-PM on SIMT accelerators</em></a>, <em>The Journal of Supercomputing</em>, 78.</figcaption>
+  <figcaption>Array-of-structures and struct-of-arrays memory layouts. <a href="#reference-zhao-et-al-2022">[1]</a></figcaption>
 </figure>
-
-SoA is the optimal approach for data storage in GPU applications due to the enforcement of coalesced fetch instructions for contiguous elements. If we were instead to store arrays of structs, each associated with a single game's state, the GPU would be forced to perform strided accesses, leading to more memory transactions. We'd also be pulling in full structs worth of data we may not need at the time.
 
 ### Arena Geometry
 The arena mesh is loaded into global memory upon environment initialization, and triangles are accessed via CUDA's cache-optimized read-only load intrinsics.
@@ -104,6 +104,12 @@ The arena mesh is loaded into global memory upon environment initialization, and
 ### Simulation Stages
 CARL organizes its simulation step into a sequence of kernel calls. This structure was found to be more efficient than a unified kernel, as each step benefited more from optimized structures than was lost in kernel launch overhead.
 
-#### <strong>1.</strong> Arena Broad Phase
+#### 1. Arena Broad Phase
 
-#### <strong>2.</strong> 
+#### 2.  
+
+## References
+
+<ol>
+  <li id="reference-zhao-et-al-2022">Zhao, W.-L., Wang, W., and Wang, Q. (2022). <a href="https://doi.org/10.1007/s11227-021-04153-0"><em>Optimization of cosmological N-body simulation with FMM-PM on SIMT accelerators</em></a>. <em>The Journal of Supercomputing</em>, 78.</li>
+</ol>
