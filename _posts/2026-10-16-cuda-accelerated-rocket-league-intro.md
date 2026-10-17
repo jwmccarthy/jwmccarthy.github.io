@@ -145,7 +145,20 @@ CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss
 [Semi-implicit Euler integration](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) applies the accumulated impulses to the cars and ball, while quaternion updates advance car orientation. CARL also applies Rocket League-specific adjustments such as ball drag and gravity, linear and angular speed caps, and an extra ball velocity impulse for each new car-ball hit. This hit impulse is capped and scaled by relative speed, with its direction adjusted by the car's orientation.
 
 ### I/O
-Currently CARL expects on-device tensors for action inputs
+Below the Gymnasium wrapper, `carl.Env` is a CUDA-only DLPack interface. Inputs must be contiguous tensors on `cuda:0`; CARL requests work ordering on its CUDA stream, so no host round trip is needed. The native batch is organized by match rather than actor: all `n_cars` in a simulation share one physics world, score, reward event, and done flag. The PyTorch wrapper flattens the leading two dimensions so that each car appears as a separate environment.
+
+The low-level input is a contiguous action tensor with shape $(n_{m sim}, n_{m cars}, 7)$. Continuous actions are `float32`; discrete actions are `int32`. CARL copies them into an internal device buffer and holds each action constant over `frameskip` physics ticks.
+
+| Buffer | Type and shape | Meaning |
+|---|---|---|
+| Observation | `float32`, $(n_{m sim}, n_{m cars}, 91 + 27n_{m cars})$ | Per-car, observer-relative features described above |
+| State | `float32`, $(n_{m sim}, 9 + 22n_{m cars} + 34)$ | Canonical world-frame ball, car, touch, and boost-pad state |
+| Reward | `float32`, $(n_{m sim})$ | Native goal reward: $+1$ for blue, $-1$ for orange, otherwise $0$ |
+| Done | `bool`, $(n_{m sim})$ | Score, time-limit, overtime, or optional no-touch termination |
+| Metadata | `int32`/`bool`, $(n_{m sim})$ | Score difference, episode ticks, and overtime state |
+{: .action-table .observation-table}
+
+`step()` first packs the transition state and terminal observations, then automatically resets completed matches to shuffled kickoffs and produces the next normal observation/state buffers. Terminal observations are therefore valid only for done matches; they represent the world immediately before autoreset. Returned DLPack tensors are non-owning views over CARL's reusable GPU buffers, so callers that need to retain a result across a subsequent `step()` must clone or copy it. The Gymnasium PyTorch wrapper does this by default and expands match-level rewards and terminations back to each participating car.
 
 ## References
 
