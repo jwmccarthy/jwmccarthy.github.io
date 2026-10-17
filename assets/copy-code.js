@@ -9,15 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const button = document.createElement('button');
     button.className = 'copy-code-button';
     button.type = 'button';
-    button.textContent = 'Copy';
+    button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16H8V7h11v14Z"/></svg><span>Copy</span>';
     button.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(code.innerText);
-        button.textContent = 'Copied';
+        button.querySelector('span').textContent = 'Copied';
       } catch {
-        button.textContent = 'Copy failed';
+        button.querySelector('span').textContent = 'Copy failed';
       }
-      window.setTimeout(() => { button.textContent = 'Copy'; }, 1500);
+      window.setTimeout(() => { button.querySelector('span').textContent = 'Copy'; }, 1500);
     });
     footer.append(button);
     block.append(footer);

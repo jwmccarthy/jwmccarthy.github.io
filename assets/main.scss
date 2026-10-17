@@ -167,6 +167,9 @@ div.highlighter-rouge.code-block {
 }
 
 .copy-code-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   padding: 0.2rem 0.45rem;
   color: #4c5261;
   font: 500 0.75rem 'IBM Plex Sans', sans-serif;
@@ -174,6 +177,12 @@ div.highlighter-rouge.code-block {
   border: 0;
   border-radius: 3px;
   cursor: pointer;
+}
+
+.copy-code-button svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
 }
 
 .copy-code-button:hover,
