@@ -184,6 +184,11 @@ div.highlighter-rouge.code-block {
   padding: 0.2rem 0.5rem;
 }
 
+.post-content .action-table th:not(:first-child),
+.post-content .action-table td:not(:first-child) {
+  text-align: center;
+}
+
 .post-content .action-table th {
   color: #fff;
   font-weight: 600;
