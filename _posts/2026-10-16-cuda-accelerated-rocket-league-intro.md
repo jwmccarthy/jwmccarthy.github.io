@@ -157,6 +157,6 @@ Currently CARL expects on-device tensors for action inputs
   <li>ZealanL. (n.d.). <a href="https://github.com/ZealanL/RocketSim"><em>RocketSim</em></a> [Computer software]. GitHub.</li>
   <li>Bullet Physics. (n.d.). <a href="https://github.com/bulletphysics/bullet3"><em>Bullet Physics SDK</em></a> [Computer software]. GitHub.</li>
   <li>Gottschalk, S., Lin, M. C., and Manocha, D. (1996). <a href="https://dl.acm.org/doi/10.1145/237170.237244"><em>OBBTree: A hierarchical structure for rapid interference detection</em></a>. In <em>Proceedings of the 23rd Annual Conference on Computer Graphics and Interactive Techniques</em>, 171-180.</li>
-  <li id="reference-sutherland-hodgman">Sutherland, I. E., and Hodgman, G. W. (1974). <a href="https://dl.acm.org/doi/10.1145/360767.360774"><em>Reentrant polygon clipping</em></a>. <em>Communications of the ACM</em>, 17(1), 32-42.</li>
+  <li id="reference-sutherland-hodgman">Sutherland, I. E., and Hodgman, G. W. (1974). <a href="https://dl.acm.org/doi/10.1145/360767.360802"><em>Reentrant polygon clipping</em></a>. <em>Communications of the ACM</em>, 17(1), 32-42.</li>
   <li id="reference-tayyub-khan-2019">Tayyub, M., and Khan, G. N. (2019). <a href="https://doi.org/10.33965/ijcsis_2019140202"><em>Heterogeneous design and efficient CPU-GPU implementation of collision detection</em></a>. <em>IADIS International Journal on Computer Science and Information Systems</em>, 14(2), 25-40.</li>
 </ol>
