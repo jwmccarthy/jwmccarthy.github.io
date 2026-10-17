@@ -142,31 +142,44 @@ a:focus {
   text-align: right;
 }
 
-div.highlighter-rouge {
-  position: relative;
-  margin-bottom: 15px;
+div.highlighter-rouge.code-block {
+  margin: 1.5rem 0;
+  overflow: hidden;
+  border: 1px solid #d5d9e3;
+  border-radius: 6px;
+  background: #eef;
 }
 
-div.highlighter-rouge .highlight {
-  margin-bottom: 0;
+.code-block .highlight,
+.code-block pre {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: #eef;
+}
+
+.code-block-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.45rem 0.6rem;
+  background: #dde0e8;
+  border-top: 1px solid #d0d4de;
 }
 
 .copy-code-button {
-  display: block;
-  width: 100%;
-  padding: 0.4rem 0.75rem;
-  color: #555;
-  font: 0.75rem 'IBM Plex Sans', sans-serif;
-  text-align: right;
-  background: #e3e3e3;
+  padding: 0.2rem 0.45rem;
+  color: #4c5261;
+  font: 500 0.75rem 'IBM Plex Sans', sans-serif;
+  background: transparent;
   border: 0;
-  border-top: 1px solid #d5d5d5;
-  border-radius: 0 0 4px 4px;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
-.copy-code-button:hover {
-  color: #111;
-  background: #d8d8d8;
+.copy-code-button:hover,
+.copy-code-button:focus-visible {
+  color: #252a35;
+  background: #cdd1dc;
 }
 
 .post {
