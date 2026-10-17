@@ -7,6 +7,5 @@ mathjax: true
 
 ![Carl from Jimmy Neutron](/images/carl.webp){: .post-hero-image }
 
-<small>Image: <a href="https://static.wikia.nocookie.net/jimmyneutron/images/7/71/Carl.png/revision/latest?cb=20180809091358">Jimmy Neutron Wiki</a></small>
 
 This post introduces CARL, a massively-parallel, GPU-resident Rocket League simulator built for reinforcement learning.
