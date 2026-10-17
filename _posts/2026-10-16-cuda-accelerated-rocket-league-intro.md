@@ -103,7 +103,7 @@ The arena mesh is loaded into global memory upon environment initialization, and
 
 CARL leverages the prefix sum construction described in NVIDIA's [Broad-Phase Collision Detection with CUDA](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda). The prefix sum converts each broad phase cell's triangle occupancy into offsets/counts, allowing the car-arena and ball-arena collision kernels to determine where a cell's triangle list begins and how many triangles it must test.
 
-<figure class="post-figure post-figure-compact">
+<figure class="post-figure post-figure-compact post-figure-grid">
   <img src="{{ '/images/gpu-gems-cell-id-array.jpg' | relative_url }}" alt="Broad-phase cell ID array after construction">
   <figcaption>Initial contents of the broad-phase cell ID array. <a href="#reference-le-grand-2007">[2]</a></figcaption>
 </figure>
