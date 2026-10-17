@@ -32,7 +32,12 @@ Internally, CARL represents actions with shape $(n_{\mathrm{sim}}, n_{\mathrm{ca
 
 Actions by default are continuous; set `discrete_actions=True` to use discrete controls instead.
 
-| Action space | Shape | Range |
-|---|---|---|
-| Continuous | $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$ | Horizontal, vertical, throttle, and air roll: $[-1, 1]$; powerslide, boost, and jump: $[0, 1]$ |
-| Discrete | $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$ | $(3, 3, 3, 2, 2, 3, 2)$ for horizontal, vertical, throttle, powerslide, boost, air roll, and jump |
+| Action | Continuous shape | Continuous range | Discrete shape | Discrete range |
+|---|---|---|---|---|
+| Horizontal | $()$ | $[-1, 1]$ | $()$ | $\{0, 1, 2\}$ |
+| Vertical | $()$ | $[-1, 1]$ | $()$ | $\{0, 1, 2\}$ |
+| Throttle | $()$ | $[-1, 1]$ | $()$ | $\{0, 1, 2\}$ |
+| Powerslide | $()$ | $[0, 1]$ | $()$ | $\{0, 1\}$ |
+| Boost | $()$ | $[0, 1]$ | $()$ | $\{0, 1\}$ |
+| Air roll | $()$ | $[-1, 1]$ | $()$ | $\{0, 1, 2\}$ |
+| Jump | $()$ | $[0, 1]$ | $()$ | $\{0, 1\}$ |
