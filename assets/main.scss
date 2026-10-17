@@ -145,9 +145,9 @@ a:focus {
 div.highlighter-rouge.code-block {
   margin: 1.5rem 0;
   overflow: hidden;
-  border: 1px solid #cfa493;
+  border: 1px solid #9eb9c7;
   border-radius: 6px;
-  background: #f8ebe5;
+  background: #eef6f9;
 }
 
 .code-block .highlight,
@@ -164,7 +164,7 @@ div.highlighter-rouge.code-block {
 }
 
 :not(pre) > code {
-  background: #f8ebe5;
+  background: #eef6f9;
 }
 
 .post-content .action-table {
@@ -194,24 +194,24 @@ div.highlighter-rouge.code-block {
 .post-content .action-table th {
   color: #fff;
   font-weight: 600;
-  background: #cfa493;
+  background: #9eb9c7;
   border: 1px solid #fff;
 }
 
 .post-content .action-table td {
-  background: #f8ebe5;
+  background: #eef6f9;
   border: 1px solid #fff;
 }
 
 .post-content .action-table tr:nth-child(even) td {
-  background: #fcf4ee;
+  background: #f7fbfc;
 }
 
 .code-block-footer {
   display: flex;
   justify-content: flex-end;
   padding: 0.45rem 0.6rem;
-  background: #cfa493;
+  background: #9eb9c7;
 }
 
 .copy-code-button {
@@ -235,8 +235,8 @@ div.highlighter-rouge.code-block {
 
 .copy-code-button:hover,
 .copy-code-button:focus-visible {
-  color: #b98e7e;
-  background: #f8ebe5;
+  color: #7899a8;
+  background: #eef6f9;
 }
 
 .post {
