@@ -28,6 +28,7 @@ actions = torch.zeros(
 
 observation, reward, terminated, truncated, info = env.step(actions)
 ```
+#### Action Space
 Internally, CARL represents actions with shape $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$, though users may treat each car as its own "environment", where actions are submitted in the shape $(n_{\mathrm{sim}} * n_{\mathrm{cars}}, 7)$.
 
 Actions by default are continuous, though the user can specify discrete actions via `discrete_actions=True`. In that case, the maximum continuous action is applied.
@@ -42,7 +43,7 @@ Actions by default are continuous, though the user can specify discrete actions 
 | Air roll | $[-1, 1]$ | $0, 1, 2$ | Roll the car while airborne |
 | Jump | $[0, 1]$ | $0, 1$ | Jump from the ground or dodge in the air |
 {: .action-table}
-
+#### Observation Space
 The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm{obs}})$, where each `float32` row describes one car's view of the game. Internally, CARL groups observations as $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, d_{\mathrm{obs}})$.
 
 | Block | Contents |
@@ -59,11 +60,11 @@ The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm
 `CARLObservation` provides named tensor views over these blocks:
 
 ```python
-observation.ball.position
-observation.cars.ego.boost
-observation.boost_pad_active
-observation.ego_ball_relative
-observation.ego_other_relative
-observation.own_goal_relative
-observation.ego_has_flip_or_jump
+observation.ball.position           # (n_envs, 3)
+observation.cars.ego.boost          # (n_envs,)
+observation.boost_pad_active        # (n_envs, 34)
+observation.ego_ball_relative       # (n_envs, 6)
+observation.ego_other_relative      # (n_envs, n_cars - 1, 6)
+observation.own_goal_relative       # (n_envs, 3)
+observation.ego_has_flip_or_jump    # (n_envs,)
 ```
