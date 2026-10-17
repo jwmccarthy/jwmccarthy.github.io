@@ -285,6 +285,9 @@ div.highlighter-rouge.code-block {
 }
 
 .post-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 }
 
