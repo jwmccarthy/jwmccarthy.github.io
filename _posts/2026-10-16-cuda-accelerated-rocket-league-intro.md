@@ -69,10 +69,10 @@ The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm
 
 </details>
 
-`CARLObservation` provides convenient named tensor views over these blocks:
+`CARLObservation` provides convenient named tensor views over these blocks.
 
 <details markdown="1">
-<summary>`CARLObservation` views</summary>
+<summary><code>CARLObservation</code> views</summary>
 
 ```python
 observation.ball.position           # (n_envs, 3)
