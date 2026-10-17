@@ -145,7 +145,7 @@ CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss
 [Semi-implicit Euler integration](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) applies the accumulated impulses to the cars and ball, while quaternion updates advance car orientation. CARL also applies Rocket League-specific adjustments such as ball drag and gravity, linear and angular speed caps, and an extra ball velocity impulse for each new car-ball hit. This hit impulse is capped and scaled by relative speed, with its direction adjusted by the car's orientation.
 
 ### I/O
-Below the Gymnasium wrapper, `carl.Env` is a CUDA-only DLPack interface. Inputs must be contiguous tensors on `cuda:0`; CARL requests work ordering on its CUDA stream, so no host round trip is needed. The native batch is organized by match rather than actor: all `n_cars` in a simulation share one physics world, score, reward event, and done flag. The PyTorch wrapper flattens the leading two dimensions so that each car appears as a separate environment.
+Below the Gymnasium wrapper, `carl.Env` is a CUDA-only [DLPack](https://dmlc.github.io/dlpack/latest/) interface. <a href="#reference-dlpack">[10]</a> Inputs must be contiguous tensors on `cuda:0`; CARL requests work ordering on its CUDA stream, so no host round trip is needed. The native batch is organized by match rather than actor: all `n_cars` in a simulation share one physics world, score, reward event, and done flag. The PyTorch wrapper flattens the leading two dimensions so that each car appears as a separate environment.
 
 The low-level input is a contiguous action tensor with shape $(n_{m sim}, n_{m cars}, 7)$. Continuous actions are `float32`; discrete actions are `int32`. CARL copies them into an internal device buffer and holds each action constant over `frameskip` physics ticks.
 
@@ -172,4 +172,5 @@ The low-level input is a contiguous action tensor with shape $(n_{m sim}, n_{m
   <li>Gottschalk, S., Lin, M. C., and Manocha, D. (1996). <a href="https://dl.acm.org/doi/10.1145/237170.237244"><em>OBBTree: A hierarchical structure for rapid interference detection</em></a>. In <em>Proceedings of the 23rd Annual Conference on Computer Graphics and Interactive Techniques</em>, 171-180.</li>
   <li id="reference-sutherland-hodgman">Sutherland, I. E., and Hodgman, G. W. (1974). <a href="https://dl.acm.org/doi/10.1145/360767.360802"><em>Reentrant polygon clipping</em></a>. <em>Communications of the ACM</em>, 17(1), 32-42.</li>
   <li id="reference-tayyub-khan-2019">Tayyub, M., and Khan, G. N. (2019). <a href="https://doi.org/10.33965/ijcsis_2019140202"><em>Heterogeneous design and efficient CPU-GPU implementation of collision detection</em></a>. <em>IADIS International Journal on Computer Science and Information Systems</em>, 14(2), 25-40.</li>
+  <li id="reference-dlpack">DLPack contributors. (n.d.). <a href="https://dmlc.github.io/dlpack/latest/"><em>DLPack documentation</em></a>.</li>
 </ol>
