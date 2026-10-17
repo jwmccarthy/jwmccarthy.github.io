@@ -124,12 +124,19 @@ Actions are decoded into controls and their effects are added to the impulse acc
 #### 3. Narrow Phase
 Unlike RocketSim, CARL does not use [GJK](https://en.wikipedia.org/wiki/Gilbert%E2%80%93Johnson%E2%80%93Keerthi_distance_algorithm)/[EPA](https://en.wikipedia.org/wiki/Expanding_polytope_algorithm). Instead, it implements the [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) to identify car-arena and car-car collisions without iterative support mapping. This leads to slightly different contact manifolds over time relative to RocketSim, but the feel of the game remains the same and short-range divergence is minimal, allowing RL agents to adjust as they play.
 
-Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) constructs the car contact manifolds. These manifolds are persistent and updated each tick depending on the generation of new contact points. A maximum of 4 points is allowed per manifold in line with RocketSim. Again, this leads to minor divergences that add up over time given the same controls, but for the purposes of RL this is more than sufficient to transfer learning from simulation to the game itself.
+<figure class="post-figure post-figure-half">
+  <img src="{{ '/images/separating-axis-theorem.webp' | relative_url }}" alt="Separating Axis Theorem overlap test">
+  <figcaption>Separating Axis Theorem overlap test. <a href="#reference-tayyub-khan-2019">[9]</a></figcaption>
+</figure>
+
+Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) constructs the car contact manifolds. 
 
 <figure class="post-figure post-figure-half">
   <img src="{{ '/images/sutherland-hodgman-clipping.svg' | relative_url }}" alt="Steps of Sutherland-Hodgman polygon clipping">
   <figcaption>Sutherland-Hodgman polygon clipping. <a href="#reference-sutherland-hodgman">[8]</a></figcaption>
 </figure>
+
+These manifolds are persistent and updated each tick depending on the generation of new contact points. A maximum of 4 points is allowed per manifold in line with RocketSim. Again, this leads to minor divergences that add up over time given the same controls, but for the purposes of RL this is more than sufficient to transfer learning from simulation to the game itself.
 
 #### 4. Solve
 CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method). Cached normal impulses seed each car contact manifold, then a separate split-impulse pass corrects penetration without changing the reported velocity. The solver iterates nonnegative normal impulses followed by friction impulses clamped by the accumulated normal impulse. The resulting linear and angular impulses are added to each body's accumulators. Rather than invoking RocketSim/Bullet's serial world-step pipeline, CARL executes these bounded constraint iterations in GPU kernels across its batched simulations.
@@ -148,4 +155,5 @@ CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss
   <li>Coumans, E. (n.d.). <a href="https://github.com/bulletphysics/bullet3"><em>Bullet Physics SDK</em></a> [Source code]. GitHub.</li>
   <li>Wikipedia contributors. (n.d.). <a href="https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem"><em>Separating axis theorem</em></a>.</li>
   <li id="reference-sutherland-hodgman">Wikipedia contributors. (n.d.). <a href="https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm"><em>Sutherland-Hodgman algorithm</em></a>.</li>
+  <li id="reference-tayyub-khan-2019">Tayyub, M., and Khan, G. (2019). <em>Heterogeneous Design and Efficient CPU-GPU Implementation of Collision Detection</em>, pp. 25-40.</li>
 </ol>
