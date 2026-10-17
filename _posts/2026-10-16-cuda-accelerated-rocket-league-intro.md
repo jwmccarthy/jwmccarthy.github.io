@@ -122,7 +122,7 @@ Uniform grid lookup finds each car's occupied cell, then a prefix scan packs its
 Actions are decoded into controls, and their modifiers are accumulated as impulses.
 
 #### 3. Narrow Phase
-The [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) is used to identify car-arena and car-car collisions. Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) constructs the car contact manifolds.
+CARL does not use GJK/EPA. The [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) identifies car-arena and car-car collisions without iterative support mapping. Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) constructs the car contact manifolds.
 
 #### 4. Solve
 CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method). Cached normal impulses seed each car contact manifold, then a separate split-impulse pass corrects penetration without changing the reported velocity. The solver iterates nonnegative normal impulses followed by friction impulses clamped by the accumulated normal impulse. The resulting linear and angular impulses are added to each body's accumulators. Rather than invoking RocketSim/Bullet's serial world-step pipeline, CARL executes these bounded constraint iterations in GPU kernels across its batched simulations.
