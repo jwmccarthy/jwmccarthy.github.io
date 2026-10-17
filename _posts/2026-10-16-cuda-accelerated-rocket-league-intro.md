@@ -126,9 +126,9 @@ Unlike RocketSim, CARL does not use [GJK](https://en.wikipedia.org/wiki/Gilbert%
 
 Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) constructs the car contact manifolds. These manifolds are persistent and updated each tick depending on the generation of new contact points. A maximum of 4 points is allowed per manifold in line with RocketSim. Again, this leads to minor divergences that add up over time given the same controls, but for the purposes of RL this is more than sufficient to transfer learning from simulation to the game itself.
 
-<figure class="post-figure">
+<figure class="post-figure post-figure-half">
   <img src="{{ '/images/sutherland-hodgman-clipping.svg' | relative_url }}" alt="Steps of Sutherland-Hodgman polygon clipping">
-  <figcaption>Sutherland-Hodgman polygon clipping. Illustration by <a href="https://commons.wikimedia.org/wiki/User:Wojciech_mula">Wojciech Mula</a>, <a href="https://commons.wikimedia.org/wiki/File:Sutherland-Hodgman_clipping_sample.svg">public domain via Wikimedia Commons</a>.</figcaption>
+  <figcaption>Sutherland-Hodgman polygon clipping. <a href="#reference-sutherland-hodgman">[8]</a></figcaption>
 </figure>
 
 #### 4. Solve
@@ -147,5 +147,5 @@ CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss
   <li>ZealanL. (n.d.). <a href="https://github.com/ZealanL/RocketSim"><em>RocketSim</em></a> [Source code]. GitHub.</li>
   <li>Coumans, E. (n.d.). <a href="https://github.com/bulletphysics/bullet3"><em>Bullet Physics SDK</em></a> [Source code]. GitHub.</li>
   <li>Wikipedia contributors. (n.d.). <a href="https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem"><em>Separating axis theorem</em></a>.</li>
-  <li>Wikipedia contributors. (n.d.). <a href="https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm"><em>Sutherland-Hodgman algorithm</em></a>.</li>
+  <li id="reference-sutherland-hodgman">Wikipedia contributors. (n.d.). <a href="https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm"><em>Sutherland-Hodgman algorithm</em></a>.</li>
 </ol>
