@@ -108,12 +108,27 @@ CARL leverages the prefix-sum construction described in NVIDIA's [Broad-Phase Co
   <figcaption>A bounding sphere overlapping broad-phase grid cells. <a href="#reference-le-grand-2007">[2]</a></figcaption>
 </figure>
 
+It is quick to check both sphere and axis-aligned bounding box (AABB) occupancy, so we can quickly cull most of the triangles in the arena before checking against the car and ball.
+
 ### Simulation Stages
 CARL organizes its simulation step into a sequence of kernel calls. This structure was found to be more efficient than a unified kernel, as each step benefited more from optimized structures than was lost in kernel launch overhead.
 
-#### 1. Arena Broad Phase
+The stages are broadly as follows:
 
-#### 2.  
+#### 1. Arena Broad Phase & Suspension: Uniform Grid, Prefix Scan, and Raycasting
+Car grid cell occupancy is found and suspension raycasts are performed against the arena, the ball, and other cars (the latter two to identify flip resets).
+
+#### 2. Controls: Action Decoding and Impulse Accumulation
+The controls are read and their modifiers added to the impulse accumulators.
+
+#### 3. Narrow Phase: Separating Axis Theorem and Manifold Clipping
+Collisions between the car, ball, and arena are identified and their contact information propagated forward. The contact manifolds are generated via clipping against surfaces.
+
+#### 4. Solve: Warm-Started Sequential Impulses
+Contacts are solved to derive impulses, which are also added to the accumulators.
+
+#### 5. Integration: Semi-Implicit Euler and Quaternion Updates
+Accumulated impulses are applied to the cars and ball, with slight tweaks to match the feel of Rocket League physics.
 
 ## References
 
