@@ -192,7 +192,9 @@ div.highlighter-rouge.code-block {
 }
 
 .post-content .observation-table th:nth-child(2),
-.post-content .observation-table td:nth-child(2) {
+.post-content .observation-table th:nth-child(3),
+.post-content .observation-table td:nth-child(2),
+.post-content .observation-table td:nth-child(3) {
   text-align: left;
 }
 

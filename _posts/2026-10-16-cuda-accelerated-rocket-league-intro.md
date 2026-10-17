@@ -43,15 +43,15 @@ Actions by default are continuous, though the user can specify discrete actions 
 | Jump | $[0, 1]$ | $0, 1$ | Jump from the ground or dodge in the air |
 {: .action-table}
 
-The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm{obs}})$, where each `float32` row describes one car's view of the game.
+The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm{obs}})$, where each `float32` row describes one car's view of the game. Let $n_c = n_{\mathrm{cars}}$; the packed layout is:
 
-| Block | Contents |
-|---|---|
-| Ball | Position, linear velocity, and angular velocity |
-| Cars | Position, velocity, angular velocity, orientation, boost, and state flags |
-| Boost pads | Active state and distance to the observing car |
-| Self to ball | Relative position and velocity |
-| Self to other cars | Relative position and velocity for every other car |
-| Goals | Ball displacement to each goal, relative to the observing team |
-| Ego | Flip and jump availability, plus remaining dodge-window time |
+| Indices | Block | Contents |
+|---|---|---|
+| $[0, 9)$ | Ball | Position, linear velocity, and angular velocity |
+| $[9, 9 + 21n_c)$ | Cars | Position, velocity, angular velocity, orientation, boost, and state flags |
+| $[9 + 21n_c, 77 + 21n_c)$ | Boost pads | Active state and distance to the observing car |
+| $[77 + 21n_c, 83 + 21n_c)$ | Self to ball | Relative position and velocity |
+| $[83 + 21n_c, 77 + 27n_c)$ | Self to other cars | Relative position and velocity for every other car |
+| $[77 + 27n_c, 83 + 27n_c)$ | Goals | Ball displacement to each goal, relative to the observing team |
+| $[83 + 27n_c, 85 + 27n_c)$ | Ego | Flip and jump availability, plus remaining dodge-window time |
 {: .action-table .observation-table}
