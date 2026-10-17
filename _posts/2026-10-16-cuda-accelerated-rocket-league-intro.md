@@ -8,7 +8,7 @@ mathjax: true
 ![Carl from Jimmy Neutron](/images/carl.webp){: .post-hero-image }
 
 
-This post introduces CARL, a GPU-resident Rocket League simulator built for reinforcement learning. Inspired by the likes of [IsaacLab](https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html) and [PureJaxRL](https://chrislu.page/blog/meta-disco/), CARL's parallel environment enables the rapid training of Rocket League agents. Tens of thousands of games can be run simultaneously on a single GPU, which exposes the policy to significantly more experience in less time than serial simulations. Credit goes to [RocketSim](https://github.com/ZealanL/RocketSim) and the [Bullet](https://github.com/bulletphysics/bullet3) physics engine for the ported logic.
+This post introduces CARL, a GPU-resident Rocket League simulator built for reinforcement learning. Inspired by the likes of [IsaacLab](https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html) <a href="#reference-isaac-lab">[3]</a> and [PureJaxRL](https://chrislu.page/blog/meta-disco/) <a href="#reference-purejaxrl">[4]</a>, CARL's parallel environment enables the rapid training of Rocket League agents. Tens of thousands of games can be run simultaneously on a single GPU, which exposes the policy to significantly more experience in less time than serial simulations. Credit goes to [RocketSim](https://github.com/ZealanL/RocketSim) <a href="#reference-rocketsim">[5]</a> and the [Bullet](https://github.com/bulletphysics/bullet3) physics engine <a href="#reference-bullet">[6]</a> for the ported logic.
 
 ## Interface
 CARL exposes the underlying simulation via the standard Gymnasium API. It is planned to add support for other ML libraries like JAX and Tensorflow, but the default wrapper at the moment is written in PyTorch. As with all other Gymnasium-wrapped environments, one need only initialize, reset, and step!
@@ -101,7 +101,7 @@ SoA is the optimal approach for data storage in GPU applications due to the enfo
 ### Arena Geometry
 The arena mesh is loaded into global memory upon environment initialization, and triangles are accessed via CUDA's cache-optimized read-only load intrinsics. The arena is immediately divided into a 3D broad phase grid which will to reduce the number of computation-heavy triangle tests during collision resolution.
 
-CARL leverages the prefix sum construction described in NVIDIA's [Broad-Phase Collision Detection with CUDA](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda). The prefix sum converts each broad phase cell's triangle occupancy into offsets/counts, allowing the car-arena and ball-arena collision kernels to determine where a cell's triangle list begins and how many triangles it must test.
+CARL leverages the prefix sum construction described in NVIDIA's [Broad-Phase Collision Detection with CUDA](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda) <a href="#reference-le-grand-2007">[2]</a>. The prefix sum converts each broad phase cell's triangle occupancy into offsets/counts, allowing the car-arena and ball-arena collision kernels to determine where a cell's triangle list begins and how many triangles it must test.
 
 <figure class="post-figure post-figure-compact post-figure-grid">
   <img src="{{ '/images/gpu-gems-cell-id-array.jpg' | relative_url }}" alt="Broad-phase cell ID array after construction">
@@ -116,20 +116,20 @@ CARL organizes its simulation step into a sequence of kernel calls. This structu
 The stages are broadly as follows:
 
 #### 1. Broad Phase & Suspension
-Uniform grid lookup finds each car's occupied cell, then a prefix scan packs its candidate triangles. Suspension raycasts are performed against the arena, ball, and other cars. The latter two are helpful for determining flip resets. Unlike RocketSim's [bounding volume hierarchy (BVH)](https://en.wikipedia.org/wiki/Bounding_volume_hierarchy) broad phase, CARL uses this fixed arena grid and scan-packed ranges to make triangle work per car more "regular" on the GPU.
+Uniform grid lookup finds each car's occupied cell, then a prefix scan packs its candidate triangles. Suspension raycasts are performed against the arena, ball, and other cars. The latter two are helpful for determining flip resets. Unlike [RocketSim](https://github.com/ZealanL/RocketSim) <a href="#reference-rocketsim">[5]</a>'s [bounding volume hierarchy (BVH)](https://en.wikipedia.org/wiki/Bounding_volume_hierarchy) broad phase, CARL uses this fixed arena grid and scan-packed ranges to make triangle work per car more "regular" on the GPU.
 
 #### 2. Controls
 Actions are decoded into controls and their effects are added to the impulse accumulators.
 
 #### 3. Narrow Phase
-Unlike RocketSim, CARL does not use [GJK](https://en.wikipedia.org/wiki/Gilbert%E2%80%93Johnson%E2%80%93Keerthi_distance_algorithm)/[EPA](https://en.wikipedia.org/wiki/Expanding_polytope_algorithm). Instead, it implements the [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) to identify car-arena and car-car collisions without iterative support mapping. This leads to slightly different contact manifolds over time relative to RocketSim, but the feel of the game remains the same and short-range divergence is minimal, allowing RL agents to adjust as they play.
+Unlike RocketSim, CARL does not use [GJK](https://en.wikipedia.org/wiki/Gilbert%E2%80%93Johnson%E2%80%93Keerthi_distance_algorithm)/[EPA](https://en.wikipedia.org/wiki/Expanding_polytope_algorithm). Instead, it implements the [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) <a href="#reference-gottschalk-et-al-1996">[7]</a> to identify car-arena and car-car collisions without iterative support mapping. This leads to slightly different contact manifolds over time relative to RocketSim, but the feel of the game remains the same and short-range divergence is minimal, allowing RL agents to adjust as they play.
 
 <figure class="post-figure post-figure-half post-figure-sat">
   <img src="{{ '/images/separating-axis-theorem.webp' | relative_url }}" alt="Separating Axis Theorem overlap test">
   <figcaption>Separating Axis Theorem OBB overlap test. <a href="#reference-tayyub-khan-2019">[9]</a></figcaption>
 </figure>
 
-Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) constructs the car contact manifolds. 
+Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) <a href="#reference-sutherland-hodgman">[8]</a> constructs the car contact manifolds. 
 
 <figure class="post-figure post-figure-half">
   <img src="{{ '/images/sutherland-hodgman-clipping.svg' | relative_url }}" alt="Steps of Sutherland-Hodgman polygon clipping">
@@ -145,31 +145,22 @@ CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss
 [Semi-implicit Euler integration](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) applies the accumulated impulses to the cars and ball, while quaternion updates advance car orientation. CARL also applies Rocket League-specific adjustments such as ball drag and gravity, linear and angular speed caps, and an extra ball velocity impulse for each new car-ball hit. This hit impulse is capped and scaled by relative speed, with its direction adjusted by the car's orientation.
 
 ### I/O
-Below the Gymnasium wrapper, `carl.Env` is a CUDA-only [DLPack](https://dmlc.github.io/dlpack/latest/) interface. <a href="#reference-dlpack">[10]</a> Inputs must be contiguous tensors on `cuda:0`; CARL requests work ordering on its CUDA stream, so no host round trip is needed. The native batch is organized by match rather than actor: all `n_cars` in a simulation share one physics world, score, reward event, and done flag. The PyTorch wrapper flattens the leading two dimensions so that each car appears as a separate environment.
+Below the Gymnasium wrapper, `carl.Env` is a CUDA-only [DLPack](https://dmlc.github.io/dlpack/latest/) interface. <a href="#reference-dlpack">[10]</a> Inputs must be contiguous tensors on the device. This way, no host round trip is required. 
 
-The low-level input is a contiguous action tensor with shape $(n_{m sim}, n_{m cars}, 7)$. Continuous actions are `float32`; discrete actions are `int32`. CARL copies them into an internal device buffer and holds each action constant over `frameskip` physics ticks.
+The native batch is organized by match rather than actor. All cars in a simulation share one physics world, score, reward event, and termination/truncation flags. The PyTorch wrapper flattens the leading two dimensions so that each car appears as a separate environment.
 
-| Buffer | Type and shape | Meaning |
-|---|---|---|
-| Observation | `float32`, $(n_{m sim}, n_{m cars}, 91 + 27n_{m cars})$ | Per-car, observer-relative features described above |
-| State | `float32`, $(n_{m sim}, 9 + 22n_{m cars} + 34)$ | Canonical world-frame ball, car, touch, and boost-pad state |
-| Reward | `float32`, $(n_{m sim})$ | Native goal reward: $+1$ for blue, $-1$ for orange, otherwise $0$ |
-| Done | `bool`, $(n_{m sim})$ | Score, time-limit, overtime, or optional no-touch termination |
-| Metadata | `int32`/`bool`, $(n_{m sim})$ | Score difference, episode ticks, and overtime state |
-{: .action-table .observation-table}
-
-`step()` first packs the transition state and terminal observations, then automatically resets completed matches to shuffled kickoffs and produces the next normal observation/state buffers. Terminal observations are therefore valid only for done matches; they represent the world immediately before autoreset. Returned DLPack tensors are non-owning views over CARL's reusable GPU buffers, so callers that need to retain a result across a subsequent `step()` must clone or copy it. The Gymnasium PyTorch wrapper does this by default and expands match-level rewards and terminations back to each participating car.
+`step()` first packs the transition state and terminal observations, then automatically resets completed matches to shuffled kickoffs and produces the next observation buffers. Returned DLPack tensors are non-owning views over CARL's reusable GPU buffers, so callers that need to retain a result across a subsequent `step()` must clone or copy it. The Gymnasium PyTorch wrapper does this by default and expands match-level rewards and terminations back to each participating car.
 
 ## References
 
 <ol>
   <li id="reference-zhao-et-al-2022">Zhao, W.-L., Wang, W., and Wang, Q. (2022). <a href="https://doi.org/10.1007/s11227-021-04153-0"><em>Optimization of cosmological N-body simulation with FMM-PM on SIMT accelerators</em></a>. <em>The Journal of Supercomputing</em>, 78(5), 7186-7205.</li>
   <li id="reference-le-grand-2007">Le Grand, S. (2007). <a href="https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda"><em>Broad-phase collision detection with CUDA</em></a>. In H. Nguyen (Ed.), <em>GPU Gems 3</em> (Chapter 32). Addison-Wesley.</li>
-  <li>NVIDIA. (n.d.). <a href="https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html"><em>Isaac Lab documentation</em></a>.</li>
-  <li>Lu, C. (n.d.). <a href="https://chrislu.page/blog/meta-disco/"><em>Meta-discoveries from PureJaxRL</em></a> [Blog post].</li>
-  <li>ZealanL. (n.d.). <a href="https://github.com/ZealanL/RocketSim"><em>RocketSim</em></a> [Computer software]. GitHub.</li>
-  <li>Bullet Physics. (n.d.). <a href="https://github.com/bulletphysics/bullet3"><em>Bullet Physics SDK</em></a> [Computer software]. GitHub.</li>
-  <li>Gottschalk, S., Lin, M. C., and Manocha, D. (1996). <a href="https://dl.acm.org/doi/10.1145/237170.237244"><em>OBBTree: A hierarchical structure for rapid interference detection</em></a>. In <em>Proceedings of the 23rd Annual Conference on Computer Graphics and Interactive Techniques</em>, 171-180.</li>
+  <li id="reference-isaac-lab">NVIDIA. (n.d.). <a href="https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html"><em>Isaac Lab documentation</em></a>.</li>
+  <li id="reference-purejaxrl">Lu, C. (n.d.). <a href="https://chrislu.page/blog/meta-disco/"><em>Meta-discoveries from PureJaxRL</em></a> [Blog post].</li>
+  <li id="reference-rocketsim">ZealanL. (n.d.). <a href="https://github.com/ZealanL/RocketSim"><em>RocketSim</em></a> [Computer software]. GitHub.</li>
+  <li id="reference-bullet">Bullet Physics. (n.d.). <a href="https://github.com/bulletphysics/bullet3"><em>Bullet Physics SDK</em></a> [Computer software]. GitHub.</li>
+  <li id="reference-gottschalk-et-al-1996">Gottschalk, S., Lin, M. C., and Manocha, D. (1996). <a href="https://dl.acm.org/doi/10.1145/237170.237244"><em>OBBTree: A hierarchical structure for rapid interference detection</em></a>. In <em>Proceedings of the 23rd Annual Conference on Computer Graphics and Interactive Techniques</em>, 171-180.</li>
   <li id="reference-sutherland-hodgman">Sutherland, I. E., and Hodgman, G. W. (1974). <a href="https://dl.acm.org/doi/10.1145/360767.360802"><em>Reentrant polygon clipping</em></a>. <em>Communications of the ACM</em>, 17(1), 32-42.</li>
   <li id="reference-tayyub-khan-2019">Tayyub, M., and Khan, G. N. (2019). <a href="https://doi.org/10.33965/ijcsis_2019140202"><em>Heterogeneous design and efficient CPU-GPU implementation of collision detection</em></a>. <em>IADIS International Journal on Computer Science and Information Systems</em>, 14(2), 25-40.</li>
   <li id="reference-dlpack">DLPack contributors. (n.d.). <a href="https://dmlc.github.io/dlpack/latest/"><em>DLPack documentation</em></a>.</li>
