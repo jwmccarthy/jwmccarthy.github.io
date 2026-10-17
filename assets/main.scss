@@ -309,6 +309,16 @@ div.highlighter-rouge.code-block {
   width: 50%;
   max-width: 100%;
   margin: 0 auto 2rem;
+  border: 1px solid #dce7eb;
+  border-radius: 12px;
+}
+
+.post-content img {
+  border: 1px solid #dce7eb;
+  border-radius: 8px;
+}
+
+.post-content .post-hero-image {
   border-radius: 12px;
 }
 
