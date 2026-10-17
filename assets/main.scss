@@ -2,6 +2,15 @@
 ---
 @import "minima";
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+body,
+button,
+input,
+textarea {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
 a,
 a:visited {
   color: #111;
