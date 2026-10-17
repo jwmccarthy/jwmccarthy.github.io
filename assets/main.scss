@@ -163,6 +163,10 @@ div.highlighter-rouge.code-block {
   background: transparent;
 }
 
+:not(pre) > code {
+  background: #f7efec;
+}
+
 .code-block-footer {
   display: flex;
   justify-content: flex-end;
