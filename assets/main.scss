@@ -398,6 +398,7 @@ div.highlighter-rouge.code-block {
   position: relative;
   margin-top: 1.5rem;
   padding: 1.25rem;
+  overflow: hidden;
   border: 1px solid #9eb9c7;
   border-radius: 6px;
   color: #57606a;
@@ -430,6 +431,10 @@ div.highlighter-rouge.code-block {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  margin: 1rem -1.25rem -1.25rem;
+  padding: 0.45rem 0.75rem;
+  color: #fff;
+  background: #9eb9c7;
   font-size: 0.8rem;
 }
 
@@ -456,11 +461,11 @@ div.highlighter-rouge.code-block {
   align-items: center;
   gap: 0.3rem;
   padding: 0.15rem 0.45rem;
-  border: 1px solid #9eb9c7;
+  border: 1px solid #fff;
   border-radius: 5px;
-  color: #24292f;
+  color: #fff;
   font-weight: 500;
-  background: #fff;
+  background: transparent;
 }
 
 .project-card-actions svg {
@@ -471,7 +476,7 @@ div.highlighter-rouge.code-block {
 
 .project-card-actions a:hover,
 .project-card-actions a:focus {
-  border-color: #8c959f;
-  color: #24292f;
-  background: #f3f4f6;
+  border-color: #eef6f9;
+  color: #254e78;
+  background: #eef6f9;
 }
