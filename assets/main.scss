@@ -393,3 +393,54 @@ div.highlighter-rouge.code-block {
 .post-year + .post-row {
   border-top: 1px solid #d9d9d9;
 }
+
+.project-card {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  color: #57606a;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.9rem;
+}
+
+.project-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #24292f;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.project-card-heading svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+.project-card p {
+  margin: 0.75rem 0 1rem;
+  line-height: 1.5;
+}
+
+.project-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8rem;
+}
+
+.project-card-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.project-card-meta i {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: #f34b7d;
+}
