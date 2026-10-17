@@ -133,7 +133,7 @@ Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-ar
 
 <figure class="post-figure post-figure-half">
   <img src="{{ '/images/sutherland-hodgman-clipping.svg' | relative_url }}" alt="Steps of Sutherland-Hodgman polygon clipping">
-  <figcaption>Sutherland-Hodgman polygon clipping. <a href="#reference-sutherland-hodgman">[8]</a></figcaption>
+  <figcaption>Sutherland-Hodgman polygon clipping. <a href="#reference-sutherland-hodgman">[8]</a> Illustration by <a href="https://commons.wikimedia.org/wiki/File:Sutherland-Hodgman_clipping_sample.svg">Wojciech mula</a>, public domain.</figcaption>
 </figure>
 
 These manifolds are persistent and updated each tick depending on the generation of new contact points. A maximum of 4 points is allowed per manifold in line with RocketSim. Again, this leads to minor divergences that add up over time given the same controls, but for the purposes of RL this is more than sufficient to transfer learning from simulation to the game itself.
