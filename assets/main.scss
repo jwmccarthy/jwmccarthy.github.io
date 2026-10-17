@@ -179,6 +179,21 @@ div.highlighter-rouge.code-block {
   padding: 0.2rem 0.5rem;
 }
 
+.post-content .action-table th {
+  color: #fff;
+  background: #d8c0ba;
+  border-color: #d8c0ba;
+}
+
+.post-content .action-table td {
+  background: #f7efec;
+  border-color: #eadbd5;
+}
+
+.post-content .action-table tr:nth-child(even) td {
+  background: #fcf8f6;
+}
+
 .code-block-footer {
   display: flex;
   justify-content: flex-end;
