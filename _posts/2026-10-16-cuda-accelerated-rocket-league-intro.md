@@ -28,4 +28,4 @@ actions = torch.zeros(
 
 observation, reward, terminated, truncated, info = env.step(actions)
 ```
-The shape of the action space is $(n_{\mathrm{envs}}, 7)$, with one seven-dimensional control vector per car.
+The Gymnasium action space has shape $(N, 7)$, where $N = n_{\mathrm{sim}} n_{\mathrm{cars}}$ and each car receives a seven-dimensional control vector. Internally, CARL groups the actions by simulation as $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$.
