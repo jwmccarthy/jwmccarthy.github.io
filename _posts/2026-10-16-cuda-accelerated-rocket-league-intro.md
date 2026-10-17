@@ -125,7 +125,7 @@ Actions are decoded into controls, and their modifiers are accumulated as impuls
 The [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) is used to identify car-arena and car-car collisions. Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) constructs the car contact manifolds.
 
 #### 4. Solve
-A warm-started sequential impulse solver resolves contacts and adds their impulses to the accumulators.
+CARL uses a warm-started sequential-impulse solver, a projected form of the [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method). Cached normal impulses seed each car contact manifold, then a separate split-impulse pass corrects penetration without changing the reported velocity. The solver iterates nonnegative normal impulses followed by friction impulses clamped by the accumulated normal impulse; the resulting linear and angular impulses are added to each body's accumulators.
 
 #### 5. Integration
 Semi-implicit Euler integration applies the accumulated impulses to the cars and ball, while quaternion updates advance car orientation. Small adjustments match the feel of Rocket League physics.
