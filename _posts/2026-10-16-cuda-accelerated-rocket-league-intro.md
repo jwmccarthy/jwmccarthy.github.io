@@ -11,7 +11,7 @@ mathjax: true
 This post introduces CARL, a GPU-resident Rocket League simulator built for reinforcement learning. Inspired by the likes of [IsaacLab](https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html) and [PureJaxRL](https://chrislu.page/blog/meta-disco/), CARL's parallel environment enables the rapid training of Rocket League agents. Tens of thousands of games can be run simultaneously on a single GPU, which exposes the policy to significantly more experience in less time than serial simulations.
 
 ### Interface
-CARL exposes the underlying simulation via the standard Gymnasium API.
+CARL exposes the underlying simulation via the standard Gymnasium API. It is planned to add support for other ML libraries like JAX and Tensorflow, but the default wrapper at the moment is written in PyTorch. As with all other Gymnasium-wrapped environments, one need only initialize, reset, and step!
 ```python
 import torch
 from carl.gymnasium import CARLTorchVectorEnv
@@ -69,7 +69,10 @@ The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm
 
 </details>
 
-`CARLObservation` provides named tensor views over these blocks:
+`CARLObservation` provides convenient named tensor views over these blocks:
+
+<details markdown="1">
+<summary>`CARLObservation` views</summary>
 
 ```python
 observation.ball.position           # (n_envs, 3)
@@ -80,3 +83,11 @@ observation.ego_other_relative      # (n_envs, n_cars - 1, 6)
 observation.own_goal_relative       # (n_envs, 3)
 observation.ego_has_flip_or_jump    # (n_envs,)
 ```
+
+</details>
+
+By default CARL normalizes observations via the maximum values of arena extent, velocity, etc. though one may disable this via `normalize=False` in the environment constructor.
+
+### Implementation
+
+The game state resides entirely on the GPU in a struct-of-arrays layout.
