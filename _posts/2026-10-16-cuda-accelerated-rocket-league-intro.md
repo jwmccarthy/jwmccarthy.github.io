@@ -51,7 +51,7 @@ Actions by default are continuous, though the user can specify discrete actions 
 
 Actions are held for every tick over the subsequent `frameskip` ticks.
 ### Observation Space
-The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm{obs}})$, where each `float32` row describes one car's view of the game. Internally, CARL groups observations as $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, d_{\mathrm{obs}})$. `CARLObservation` provides convenient named tensor views over these contiguous blocks. 
+The observation space has shape $(n_{\mathrm{sim}} * n_{\mathrm{cars}}, d_{\mathrm{obs}})$, where each `float32` row describes one car's view of the game. Internally, CARL groups observations as $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, d_{\mathrm{obs}})$. `CARLObservation` provides convenient named tensor views over these contiguous blocks. 
 
 <details markdown="1">
 <summary>Observation features</summary>
@@ -150,13 +150,13 @@ Currently CARL expects on-device tensors for action inputs
 ## References
 
 <ol>
-  <li id="reference-zhao-et-al-2022">Zhao, W.-L., Wang, W., and Wang, Q. (2022). <a href="https://doi.org/10.1007/s11227-021-04153-0"><em>Optimization of cosmological N-body simulation with FMM-PM on SIMT accelerators</em></a>. <em>The Journal of Supercomputing</em>, 78.</li>
-  <li id="reference-le-grand-2007">Le Grand, S. (2007). <a href="https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda"><em>Broad-Phase Collision Detection with CUDA</em></a>. In <em>GPU Gems 3</em>.</li>
-  <li>NVIDIA. (n.d.). <a href="https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html"><em>Isaac Lab</em></a>.</li>
-  <li>Lu, C. (n.d.). <a href="https://chrislu.page/blog/meta-disco/"><em>Meta-Discoveries from PureJaxRL</em></a>.</li>
-  <li>ZealanL. (n.d.). <a href="https://github.com/ZealanL/RocketSim"><em>RocketSim</em></a> [Source code]. GitHub.</li>
-  <li>Coumans, E. (n.d.). <a href="https://github.com/bulletphysics/bullet3"><em>Bullet Physics SDK</em></a> [Source code]. GitHub.</li>
-  <li>Wikipedia contributors. (n.d.). <a href="https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem"><em>Separating axis theorem</em></a>.</li>
-  <li id="reference-sutherland-hodgman">Wikipedia contributors. (n.d.). <a href="https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm"><em>Sutherland-Hodgman algorithm</em></a>.</li>
-  <li id="reference-tayyub-khan-2019">Tayyub, M., and Khan, G. (2019). <em>Heterogeneous Design and Efficient CPU-GPU Implementation of Collision Detection</em>, pp. 25-40.</li>
+  <li id="reference-zhao-et-al-2022">Zhao, W.-L., Wang, W., and Wang, Q. (2022). <a href="https://doi.org/10.1007/s11227-021-04153-0"><em>Optimization of cosmological N-body simulation with FMM-PM on SIMT accelerators</em></a>. <em>The Journal of Supercomputing</em>, 78(5), 7186-7205.</li>
+  <li id="reference-le-grand-2007">Le Grand, S. (2007). <a href="https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda"><em>Broad-phase collision detection with CUDA</em></a>. In H. Nguyen (Ed.), <em>GPU Gems 3</em> (Chapter 32). Addison-Wesley.</li>
+  <li>NVIDIA. (n.d.). <a href="https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html"><em>Isaac Lab documentation</em></a>.</li>
+  <li>Lu, C. (n.d.). <a href="https://chrislu.page/blog/meta-disco/"><em>Meta-discoveries from PureJaxRL</em></a> [Blog post].</li>
+  <li>ZealanL. (n.d.). <a href="https://github.com/ZealanL/RocketSim"><em>RocketSim</em></a> [Computer software]. GitHub.</li>
+  <li>Bullet Physics. (n.d.). <a href="https://github.com/bulletphysics/bullet3"><em>Bullet Physics SDK</em></a> [Computer software]. GitHub.</li>
+  <li>Gottschalk, S., Lin, M. C., and Manocha, D. (1996). <a href="https://dl.acm.org/doi/10.1145/237170.237244"><em>OBBTree: A hierarchical structure for rapid interference detection</em></a>. In <em>Proceedings of the 23rd Annual Conference on Computer Graphics and Interactive Techniques</em>, 171-180.</li>
+  <li id="reference-sutherland-hodgman">Sutherland, I. E., and Hodgman, G. W. (1974). <a href="https://dl.acm.org/doi/10.1145/360767.360774"><em>Reentrant polygon clipping</em></a>. <em>Communications of the ACM</em>, 17(1), 32-42.</li>
+  <li id="reference-tayyub-khan-2019">Tayyub, M., and Khan, G. N. (2019). <a href="https://doi.org/10.33965/ijcsis_2019140202"><em>Heterogeneous design and efficient CPU-GPU implementation of collision detection</em></a>. <em>IADIS International Journal on Computer Science and Information Systems</em>, 14(2), 25-40.</li>
 </ol>
