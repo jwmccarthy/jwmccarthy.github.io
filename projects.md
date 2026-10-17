@@ -4,4 +4,6 @@ title: Projects
 permalink: /projects/
 ---
 
-Projects will be added here.
+## [CARL](https://github.com/jwmccarthy/CARL)
+
+CUDA-Accelerated Rocket League: a GPU-resident Rocket League simulator for reinforcement learning.
