@@ -8,9 +8,22 @@ mathjax: true
 ![Carl from Jimmy Neutron](/images/carl.webp){: .post-hero-image }
 
 
-This post introduces CARL, a GPU-resident Rocket League simulator built for reinforcement learning. Inspired by the likes of [IsaacLab](https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html) and [PureJaxRL](https://chrislu.page/blog/meta-disco/), CARL's parallel environment enables the rapid training of Rocket League agents. Tens of thousands of games can be run simultaneously on a single GPU, which exposes the policy to significantly more experience in less time than serial simulations.
+This post introduces CARL, a GPU-resident Rocket League simulator built for reinforcement learning. Inspired by the likes of [IsaacLab](https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html) and [PureJaxRL](https://chrislu.page/blog/meta-disco/), CARL's parallel environment enables the rapid training of Rocket League agents. Tens of thousands of games can be run simultaneously on a single GPU, which exposes the policy to significantly more experience in less time than serial simulations. Credit goes to [RocketSim](https://github.com/ZealanL/RocketSim) and the [Bullet](https://github.com/bulletphysics/bullet3) physics engine for the ported logic.
 
-### Interface
+<nav class="table-of-contents" aria-label="Table of contents">
+  <strong>Contents</strong>
+  <ul>
+    <li><a href="#interface">Interface</a></li>
+    <li><a href="#action-space">Action Space</a></li>
+    <li><a href="#observation-space">Observation Space</a></li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#game-state">Game State</a></li>
+    <li><a href="#arena-geometry">Arena Geometry</a></li>
+    <li><a href="#simulation-stages">Simulation Stages</a></li>
+  </ul>
+</nav>
+
+## Interface
 CARL exposes the underlying simulation via the standard Gymnasium API. It is planned to add support for other ML libraries like JAX and Tensorflow, but the default wrapper at the moment is written in PyTorch. As with all other Gymnasium-wrapped environments, one need only initialize, reset, and step!
 ```python
 import torch
@@ -28,7 +41,7 @@ actions = torch.zeros(
 
 observation, reward, terminated, truncated, info = env.step(actions)
 ```
-#### Action Space
+### Action Space
 Internally, CARL represents actions with shape $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$, though users may treat each car as its own "environment", where actions are submitted in the shape $(n_{\mathrm{sim}} * n_{\mathrm{cars}}, 7)$.
 
 Actions by default are continuous, though the user can specify discrete actions via `discrete_actions=True`. In that case, the maximum continuous action is applied.
@@ -50,8 +63,8 @@ Actions by default are continuous, though the user can specify discrete actions 
 </details>
 
 Actions are held for every tick over the subsequent `frameskip` ticks.
-#### Observation Space
-The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm{obs}})$, where each `float32` row describes one car's view of the game. Internally, CARL groups observations as $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, d_{\mathrm{obs}})$.
+### Observation Space
+The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm{obs}})$, where each `float32` row describes one car's view of the game. Internally, CARL groups observations as $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, d_{\mathrm{obs}})$. `CARLObservation` provides convenient named tensor views over these contiguous blocks. 
 
 <details markdown="1">
 <summary>Observation features</summary>
@@ -68,8 +81,6 @@ The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm
 {: .action-table .observation-table}
 
 </details>
-
-`CARLObservation` provides convenient named tensor views over these blocks.
 
 <details markdown="1">
 <summary><code>CARLObservation</code> views</summary>
@@ -88,6 +99,19 @@ observation.ego_has_flip_or_jump    # (n_envs,)
 
 By default CARL normalizes observations via the maximum values of arena extent, velocity, etc. though one may disable this via `normalize=False` in the environment constructor.
 
-### Implementation
+## Implementation
 
-The game state resides entirely on the GPU in a struct-of-arrays layout.
+### Game State
+The game state resides entirely on the GPU in a struct-of-arrays layout. During simulation, the kernels index into these arrays to perform data-dependent computations or modify state information.
+
+SoA is the optimal approach for data storage in GPU applications due to the enforcement of coalesced fetch instructions for contiguous elements. If we were instead to store arrays of structs, each associated with a single game's state, the GPU would be forced to perform strided accesses, leading to more memory transactions. We'd also be pulling in full structs worth of data we may not need at the time.
+
+### Arena Geometry
+The arena mesh is loaded into global memory upon environment initialization, and triangles are accessed via CUDA's cache-optimized read-only load intrinsics.
+
+### Simulation Stages
+CARL organizes its simulation step into a sequence of kernel calls. This structure was found to be more efficient than a unified kernel, as each step benefited more from optimized structures than was lost in kernel launch overhead.
+
+#### <strong>1.</strong> Arena Broad Phase
+
+#### <strong>2.</strong> <code></code>
