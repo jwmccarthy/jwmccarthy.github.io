@@ -147,20 +147,21 @@ div.highlighter-rouge {
 }
 
 .copy-code-button {
-  position: absolute;
-  right: 0.75rem;
-  bottom: 0.75rem;
-  padding: 0.25rem 0.55rem;
+  display: block;
+  width: 100%;
+  padding: 0.4rem 0.75rem;
   color: #555;
   font: 0.75rem 'IBM Plex Sans', sans-serif;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid #d5d5d5;
-  border-radius: 4px;
+  text-align: right;
+  background: #e3e3e3;
+  border: 0;
+  border-top: 1px solid #d5d5d5;
+  border-radius: 0 0 4px 4px;
 }
 
 .copy-code-button:hover {
   color: #111;
-  background: #fff;
+  background: #d8d8d8;
 }
 
 .post {
