@@ -105,15 +105,9 @@ a:focus {
   text-decoration: none;
 }
 
-.site-header {
-  border-top-color: #9eb9c7;
-  border-bottom-color: #9eb9c7;
-  background: #eef6f9;
-}
-
-.site-footer {
-  border-top-color: #9eb9c7;
-  background: #9eb9c7;
+.site-title,
+.site-nav .page-link {
+  color: #4f8998;
 }
 
 .footer-row {
@@ -133,7 +127,7 @@ a:focus {
 }
 
 .footer-social a {
-  color: #fff;
+  color: #4f8998;
 }
 
 .footer-social svg {
@@ -151,7 +145,7 @@ a:focus {
 
 .footer-copyright {
   margin-left: auto;
-  color: #fff;
+  color: #4f8998;
   font-size: 0.875rem;
   text-align: right;
 }
