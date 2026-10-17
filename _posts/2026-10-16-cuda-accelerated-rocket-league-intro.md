@@ -34,11 +34,11 @@ Actions by default are continuous; set `discrete_actions=True` to use discrete c
 
 | Action | Continuous | Discrete | Effect |
 |---|---|---|---|
-| Horizontal | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Steer and yaw |
-| Vertical | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Pitch |
-| Throttle | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Accelerate or reverse |
-| Powerslide | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ | Drift |
-| Boost | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ | Use boost |
-| Air roll | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Roll in the air |
-| Jump | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ | Jump |
+| Horizontal | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Steer on the ground and yaw in the air |
+| Vertical | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Pitch the car up or down |
+| Throttle | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Drive forward or reverse |
+| Powerslide | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ | Hold to drift and turn sharply |
+| Boost | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ | Hold to consume boost for acceleration |
+| Air roll | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Roll the car while airborne |
+| Jump | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ | Jump from the ground or dodge in the air |
 {: .action-table}
