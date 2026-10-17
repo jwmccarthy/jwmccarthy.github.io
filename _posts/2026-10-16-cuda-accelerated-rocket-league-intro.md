@@ -10,19 +10,6 @@ mathjax: true
 
 This post introduces CARL, a GPU-resident Rocket League simulator built for reinforcement learning. Inspired by the likes of [IsaacLab](https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html) and [PureJaxRL](https://chrislu.page/blog/meta-disco/), CARL's parallel environment enables the rapid training of Rocket League agents. Tens of thousands of games can be run simultaneously on a single GPU, which exposes the policy to significantly more experience in less time than serial simulations. Credit goes to [RocketSim](https://github.com/ZealanL/RocketSim) and the [Bullet](https://github.com/bulletphysics/bullet3) physics engine for the ported logic.
 
-<nav class="table-of-contents" aria-label="Table of contents">
-  <strong>Contents</strong>
-  <ul>
-    <li><a href="#interface">Interface</a></li>
-    <li><a href="#action-space">Action Space</a></li>
-    <li><a href="#observation-space">Observation Space</a></li>
-    <li><a href="#implementation">Implementation</a></li>
-    <li><a href="#game-state">Game State</a></li>
-    <li><a href="#arena-geometry">Arena Geometry</a></li>
-    <li><a href="#simulation-stages">Simulation Stages</a></li>
-  </ul>
-</nav>
-
 ## Interface
 CARL exposes the underlying simulation via the standard Gymnasium API. It is planned to add support for other ML libraries like JAX and Tensorflow, but the default wrapper at the moment is written in PyTorch. As with all other Gymnasium-wrapped environments, one need only initialize, reset, and step!
 ```python
