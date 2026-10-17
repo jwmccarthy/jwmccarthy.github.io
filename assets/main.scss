@@ -145,25 +145,30 @@ a:focus {
 div.highlighter-rouge.code-block {
   margin: 1.5rem 0;
   overflow: hidden;
-  border: 1px solid #dcc2ae;
+  border: 1px solid #ead6c8;
   border-radius: 6px;
-  background: #fbf3eb;
+  background: #fdf9f6;
 }
 
 .code-block .highlight,
-.code-block pre {
+.code-block pre,
+.code-block code {
   margin: 0;
   border: 0;
   border-radius: 0;
-  background: #fbf3eb;
+  background: transparent;
+}
+
+.code-block code span {
+  background: transparent;
 }
 
 .code-block-footer {
   display: flex;
   justify-content: flex-end;
   padding: 0.45rem 0.6rem;
-  background: #efd8c5;
-  border-top: 1px solid #dcc2ae;
+  background: #f7e9df;
+  border-top: 1px solid #ead6c8;
 }
 
 .copy-code-button {
@@ -171,7 +176,7 @@ div.highlighter-rouge.code-block {
   align-items: center;
   gap: 0.3rem;
   padding: 0.2rem 0.45rem;
-  color: #735749;
+  color: #80675a;
   font: 500 0.75rem 'IBM Plex Sans', sans-serif;
   background: transparent;
   border: 0;
@@ -187,8 +192,8 @@ div.highlighter-rouge.code-block {
 
 .copy-code-button:hover,
 .copy-code-button:focus-visible {
-  color: #4f382d;
-  background: #e3bea5;
+  color: #5e473b;
+  background: #eed7c8;
 }
 
 .post {
