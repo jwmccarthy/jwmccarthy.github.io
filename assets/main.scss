@@ -262,12 +262,22 @@ div.highlighter-rouge.code-block {
 
 .post-title {
   font-family: 'Lora', Georgia, serif;
+  font-size: 2.25rem;
   font-weight: 400;
+  letter-spacing: -0.02em;
   text-align: center;
+  white-space: nowrap;
 }
 
 .post-title strong {
   color: #ad654c;
+}
+
+@media screen and (max-width: 600px) {
+  .post-title {
+    font-size: 2rem;
+    white-space: normal;
+  }
 }
 
 .post-meta {
