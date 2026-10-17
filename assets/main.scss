@@ -105,6 +105,17 @@ a:focus {
   text-decoration: none;
 }
 
+.site-header {
+  border-top-color: #9eb9c7;
+  border-bottom-color: #9eb9c7;
+  background: #eef6f9;
+}
+
+.site-footer {
+  border-top-color: #9eb9c7;
+  background: #9eb9c7;
+}
+
 .footer-row {
   display: flex;
   align-items: center;
@@ -122,7 +133,7 @@ a:focus {
 }
 
 .footer-social a {
-  color: #828282;
+  color: #fff;
 }
 
 .footer-social svg {
@@ -140,7 +151,7 @@ a:focus {
 
 .footer-copyright {
   margin-left: auto;
-  color: #828282;
+  color: #fff;
   font-size: 0.875rem;
   text-align: right;
 }
