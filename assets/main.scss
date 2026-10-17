@@ -97,6 +97,13 @@ figure.highlight,
   background-color: #fff1ed;
 }
 
+.highlight span,
+.highlight .err,
+.highlight .gd,
+.highlight .gi {
+  background-color: transparent;
+}
+
 a,
 a:visited {
   color: #4f8998;
