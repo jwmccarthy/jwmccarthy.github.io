@@ -288,6 +288,24 @@ div.highlighter-rouge.code-block {
   text-align: center;
 }
 
+.post-meta-divider {
+  margin: 0 0.75rem;
+}
+
+.post-reading-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.post-reading-time svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
 .post-content {
   font-size: 1.05rem;
   line-height: 1.75;
