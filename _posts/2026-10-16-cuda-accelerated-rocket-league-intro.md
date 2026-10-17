@@ -124,7 +124,7 @@ Actions are decoded into controls and their effects are added to the impulse acc
 #### 3. Narrow Phase
 Unlike RocketSim, CARL does not use [GJK](https://en.wikipedia.org/wiki/Gilbert%E2%80%93Johnson%E2%80%93Keerthi_distance_algorithm)/[EPA](https://en.wikipedia.org/wiki/Expanding_polytope_algorithm). Instead, it implements the [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) to identify car-arena and car-car collisions without iterative support mapping. This leads to slightly different contact manifolds over time relative to RocketSim, but the feel of the game remains the same and short-range divergence is minimal, allowing RL agents to adjust as they play.
 
-<figure class="post-figure post-figure-half">
+<figure class="post-figure post-figure-half post-figure-sat">
   <img src="{{ '/images/separating-axis-theorem.webp' | relative_url }}" alt="Separating Axis Theorem overlap test">
   <figcaption>Separating Axis Theorem overlap test. <a href="#reference-tayyub-khan-2019">[9]</a></figcaption>
 </figure>
