@@ -33,6 +33,9 @@ Internally, CARL represents actions with shape $(n_{\mathrm{sim}}, n_{\mathrm{ca
 
 Actions by default are continuous, though the user can specify discrete actions via `discrete_actions=True`. In that case, the maximum continuous action is applied.
 
+<details markdown="1">
+<summary>Action controls</summary>
+
 | Action | Continuous | Discrete | Effect |
 |---|---|---|---|
 | Horizontal | $[-1, 1]$ | $0, 1, 2$ | Steer on the ground and yaw in the air |
@@ -43,8 +46,15 @@ Actions by default are continuous, though the user can specify discrete actions 
 | Air roll | $[-1, 1]$ | $0, 1, 2$ | Roll the car while airborne |
 | Jump | $[0, 1]$ | $0, 1$ | Jump from the ground or dodge in the air |
 {: .action-table}
+
+</details>
+
+Actions are held for every tick over the subsequent `frameskip` ticks.
 #### Observation Space
 The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm{obs}})$, where each `float32` row describes one car's view of the game. Internally, CARL groups observations as $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, d_{\mathrm{obs}})$.
+
+<details markdown="1">
+<summary>Observation features</summary>
 
 | Block | Contents |
 |---|---|
@@ -56,6 +66,8 @@ The observation space has shape $(n_{\mathrm{sim}} n_{\mathrm{cars}}, d_{\mathrm
 | Goals | Ball displacement to each goal, relative to the observing team |
 | Ego | Flip and jump availability, plus remaining dodge-window time |
 {: .action-table .observation-table}
+
+</details>
 
 `CARLObservation` provides named tensor views over these blocks:
 
