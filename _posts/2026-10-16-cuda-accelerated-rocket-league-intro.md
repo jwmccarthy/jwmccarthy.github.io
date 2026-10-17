@@ -101,7 +101,7 @@ SoA is the optimal approach for data storage in GPU applications due to the enfo
 ### Arena Geometry
 The arena mesh is loaded into global memory upon environment initialization, and triangles are accessed via CUDA's cache-optimized read-only load intrinsics. The arena is immediately divided into a 3D broad phase grid which will to reduce the number of computation-heavy triangle tests during collision resolution.
 
-CARL also needs the prefix-sum construction described by Le Grand <a href="#reference-le-grand-2007">[2]</a>. The prefix sum converts each broad-phase cell's triangle occupancy into offsets, allowing the collision kernels to determine both where a cell's triangle list begins and how many triangles it must test.
+CARL also needs the prefix-sum construction described in NVIDIA's [Broad-Phase Collision Detection with CUDA](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda). The prefix sum converts each broad-phase cell's triangle occupancy into offsets, allowing the collision kernels to determine both where a cell's triangle list begins and how many triangles it must test.
 
 ### Simulation Stages
 CARL organizes its simulation step into a sequence of kernel calls. This structure was found to be more efficient than a unified kernel, as each step benefited more from optimized structures than was lost in kernel launch overhead.
