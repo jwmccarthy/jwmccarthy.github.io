@@ -144,6 +144,11 @@ a:focus {
 
 div.highlighter-rouge {
   position: relative;
+  margin-bottom: 15px;
+}
+
+div.highlighter-rouge .highlight {
+  margin-bottom: 0;
 }
 
 .copy-code-button {
