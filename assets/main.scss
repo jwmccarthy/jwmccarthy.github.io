@@ -168,7 +168,7 @@ div.highlighter-rouge.code-block {
 }
 
 .post-content .action-table {
-  width: 70%;
+  width: 85%;
   margin-right: auto;
   margin-left: auto;
   overflow: hidden;
@@ -184,8 +184,10 @@ div.highlighter-rouge.code-block {
   padding: 0.2rem 0.5rem;
 }
 
-.post-content .action-table th:not(:first-child),
-.post-content .action-table td:not(:first-child) {
+.post-content .action-table th:nth-child(2),
+.post-content .action-table th:nth-child(3),
+.post-content .action-table td:nth-child(2),
+.post-content .action-table td:nth-child(3) {
   text-align: center;
 }
 

@@ -32,13 +32,13 @@ Internally, CARL represents actions with shape $(n_{\mathrm{sim}}, n_{\mathrm{ca
 
 Actions by default are continuous; set `discrete_actions=True` to use discrete controls instead.
 
-| Action | Continuous | Discrete |
-|---|---|---|
-| Horizontal | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ |
-| Vertical | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ |
-| Throttle | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ |
-| Powerslide | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ |
-| Boost | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ |
-| Air roll | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ |
-| Jump | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ |
+| Action | Continuous | Discrete | Effect |
+|---|---|---|---|
+| Horizontal | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Steer and yaw |
+| Vertical | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Pitch |
+| Throttle | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Accelerate or reverse |
+| Powerslide | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ | Drift |
+| Boost | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ | Use boost |
+| Air roll | $[-1, 1]$ | $\lbrace 0, 1, 2 \rbrace$ | Roll in the air |
+| Jump | $[0, 1]$ | $\lbrace 0, 1 \rbrace$ | Jump |
 {: .action-table}
