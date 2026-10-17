@@ -104,8 +104,8 @@ The arena mesh is loaded into global memory upon environment initialization, and
 CARL leverages the prefix sum construction described in NVIDIA's [Broad-Phase Collision Detection with CUDA](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda). The prefix sum converts each broad phase cell's triangle occupancy into offsets/counts, allowing the car-arena and ball-arena collision kernels to determine where a cell's triangle list begins and how many triangles it must test.
 
 <figure class="post-figure post-figure-compact">
-  <img src="{{ '/images/gpu-gems-spatial-subdivision.jpg' | relative_url }}" alt="A bounding sphere overlapping cells in a broad-phase grid">
-  <figcaption>A bounding sphere overlapping broad-phase grid cells. <a href="#reference-le-grand-2007">[2]</a></figcaption>
+  <img src="{{ '/images/gpu-gems-cell-id-array.jpg' | relative_url }}" alt="Broad-phase cell ID array after construction">
+  <figcaption>Initial contents of the broad-phase cell ID array. <a href="#reference-le-grand-2007">[2]</a></figcaption>
 </figure>
 
 It is quick to check both sphere and axis-aligned bounding box (AABB) occupancy, so we can quickly cull most of the triangles in the arena before checking against the car and ball.
@@ -126,7 +126,7 @@ Unlike RocketSim, CARL does not use [GJK](https://en.wikipedia.org/wiki/Gilbert%
 
 <figure class="post-figure post-figure-half post-figure-sat">
   <img src="{{ '/images/separating-axis-theorem.webp' | relative_url }}" alt="Separating Axis Theorem overlap test">
-  <figcaption>Separating Axis Theorem overlap test. <a href="#reference-tayyub-khan-2019">[9]</a></figcaption>
+  <figcaption>Separating Axis Theorem OBB overlap test. <a href="#reference-tayyub-khan-2019">[9]</a></figcaption>
 </figure>
 
 Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) constructs the car contact manifolds. 
@@ -143,6 +143,8 @@ CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss
 
 #### 5. Integration
 [Semi-implicit Euler integration](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) applies the accumulated impulses to the cars and ball, while quaternion updates advance car orientation. CARL also applies Rocket League-specific adjustments such as ball drag and gravity, linear and angular speed caps, and an extra ball velocity impulse for each new car-ball hit. This hit impulse is capped and scaled by relative speed, with its direction adjusted by the car's orientation.
+
+### I/O
 
 ## References
 
