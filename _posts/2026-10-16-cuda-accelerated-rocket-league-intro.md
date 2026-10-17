@@ -93,7 +93,7 @@ The game state resides entirely on the GPU in a struct-of-arrays layout. During 
 
 <figure class="post-figure">
   <img src="{{ '/images/aos-soa-memory-layout.png' | relative_url }}" alt="Comparison of array-of-structures and struct-of-arrays memory layouts">
-  <figcaption>Array-of-structures and struct-of-arrays memory layouts. Illustration from <a href="https://www.researchgate.net/publication/355943826/figure/fig4/AS:1135175345930250@1647658301180/Illustration-of-particles-coordinates-memory-layout-for-AOS-and-SOA.png">ResearchGate</a>.</figcaption>
+  <figcaption>Array-of-structures and struct-of-arrays memory layouts. Figure by Zhao, W.-L., Wang, W., and Wang, Q. (2022), <a href="https://doi.org/10.1007/s11227-021-04153-0"><em>Optimization of cosmological N-body simulation with FMM-PM on SIMT accelerators</em></a>, <em>The Journal of Supercomputing</em>, 78.</figcaption>
 </figure>
 
 SoA is the optimal approach for data storage in GPU applications due to the enforcement of coalesced fetch instructions for contiguous elements. If we were instead to store arrays of structs, each associated with a single game's state, the GPU would be forced to perform strided accesses, leading to more memory transactions. We'd also be pulling in full structs worth of data we may not need at the time.
