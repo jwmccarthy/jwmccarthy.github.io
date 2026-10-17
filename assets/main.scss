@@ -318,6 +318,10 @@ div.highlighter-rouge.code-block {
   border-radius: 8px;
 }
 
+.post-content img[src$=".png"] {
+  border: 0;
+}
+
 .post-content .post-hero-image {
   border-radius: 12px;
 }
