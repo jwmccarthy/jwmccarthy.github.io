@@ -25,20 +25,20 @@ h6 {
   font-family: 'Source Serif 4', Georgia, serif;
 }
 
-/* Muted syntax colors that match the site's blue-gray palette. */
+/* Muted syntax colors for the warm code block palette. */
 .highlight .k,
 .highlight .kd,
 .highlight .kn,
 .highlight .kp,
 .highlight .kr,
 .highlight .kt {
-  color: #315b9a;
+  color: #9a5f4a;
 }
 
 .highlight .nf,
 .highlight .fm,
 .highlight .nc {
-  color: #176f78;
+  color: #795b4a;
 }
 
 .highlight .s,
@@ -54,14 +54,14 @@ h6 {
 .highlight .sr,
 .highlight .nb,
 .highlight .bp {
-  color: #a06422;
+  color: #9a704e;
 }
 
 .highlight .c,
 .highlight .c1,
 .highlight .cm,
 .highlight .cs {
-  color: #858b91;
+  color: #8d7b70;
   font-style: italic;
 }
 
@@ -70,24 +70,24 @@ h6 {
 .highlight .mh,
 .highlight .mi,
 .highlight .mo {
-  color: #c05a35;
+  color: #b46f54;
 }
 
 .highlight .o,
 .highlight .ow {
-  color: #a33b62;
+  color: #8b6555;
 }
 
 .highlight .na,
 .highlight .nd {
-  color: #287c88;
+  color: #8c624b;
 }
 
 .highlight .nv,
 .highlight .vi,
 .highlight .vc,
 .highlight .vg {
-  color: #5b4b9a;
+  color: #806354;
 }
 
 a,
@@ -145,9 +145,9 @@ a:focus {
 div.highlighter-rouge.code-block {
   margin: 1.5rem 0;
   overflow: hidden;
-  border: 1px solid #d5d9e3;
+  border: 1px solid #dcc2ae;
   border-radius: 6px;
-  background: #eef;
+  background: #fbf3eb;
 }
 
 .code-block .highlight,
@@ -155,15 +155,15 @@ div.highlighter-rouge.code-block {
   margin: 0;
   border: 0;
   border-radius: 0;
-  background: #eef;
+  background: #fbf3eb;
 }
 
 .code-block-footer {
   display: flex;
   justify-content: flex-end;
   padding: 0.45rem 0.6rem;
-  background: #dde0e8;
-  border-top: 1px solid #d0d4de;
+  background: #efd8c5;
+  border-top: 1px solid #dcc2ae;
 }
 
 .copy-code-button {
@@ -171,7 +171,7 @@ div.highlighter-rouge.code-block {
   align-items: center;
   gap: 0.3rem;
   padding: 0.2rem 0.45rem;
-  color: #4c5261;
+  color: #735749;
   font: 500 0.75rem 'IBM Plex Sans', sans-serif;
   background: transparent;
   border: 0;
@@ -187,8 +187,8 @@ div.highlighter-rouge.code-block {
 
 .copy-code-button:hover,
 .copy-code-button:focus-visible {
-  color: #252a35;
-  background: #cdd1dc;
+  color: #4f382d;
+  background: #e3bea5;
 }
 
 .post {
