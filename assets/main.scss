@@ -32,13 +32,13 @@ h6 {
 .highlight .kp,
 .highlight .kr,
 .highlight .kt {
-  color: #3d6d87;
+  color: #516d7c;
 }
 
 .highlight .nf,
 .highlight .fm,
 .highlight .nc {
-  color: #3e7b78;
+  color: #51716d;
 }
 
 .highlight .s,
@@ -54,14 +54,14 @@ h6 {
 .highlight .sr,
 .highlight .nb,
 .highlight .bp {
-  color: #587a67;
+  color: #66796c;
 }
 
 .highlight .c,
 .highlight .c1,
 .highlight .cm,
 .highlight .cs {
-  color: #7b8586;
+  color: #7f8584;
   font-style: italic;
 }
 
@@ -70,24 +70,24 @@ h6 {
 .highlight .mh,
 .highlight .mi,
 .highlight .mo {
-  color: #4f7896;
+  color: #5a7180;
 }
 
 .highlight .o,
 .highlight .ow {
-  color: #527a8b;
+  color: #5c737d;
 }
 
 .highlight .na,
 .highlight .nd {
-  color: #4e8278;
+  color: #5b7871;
 }
 
 .highlight .nv,
 .highlight .vi,
 .highlight .vc,
 .highlight .vg {
-  color: #58718f;
+  color: #617384;
 }
 
 a,
@@ -145,8 +145,9 @@ a:focus {
 div.highlighter-rouge.code-block {
   margin: 1.5rem 0;
   overflow: hidden;
+  border: 1px solid #d8c0ba;
   border-radius: 6px;
-  background: #fdf9f6;
+  background: #f7efec;
 }
 
 .code-block .highlight,
@@ -166,7 +167,7 @@ div.highlighter-rouge.code-block {
   display: flex;
   justify-content: flex-end;
   padding: 0.45rem 0.6rem;
-  background: #f7e9df;
+  background: #d8c0ba;
 }
 
 .copy-code-button {
