@@ -115,8 +115,8 @@ CARL organizes its simulation step into a sequence of kernel calls. This structu
 
 The stages are broadly as follows:
 
-#### 1. Arena Broad Phase & Suspension
-Uniform grid lookup finds each car's occupied cell, then a prefix scan packs its candidate triangles. Suspension raycasts are performed against the arena, ball, and other cars. The latter two are helpful for determining flip resets. Unlike RocketSim's serial Bullet-backed dynamic AABB-tree broad phase, CARL uses this fixed arena grid and scan-packed ranges to make per-car triangle work regular on the GPU.
+#### 1. Broad Phase & Suspension
+Uniform grid lookup finds each car's occupied cell, then a prefix scan packs its candidate triangles. Suspension raycasts are performed against the arena, ball, and other cars. The latter two are helpful for determining flip resets. Unlike RocketSim's [bounding volume hierarchy (BVH)](https://en.wikipedia.org/wiki/Bounding_volume_hierarchy) broad phase, CARL uses this fixed arena grid and scan-packed ranges to make per-car triangle work regular on the GPU.
 
 #### 2. Controls
 Actions are decoded into controls, and their modifiers are accumulated as impulses.
