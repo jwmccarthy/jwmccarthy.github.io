@@ -25,6 +25,71 @@ h6 {
   font-family: 'Source Serif 4', Georgia, serif;
 }
 
+/* Muted syntax colors that match the site's blue-gray palette. */
+.highlight .k,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kt {
+  color: #625d9b;
+}
+
+.highlight .nf,
+.highlight .fm,
+.highlight .nc {
+  color: #356f89;
+}
+
+.highlight .s,
+.highlight .s1,
+.highlight .s2,
+.highlight .sa,
+.highlight .sb,
+.highlight .sc,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .nb,
+.highlight .bp {
+  color: #4d806d;
+}
+
+.highlight .c,
+.highlight .c1,
+.highlight .cm,
+.highlight .cs {
+  color: #858b91;
+  font-style: italic;
+}
+
+.highlight .m,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .mo {
+  color: #9a7042;
+}
+
+.highlight .o,
+.highlight .ow {
+  color: #8b5b70;
+}
+
+.highlight .na,
+.highlight .nd {
+  color: #477b88;
+}
+
+.highlight .nv,
+.highlight .vi,
+.highlight .vc,
+.highlight .vg {
+  color: #716597;
+}
+
 a,
 a:visited {
   color: #4f8998;
