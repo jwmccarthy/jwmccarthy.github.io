@@ -191,6 +191,10 @@ div.highlighter-rouge.code-block {
   margin-block: 1.5rem;
 }
 
+.post-content summary {
+  cursor: pointer;
+}
+
 .post-content .action-table {
   width: 85%;
   margin-right: auto;
