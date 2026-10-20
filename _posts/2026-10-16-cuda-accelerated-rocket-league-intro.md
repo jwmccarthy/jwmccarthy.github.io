@@ -13,7 +13,7 @@ This post introduces CARL, a GPU-resident Rocket League simulator built for rein
 
 ## Benchmarks
 
-PPO was run on both CARL and RocketSim in order to evaluate training throughput. Benchmark runs were configured such that the same number of gradient updates were applied over the course of 1M decision steps.
+PPO was run on both CARL and RocketSim in order to evaluate training throughput. Benchmark runs were configured such that the same number of gradient updates were applied over the course of 1M decision steps. This was achieved by inversely scaling the rollout length by the number of envs.
 
 | Framework | # Envs | Time (s) | Throughput (transitions/s) |
 |---|---|---|---:|
