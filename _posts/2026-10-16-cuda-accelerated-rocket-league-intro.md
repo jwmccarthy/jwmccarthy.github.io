@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CARL: <strong>C</strong>uda-<strong>A</strong>ccelerated <strong>R</strong>ocket <strong>L</strong>eague"
+title: "CARL: <strong>C</strong>UDA-<strong>A</strong>ccelerated <strong>R</strong>ocket <strong>L</strong>eague"
 repository: https://github.com/jwmccarthy/CARL
 date: 2026-10-16
 mathjax: true
