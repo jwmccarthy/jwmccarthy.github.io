@@ -11,4 +11,12 @@
     <span class="footer-copyright">&copy; {{ site.time | date: '%Y' }} Jack McCarthy</span>
   </div>
 </footer>
+<script>
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.addEventListener("load", function () {
+    if (performance.getEntriesByType("navigation")[0]?.type === "reload") {
+      window.scrollTo(0, 0);
+    }
+  });
+</script>
 <script src="{{ '/assets/copy-code.js' | relative_url }}"></script>

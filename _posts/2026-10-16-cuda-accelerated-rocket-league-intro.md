@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "CARL: <strong>C</strong>uda-<strong>A</strong>ccelerated <strong>R</strong>ocket <strong>L</strong>eague"
+repository: https://github.com/jwmccarthy/CARL
 date: 2026-10-16
 mathjax: true
 ---
@@ -8,7 +9,55 @@ mathjax: true
 ![Carl from Jimmy Neutron](/images/carl.webp){: .post-hero-image }
 
 
-This post introduces CARL, a GPU-resident Rocket League simulator built for reinforcement learning. Inspired by the likes of [IsaacLab](https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html) <a href="#reference-isaac-lab">[3]</a> and [PureJaxRL](https://chrislu.page/blog/meta-disco/) <a href="#reference-purejaxrl">[4]</a>, CARL's parallel environment enables the rapid training of Rocket League agents. Tens of thousands of games can be run simultaneously on a single GPU, which exposes the policy to significantly more experience in less time than serial simulations. Credit goes to [RocketSim](https://github.com/ZealanL/RocketSim) <a href="#reference-rocketsim">[5]</a> and the [Bullet](https://github.com/bulletphysics/bullet3) physics engine <a href="#reference-bullet">[6]</a> for the ported logic.
+This post introduces CARL, a GPU-resident Rocket League simulator built for reinforcement learning. Inspired by the likes of [IsaacLab](https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html) <a href="#reference-isaac-lab">[3]</a> and [PureJaxRL](https://chrislu.page/blog/meta-disco/) <a href="#reference-purejaxrl">[4]</a>, CARL's parallel environment enables the rapid training of Rocket League agents. Many thousands of games can be run simultaneously on a single GPU, which exposes the policy to significantly more experience in less time than serial simulations. Credit goes to [RocketSim](https://github.com/ZealanL/RocketSim) <a href="#reference-rocketsim">[5]</a> and the [Bullet](https://github.com/bulletphysics/bullet3) physics engine <a href="#reference-bullet">[6]</a> for the ported logic.
+
+## Benchmarks
+
+PPO was run on both CARL and RocketSim in order to evaluate training throughput. Benchmark runs were configured such that the same number of gradient updates were applied over the course of 1M decision steps.
+
+| Framework | # Envs | Time (s) | Throughput (transitions/s) |
+|---|---|---|---:|
+| RocketSim | 1 | 475.90 ± 38.55 | 2,145 ± 159 |
+| RocketSim | 4 | 385.78 ± 2.66 | 2,633 ± 18 |
+| RocketSim | 8 | 326.03 ± 4.76 | 3,116 ± 45 |
+| RocketSim | 16 | 286.84 ± 2.16 | 3,542 ± 27 |
+| CARL | 256 | 15.11 ± 0.41 | 67,280 ± 1,830 |
+| CARL | 1,024 | 6.77 ± 0.20 | 150,106 ± 4,334 |
+| CARL | 2,048 | 4.53 ± 0.19 | 224,567 ± 8,963 |
+| <b>CARL</b> | <b>4,096</b> | <b>3.72 ± 0.24</b> | <b>273,635 ± 16,379</b> |
+{: .benchmark-table}
+
+<details markdown="1">
+<summary>Benchmark Hyperparameters</summary>
+
+<table class="benchmark-hyperparams" style="width: 50%">
+  <thead>
+    <tr><th>Parameter</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Algorithm</td><td>PPO</td></tr>
+    <tr><td>Total timesteps</td><td>1M</td></tr>
+    <tr><td>Epochs</td><td>10</td></tr>
+    <tr><td>Minibatch size</td><td>32,768</td></tr>
+    <tr><td>Total batch size</td><td>32,768</td></tr>
+    <tr><td>Frameskip</td><td>4</td></tr>
+    <tr><td>Max ticks per episode</td><td>36,000</td></tr>
+  </tbody>
+</table>
+</details>
+
+Benchmark source code: [carl-benchmarks on GitHub](https://github.com/jwmccarthy/carl-benchmarks).
+
+Using CARL as our environment framework, we achieve a 77x decrease in the time per transition during training. Predictably, throughput scales with the number of parallel environments.
+
+<figure class="post-figure post-figure-carl-throughput">
+  <img src="{{ '/images/carl-throughput.svg' | relative_url }}" alt="CARL throughput by number of environments">
+  <figcaption>CARL throughput scaling with the number of parallel environments.</figcaption>
+</figure>
+
+Benchmarks were run on an Intel Core i5-13600K CPU, NVIDIA GeForce RTX 3060 GPU with 12 GiB VRAM, and 32 GiB RAM.
+
+GPUs with more SMs, Tensor cores, etc. would open us up to greater throughput depending on the learning algorithm. VRAM, however, is not the simulation bottleneck, and at reasonable rollouts the observation buffer fits comfortably on the GPU at just a couple hundred MB. The simulation itself allocates just over 20 MB for 4096 envs.
 
 ## Interface
 CARL exposes the underlying simulation via the standard Gymnasium API. It is planned to add support for other ML libraries like JAX and Tensorflow, but the default wrapper at the moment is written in PyTorch. As with all other Gymnasium-wrapped environments, one need only initialize, reset, and step!
@@ -28,6 +77,7 @@ actions = torch.zeros(
 
 observation, reward, terminated, truncated, info = env.step(actions)
 ```
+
 ### Action Space
 Internally, CARL represents actions with shape $(n_{\mathrm{sim}}, n_{\mathrm{cars}}, 7)$, though users may treat each car as its own "environment", where actions are submitted in the shape $(n_{\mathrm{sim}} * n_{\mathrm{cars}}, 7)$.
 
@@ -116,12 +166,15 @@ CARL organizes its simulation step into a sequence of kernel calls. This structu
 The stages are broadly as follows:
 
 #### 1. Broad Phase & Suspension
+
 Uniform grid lookup finds each car's occupied cell, then a prefix scan packs its candidate triangles. Suspension raycasts are performed against the arena, ball, and other cars. The latter two are helpful for determining flip resets. Unlike RocketSim's [bounding volume hierarchy (BVH)](https://en.wikipedia.org/wiki/Bounding_volume_hierarchy) <a href="#reference-gottschalk-et-al-1996">[7]</a> broad phase, CARL uses this fixed arena grid and scan-packed ranges to make triangle work per car more "regular" on the GPU.
 
 #### 2. Controls
+
 Actions are decoded into controls and their effects are added to the impulse accumulators.
 
 #### 3. Narrow Phase
+
 Unlike RocketSim, CARL does not use [GJK](https://en.wikipedia.org/wiki/Gilbert%E2%80%93Johnson%E2%80%93Keerthi_distance_algorithm)/[EPA](https://en.wikipedia.org/wiki/Expanding_polytope_algorithm) <a href="#reference-van-den-bergen-2004">[11]</a>. Instead, it implements the [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) <a href="#reference-van-den-bergen-2004">[11]</a> to identify car-arena and car-car collisions without iterative support mapping. This leads to slightly different contact manifolds over time relative to RocketSim, but the feel of the game remains the same and short-range divergence is minimal, allowing RL agents to adjust as they play.
 
 <figure class="post-figure post-figure-half post-figure-sat">
@@ -139,9 +192,11 @@ Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-ar
 These manifolds are persistent and updated each tick depending on the generation of new contact points. A maximum of 4 points is allowed per manifold in line with RocketSim. Again, this leads to minor divergences that add up over time given the same controls, but for the purposes of RL this is more than sufficient to transfer learning from simulation to the game itself.
 
 #### 4. Solve
+
 CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method) <a href="#reference-varga-2000">[12]</a>. Cached normal impulses seed each car contact manifold, then a separate split-impulse pass corrects penetration without changing the reported velocity. The solver iterates nonnegative normal impulses followed by friction impulses clamped by the accumulated normal impulse. The resulting linear and angular impulses are added to each body's accumulators. Rather than invoking RocketSim/Bullet's serial world-step pipeline, CARL executes these bounded constraint iterations in GPU kernels across its batched simulations.
 
 #### 5. Integration
+
 [Semi-implicit Euler integration](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) <a href="#reference-baraff-1997">[13]</a> applies the accumulated impulses to the cars and ball, while quaternion updates advance car orientation. CARL also applies Rocket League-specific adjustments such as ball drag and gravity, linear and angular speed caps, and an extra ball velocity impulse for each new car-ball hit. This hit impulse is capped and scaled by relative speed, with its direction adjusted by the car's orientation.
 
 ### I/O

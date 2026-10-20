@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Blog
+title: Blog Posts
 ---
 
-Notes on machine learning, building things, and what I'm learning along the way.
+I am interested in machine learning, and reinforcement learning in particular. This is where I write about those things.
