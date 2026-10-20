@@ -27,6 +27,8 @@ PPO was run on both CARL and RocketSim in order to evaluate training throughput.
 | <b>CARL</b> | <b>4,096</b> | <b>3.72 ± 0.24</b> | <b>273,635 ± 16,379</b> |
 {: .benchmark-table}
 
+<p class="table-caption">Benchmark code: <a href="https://github.com/jwmccarthy/carl-benchmarks">carl-benchmarks</a></p>
+
 <details markdown="1">
 <summary>Benchmark Hyperparameters</summary>
 
@@ -45,8 +47,6 @@ PPO was run on both CARL and RocketSim in order to evaluate training throughput.
   </tbody>
 </table>
 </details>
-
-Benchmark source code: [carl-benchmarks on GitHub](https://github.com/jwmccarthy/carl-benchmarks).
 
 Using CARL as our environment framework, we achieve a 77x decrease in the time per transition during training. Predictably, throughput scales with the number of parallel environments.
 
@@ -193,18 +193,18 @@ These manifolds are persistent and updated each tick depending on the generation
 
 #### 4. Solve
 
-CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method) <a href="#reference-varga-2000">[12]</a>. Cached normal impulses seed each car contact manifold, then a separate split-impulse pass corrects penetration without changing the reported velocity. The solver iterates nonnegative normal impulses followed by friction impulses clamped by the accumulated normal impulse. The resulting linear and angular impulses are added to each body's accumulators. Rather than invoking RocketSim/Bullet's serial world-step pipeline, CARL executes these bounded constraint iterations in GPU kernels across its batched simulations.
+CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method) <a href="#reference-varga-2000">[12]</a>. Cached normal impulses seed each car contact manifold, then a separate split-impulse pass corrects penetration without changing the reported velocity. The resulting linear and angular impulses are added to each body's accumulators. CARL executes these iterations in GPU kernels across its batched simulations.
 
 #### 5. Integration
 
-[Semi-implicit Euler integration](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) <a href="#reference-baraff-1997">[13]</a> applies the accumulated impulses to the cars and ball, while quaternion updates advance car orientation. CARL also applies Rocket League-specific adjustments such as ball drag and gravity, linear and angular speed caps, and an extra ball velocity impulse for each new car-ball hit. This hit impulse is capped and scaled by relative speed, with its direction adjusted by the car's orientation.
+[Semi-implicit Euler integration](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) <a href="#reference-baraff-1997">[13]</a> applies the accumulated impulses to the cars and ball, while quaternion updates advance car orientation. CARL also applies Rocket League-specific adjustments such as ball air resistance and gravity, linear and angular velocity caps, and an extra ball velocity impulse for each new car-ball hit along the direction of the car's orientation.
 
 ### I/O
 Below the Gymnasium wrapper, `carl.Env` is a CUDA-only [DLPack](https://dmlc.github.io/dlpack/latest/) interface. <a href="#reference-dlpack">[10]</a> Inputs must be contiguous tensors on the device. This way, no host round trip is required. 
 
-The native batch is organized by match rather than actor. All cars in a simulation share one physics world, score, reward event, and termination/truncation flags. The PyTorch wrapper flattens the leading two dimensions so that each car appears as a separate environment.
+The native batch is organized by match rather than actor. All cars in a single simulation share one physics world, score, reward event, and termination/truncation flags. The PyTorch wrapper flattens the leading two dimensions so that each car appears as a separate environment.
 
-`step()` first packs the transition state and terminal observations, then automatically resets completed matches to shuffled kickoffs and produces the next observation buffers. Returned DLPack tensors are non-owning views over CARL's reusable GPU buffers, so callers that need to retain a result across a subsequent `step()` must clone or copy it. The Gymnasium PyTorch wrapper does this by default and expands match-level rewards and terminations back to each participating car.
+`step()` first packs the transition state and terminal observations, then automatically resets completed matches to shuffled kickoffs (or samples from user-specified reset states) and produces the next observation buffers. Returned DLPack tensors are non-owning views over CARL's reusable GPU buffers, so callers that need to retain a result across a subsequent `step()` must clone or copy it. The Gymnasium PyTorch wrapper does this by default and expands match-level rewards and terminations back to each participating car.
 
 ## References
 
