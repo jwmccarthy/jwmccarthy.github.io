@@ -9,7 +9,7 @@ mathjax: true
 ![Carl from Jimmy Neutron](/images/carl.webp){: .post-hero-image }
 
 
-This post introduces CARL, a GPU-resident Rocket League simulator built for reinforcement learning. Inspired by the likes of [IsaacLab](https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html) <a href="#reference-isaac-lab">[3]</a> and [PureJaxRL](https://chrislu.page/blog/meta-disco/) <a href="#reference-purejaxrl">[4]</a>, CARL's parallel environment enables the rapid training of Rocket League agents. Many thousands of games can be run simultaneously on a single GPU, which exposes the policy to significantly more experience in less time than serial simulations. Credit goes to [RocketSim](https://github.com/ZealanL/RocketSim) <a href="#reference-rocketsim">[5]</a> and the [Bullet](https://github.com/bulletphysics/bullet3) physics engine <a href="#reference-bullet">[6]</a> for the ported logic.
+This post introduces CARL, a GPU-resident Rocket League simulator built for reinforcement learning. Inspired by the likes of [IsaacLab](https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html) <a href="#reference-isaac-lab">[1]</a> and [PureJaxRL](https://chrislu.page/blog/meta-disco/) <a href="#reference-purejaxrl">[2]</a>, CARL's parallel environment enables the rapid training of Rocket League agents. Many thousands of games can be run simultaneously on a single GPU, which exposes the policy to significantly more experience in less time than serial simulations. Credit goes to [RocketSim](https://github.com/ZealanL/RocketSim) <a href="#reference-rocketsim">[3]</a> and the [Bullet](https://github.com/bulletphysics/bullet3) physics engine <a href="#reference-bullet">[4]</a> for the ported logic.
 
 ## Benchmarks
 
@@ -166,7 +166,7 @@ The game state resides entirely on the GPU in a struct-of-arrays layout. During 
 
 <figure class="post-figure">
   <img src="{{ '/images/aos-soa-memory-layout.png' | relative_url }}" alt="Comparison of array-of-structures and struct-of-arrays memory layouts">
-  <figcaption>Array-of-structures and struct-of-arrays memory layouts. <a href="#reference-zhao-et-al-2022">[1]</a></figcaption>
+  <figcaption>Array-of-structures and struct-of-arrays memory layouts. <a href="#reference-zhao-et-al-2022">[5]</a></figcaption>
 </figure>
 
 SoA is the optimal approach for data storage in GPU applications due to the enforcement of coalesced fetch instructions for contiguous elements. If we were instead to store arrays of structs, each associated with a single game's state, the GPU would be forced to perform strided accesses, leading to more memory transactions. We'd also be pulling in full structs worth of data we may not need at the time.
@@ -174,11 +174,11 @@ SoA is the optimal approach for data storage in GPU applications due to the enfo
 ### Arena Geometry
 The arena mesh is loaded into global memory upon environment initialization, and triangles are accessed via CUDA's cache-optimized read-only load intrinsics. The arena is immediately divided into a 3D broad phase grid which reduces the number of triangle tests during collision resolution.
 
-CARL leverages the prefix sum construction described in NVIDIA's [Broad-Phase Collision Detection with CUDA](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda) <a href="#reference-le-grand-2007">[2]</a>. The prefix sum converts each broad phase cell's triangle occupancy into offsets/counts, allowing the car-arena and ball-arena collision kernels to determine where a cell's triangle list begins and how many triangles it must test.
+CARL leverages the prefix sum construction described in NVIDIA's [Broad-Phase Collision Detection with CUDA](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda) <a href="#reference-le-grand-2007">[6]</a>. The prefix sum converts each broad phase cell's triangle occupancy into offsets/counts, allowing the car-arena and ball-arena collision kernels to determine where a cell's triangle list begins and how many triangles it must test.
 
 <figure class="post-figure post-figure-compact post-figure-grid">
   <img src="{{ '/images/gpu-gems-cell-id-array.jpg' | relative_url }}" alt="Broad-phase cell ID array after construction">
-  <figcaption>Initial contents of the broad-phase cell ID array. <a href="#reference-le-grand-2007">[2]</a></figcaption>
+  <figcaption>Initial contents of the broad-phase cell ID array. <a href="#reference-le-grand-2007">[6]</a></figcaption>
 </figure>
 
 It is quick to check both sphere and axis-aligned bounding box (AABB) occupancy, so we can quickly cull most of the triangles in the arena before checking against the car and ball.
@@ -198,32 +198,32 @@ Actions are decoded into controls and their effects are added to the impulse acc
 
 #### 3. Narrow Phase
 
-Unlike RocketSim, CARL does not use [GJK](https://en.wikipedia.org/wiki/Gilbert%E2%80%93Johnson%E2%80%93Keerthi_distance_algorithm)/[EPA](https://en.wikipedia.org/wiki/Expanding_polytope_algorithm) <a href="#reference-van-den-bergen-2004">[11]</a>. Instead, it implements the [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) <a href="#reference-van-den-bergen-2004">[11]</a> to identify car-arena and car-car collisions without iterative support mapping. This leads to slightly different contact manifolds over time relative to RocketSim, but the feel of the game remains the same and short-range divergence is minimal, allowing RL agents to adjust as they play.
+Unlike RocketSim, CARL does not use [GJK](https://en.wikipedia.org/wiki/Gilbert%E2%80%93Johnson%E2%80%93Keerthi_distance_algorithm)/[EPA](https://en.wikipedia.org/wiki/Expanding_polytope_algorithm) <a href="#reference-van-den-bergen-2004">[8]</a>. Instead, it implements the [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) <a href="#reference-van-den-bergen-2004">[8]</a> to identify car-arena and car-car collisions without iterative support mapping. This leads to slightly different contact manifolds over time relative to RocketSim, but the feel of the game remains the same and short-range divergence is minimal, allowing RL agents to adjust as they play.
 
 <figure class="post-figure post-figure-half post-figure-sat">
   <img src="{{ '/images/separating-axis-theorem.webp' | relative_url }}" alt="Separating Axis Theorem overlap test">
   <figcaption>Separating Axis Theorem OBB overlap test. <a href="#reference-tayyub-khan-2019">[9]</a></figcaption>
 </figure>
 
-Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) <a href="#reference-sutherland-hodgman">[8]</a> constructs the car contact manifolds. 
+Sphere-OBB and sphere-triangle closest point tests generate car-ball and ball-arena contacts. Clipping via [Sutherland-Hodgman](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) <a href="#reference-sutherland-hodgman">[10]</a> constructs the car contact manifolds. 
 
 <figure class="post-figure post-figure-half">
   <img src="{{ '/images/sutherland-hodgman-clipping.svg' | relative_url }}" alt="Steps of Sutherland-Hodgman polygon clipping">
-  <figcaption>Sutherland-Hodgman polygon clipping. <a href="#reference-sutherland-hodgman">[8]</a> Illustration by <a href="https://commons.wikimedia.org/wiki/File:Sutherland-Hodgman_clipping_sample.svg">Wojciech mula</a>, public domain.</figcaption>
+  <figcaption>Sutherland-Hodgman polygon clipping. <a href="#reference-sutherland-hodgman">[10]</a> Illustration by <a href="https://commons.wikimedia.org/wiki/File:Sutherland-Hodgman_clipping_sample.svg">Wojciech mula</a>, public domain.</figcaption>
 </figure>
 
 These manifolds are persistent and updated each tick depending on the generation of new contact points. A maximum of 4 points is allowed per manifold in line with RocketSim. Again, this leads to minor divergences that add up over time given the same controls, but for the purposes of RL this is more than sufficient to transfer learning from simulation to the game itself.
 
 #### 4. Solve
 
-CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method) <a href="#reference-varga-2000">[12]</a>. Cached normal impulses seed each car contact manifold, then a separate split-impulse pass corrects penetration without changing the reported velocity. The resulting linear and angular impulses are added to each body's accumulators. CARL executes these iterations in GPU kernels across its batched simulations.
+CARL uses a warm-started sequential-impulse solver, a clamped form of the [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method) <a href="#reference-varga-2000">[11]</a>. Cached normal impulses seed each car contact manifold, then a separate split-impulse pass corrects penetration without changing the reported velocity. The resulting linear and angular impulses are added to each body's accumulators. CARL executes these iterations in GPU kernels across its batched simulations.
 
 #### 5. Integration
 
-[Semi-implicit Euler integration](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) <a href="#reference-baraff-1997">[13]</a> applies the accumulated impulses to the cars and ball, while quaternion updates advance car orientation. CARL also applies Rocket League-specific adjustments such as ball air resistance and gravity, linear and angular velocity caps, and an extra ball velocity impulse for each new car-ball hit along the direction of the car's orientation.
+[Semi-implicit Euler integration](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) <a href="#reference-baraff-1997">[12]</a> applies the accumulated impulses to the cars and ball, while quaternion updates advance car orientation. CARL also applies Rocket League-specific adjustments such as ball air resistance and gravity, linear and angular velocity caps, and an extra ball velocity impulse for each new car-ball hit along the direction of the car's orientation.
 
 ### I/O
-Below the Gymnasium wrapper, `carl.Env` is a CUDA-only [DLPack](https://dmlc.github.io/dlpack/latest/) interface. <a href="#reference-dlpack">[10]</a> Inputs must be contiguous tensors on the device. This way, no host round trip is required. 
+Below the Gymnasium wrapper, `carl.Env` is a CUDA-only [DLPack](https://dmlc.github.io/dlpack/latest/) interface. <a href="#reference-dlpack">[13]</a> Inputs must be contiguous tensors on the device. This way, no host round trip is required. 
 
 The native batch is organized by match rather than actor. All cars in a single simulation share one physics world, score, reward event, and termination/truncation flags. The PyTorch wrapper flattens the leading two dimensions so that each car appears as a separate environment.
 
@@ -232,17 +232,17 @@ The native batch is organized by match rather than actor. All cars in a single s
 ## References
 
 <ol>
-  <li id="reference-zhao-et-al-2022">Zhao, W.-L., Wang, W., and Wang, Q. (2022). <a href="https://doi.org/10.1007/s11227-021-04153-0"><em>Optimization of cosmological N-body simulation with FMM-PM on SIMT accelerators</em></a>. <em>The Journal of Supercomputing</em>, 78(5), 7186-7205.</li>
-  <li id="reference-le-grand-2007">Le Grand, S. (2007). <a href="https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda"><em>Broad-phase collision detection with CUDA</em></a>. In H. Nguyen (Ed.), <em>GPU Gems 3</em> (Chapter 32). Addison-Wesley.</li>
   <li id="reference-isaac-lab">NVIDIA. (n.d.). <a href="https://isaac-sim.github.io/IsaacLab/v3.0.0-EA/index.html"><em>Isaac Lab documentation</em></a>.</li>
   <li id="reference-purejaxrl">Lu, C. (n.d.). <a href="https://chrislu.page/blog/meta-disco/"><em>Meta-discoveries from PureJaxRL</em></a> [Blog post].</li>
   <li id="reference-rocketsim">ZealanL. (n.d.). <a href="https://github.com/ZealanL/RocketSim"><em>RocketSim</em></a> [Computer software]. GitHub.</li>
   <li id="reference-bullet">Bullet Physics. (n.d.). <a href="https://github.com/bulletphysics/bullet3"><em>Bullet Physics SDK</em></a> [Computer software]. GitHub.</li>
+  <li id="reference-zhao-et-al-2022">Zhao, W.-L., Wang, W., and Wang, Q. (2022). <a href="https://doi.org/10.1007/s11227-021-04153-0"><em>Optimization of cosmological N-body simulation with FMM-PM on SIMT accelerators</em></a>. <em>The Journal of Supercomputing</em>, 78(5), 7186-7205.</li>
+  <li id="reference-le-grand-2007">Le Grand, S. (2007). <a href="https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda"><em>Broad-phase collision detection with CUDA</em></a>. In H. Nguyen (Ed.), <em>GPU Gems 3</em> (Chapter 32). Addison-Wesley.</li>
   <li id="reference-gottschalk-et-al-1996">Gottschalk, S., Lin, M. C., and Manocha, D. (1996). <a href="https://dl.acm.org/doi/10.1145/237170.237244"><em>OBBTree: A hierarchical structure for rapid interference detection</em></a>. In <em>Proceedings of the 23rd Annual Conference on Computer Graphics and Interactive Techniques</em>, 171-180.</li>
-  <li id="reference-sutherland-hodgman">Sutherland, I. E., and Hodgman, G. W. (1974). <a href="https://dl.acm.org/doi/10.1145/360767.360802"><em>Reentrant polygon clipping</em></a>. <em>Communications of the ACM</em>, 17(1), 32-42.</li>
-  <li id="reference-tayyub-khan-2019">Tayyub, M., and Khan, G. N. (2019). <a href="https://doi.org/10.33965/ijcsis_2019140202"><em>Heterogeneous design and efficient CPU-GPU implementation of collision detection</em></a>. <em>IADIS International Journal on Computer Science and Information Systems</em>, 14(2), 25-40.</li>
-  <li id="reference-dlpack">DLPack contributors. (n.d.). <a href="https://dmlc.github.io/dlpack/latest/"><em>DLPack documentation</em></a>.</li>
   <li id="reference-van-den-bergen-2004">van den Bergen, G. (2004). <em>Collision detection in interactive 3D environments</em>. Morgan Kaufmann.</li>
+  <li id="reference-tayyub-khan-2019">Tayyub, M., and Khan, G. N. (2019). <a href="https://doi.org/10.33965/ijcsis_2019140202"><em>Heterogeneous design and efficient CPU-GPU implementation of collision detection</em></a>. <em>IADIS International Journal on Computer Science and Information Systems</em>, 14(2), 25-40.</li>
+  <li id="reference-sutherland-hodgman">Sutherland, I. E., and Hodgman, G. W. (1974). <a href="https://dl.acm.org/doi/10.1145/360767.360802"><em>Reentrant polygon clipping</em></a>. <em>Communications of the ACM</em>, 17(1), 32-42.</li>
   <li id="reference-varga-2000">Varga, R. S. (2000). <a href="https://doi.org/10.1007/978-3-642-05156-2"><em>Matrix iterative analysis</em></a> (2nd ed.). Springer.</li>
   <li id="reference-baraff-1997">Baraff, D. (1997). <a href="https://www.cs.cmu.edu/~baraff/sigcourse/notesd1.pdf"><em>An introduction to physically based modeling: Rigid body simulation I - Unconstrained rigid body dynamics</em></a> [Course notes]. SIGGRAPH '97.</li>
+  <li id="reference-dlpack">DLPack contributors. (n.d.). <a href="https://dmlc.github.io/dlpack/latest/"><em>DLPack documentation</em></a>.</li>
 </ol>
