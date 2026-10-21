@@ -2,7 +2,7 @@
 layout: post
 title: "CARL: <strong>C</strong>UDA-<strong>A</strong>ccelerated <strong>R</strong>ocket <strong>L</strong>eague"
 repository: https://github.com/jwmccarthy/CARL
-date: 2026-10-16
+date: 2026-10-20
 mathjax: true
 ---
 
@@ -57,9 +57,7 @@ Using CARL as our environment framework, we achieve a 77x decrease in the time p
   <figcaption>CARL throughput scaling with the number of parallel environments.</figcaption>
 </figure>
 
-Benchmarks were run on an Intel Core i5-13600K CPU, NVIDIA GeForce RTX 3060 GPU with 12 GiB VRAM, and 32 GiB RAM.
-
-GPUs with more SMs, Tensor Cores, etc. would open us up to greater throughput depending on the learning algorithm. VRAM, however, is not the simulation bottleneck, and at reasonable rollouts the observation buffer fits comfortably on the GPU at just a couple hundred MB. The simulation itself allocates just over 20 MB for 4,096 envs.
+Benchmarks were run on an Intel Core i5-13600K CPU, NVIDIA GeForce RTX 3060 GPU with 12 GiB VRAM, and 32 GiB RAM. GPUs with more SMs, Tensor Cores, etc. would open us up to greater throughput depending on the learning algorithm. VRAM, however, is not the simulation bottleneck, and at reasonable rollouts the observation buffer fits comfortably on the GPU at just a couple hundred MB. The simulation itself allocates just over 20 MB for 4,096 envs.
 
 ## Interface
 CARL exposes the underlying simulation via the standard Gymnasium API. It is planned to add support for other ML libraries like JAX and TensorFlow, but the default wrapper at the moment is written in PyTorch. As with all other Gymnasium-wrapped environments, one need only initialize, reset, and step!
