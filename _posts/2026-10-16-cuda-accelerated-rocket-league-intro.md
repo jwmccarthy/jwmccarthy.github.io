@@ -211,6 +211,9 @@ The native batch is organized by match rather than actor. All cars in a single s
 
 `step()` first packs the transition state and terminal observations, then automatically resets completed matches to shuffled kickoffs (or samples from user-specified reset states) and produces the next observation buffers. Returned DLPack tensors are non-owning views over CARL's reusable GPU buffers, so callers that need to retain a result across a subsequent `step()` must clone or copy it. The Gymnasium PyTorch wrapper does this by default and expands match-level rewards and terminations back to each participating car.
 
+## Conclusion
+CARL represents a significant leap in Rocket League RL throughput, and it is my opinion that this is largely a good and valuable thing. Thank you for reading if you made it this far and all love to Mr. Carl Wheezer.
+
 ## References
 
  <ol>
