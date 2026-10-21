@@ -13,9 +13,9 @@ This post introduces CARL, a GPU-resident Rocket League simulator built for rein
 
 ## Benchmarks
 
-PPO was run on both CARL and RocketSim in order to evaluate training throughput. Benchmark runs were configured such that the same number of gradient updates were applied over the course of 1M decision steps. This was done by inversely scaling the rollout length by the number of envs while keeping all other parameters the same between runs with the two frameworks in question.
+PPO was run on both CARL and RocketSim to evaluate training throughput. Benchmark runs were configured so that the same number of gradient updates were applied over 1M decision steps. The rollout length was scaled inversely with the number of environments while all other parameters remained the same.
 
-Given that this benchmark includes policy forward/backward, critic forward/backward, data transfer overhead, advantage estimates, and so on, we are able to paint a complete picture of the benefits of leveraging CARL on real-world training workloads.
+Because this benchmark includes policy and critic forward/backward passes, data-transfer overhead, advantage estimation, and other training costs, it captures the benefits of using CARL in a real-world training workload.
 
 | Framework | # Envs | Time (s) | Throughput (transitions/s) |
 |---|---|---|---:|
@@ -59,10 +59,10 @@ Using CARL as our environment framework, we achieve a 77x decrease in the time p
 
 Benchmarks were run on an Intel Core i5-13600K CPU, NVIDIA GeForce RTX 3060 GPU with 12 GiB VRAM, and 32 GiB RAM.
 
-GPUs with more SMs, Tensor cores, etc. would open us up to greater throughput depending on the learning algorithm. VRAM, however, is not the simulation bottleneck, and at reasonable rollouts the observation buffer fits comfortably on the GPU at just a couple hundred MB. The simulation itself allocates just over 20 MB for 4096 envs.
+GPUs with more SMs and Tensor Cores could provide greater throughput, depending on the learning algorithm. VRAM, however, is not the simulation bottleneck: at reasonable rollout lengths, the observation buffer fits comfortably on the GPU at just a few hundred megabytes. The simulation itself allocates just over 20 MB for 4,096 environments.
 
 ## Interface
-CARL exposes the underlying simulation via the standard Gymnasium API. It is planned to add support for other ML libraries like JAX and Tensorflow, but the default wrapper at the moment is written in PyTorch. As with all other Gymnasium-wrapped environments, one need only initialize, reset, and step!
+CARL exposes the underlying simulation through the standard Gymnasium API. Support for other ML libraries, such as JAX and TensorFlow, is planned, but the default wrapper is currently written in PyTorch. As with other Gymnasium environments, one only needs to initialize, reset, and step.
 ```python
 import torch
 from carl.gymnasium import CARLTorchVectorEnv
@@ -141,6 +141,8 @@ By default CARL normalizes observations via the maximum values of arena extent, 
 ### Custom Rewards
 Rewards are computed on-device through `RewardContext`. A reward function receives the previous state and present transition, observations, actions, game events, and episode metadata. It returns one reward per car with shape $(n_{\mathrm{sim}}, n_{\mathrm{cars}})$. Multiple reward functions are summed and multiplied by `reward_scale`. Registering custom rewards replaces the default score-only reward.
 
+As an example, we can reward based on car velocity (higher-the-better):
+
 ```python
 import carl
 
@@ -154,6 +156,8 @@ env = CARLTorchVectorEnv(
     reward_funcs=[speed_reward],
 )
 ```
+
+An arbitrary list of custom rewards may be applied, though it is usually best practice to unify rewards depending on their requisite context.
 
 ## Implementation
 
