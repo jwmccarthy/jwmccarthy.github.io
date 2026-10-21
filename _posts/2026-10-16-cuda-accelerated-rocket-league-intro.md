@@ -214,6 +214,8 @@ The native batch is organized by match rather than actor. All cars in a single s
 ## Conclusion
 CARL represents a significant leap in Rocket League RL throughput, and it is my opinion that this is largely a good and valuable thing for the community. Thank you for reading if you made it this far! All love to Mr. Carl Wheezer.
 
+<b>Note:</b> If the creators of RocketSim or anyone else who is familiar with the RLGym ecosystem finds any fault with the methodology, please reach out! I'm confident CARL enables an appreciable training speed-up, but I'd like to ensure all comparisons are appropriate.
+
 ## References
 
  <ol>
