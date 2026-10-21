@@ -138,6 +138,23 @@ observation.ego_has_flip_or_jump    # (n_envs,)
 
 By default CARL normalizes observations via the maximum values of arena extent, velocity, etc. though one may disable this via `normalize=False` in the environment constructor.
 
+### Custom Rewards
+Rewards are computed on-device through `RewardContext`. A reward function receives the previous state and present transition, observations, actions, game events, and episode metadata. It returns one reward per car with shape $(n_{\mathrm{sim}}, n_{\mathrm{cars}})$. Multiple reward functions are summed and multiplied by `reward_scale`. Registering custom rewards replaces the default score-only reward.
+
+```python
+import carl
+
+def speed_reward(context):
+    return context.current.car_velocity.norm(dim=-1) / carl.CAR_MAX_SPEED
+
+env = CARLTorchVectorEnv(
+    n_sim=1024,
+    n_blue=1,
+    n_orange=1,
+    reward_funcs=[speed_reward],
+)
+```
+
 ## Implementation
 
 ### Game State
@@ -151,7 +168,7 @@ The game state resides entirely on the GPU in a struct-of-arrays layout. During 
 SoA is the optimal approach for data storage in GPU applications due to the enforcement of coalesced fetch instructions for contiguous elements. If we were instead to store arrays of structs, each associated with a single game's state, the GPU would be forced to perform strided accesses, leading to more memory transactions. We'd also be pulling in full structs worth of data we may not need at the time.
 
 ### Arena Geometry
-The arena mesh is loaded into global memory upon environment initialization, and triangles are accessed via CUDA's cache-optimized read-only load intrinsics. The arena is immediately divided into a 3D broad phase grid which will to reduce the number of computation-heavy triangle tests during collision resolution.
+The arena mesh is loaded into global memory upon environment initialization, and triangles are accessed via CUDA's cache-optimized read-only load intrinsics. The arena is immediately divided into a 3D broad phase grid which reduces the number of triangle tests during collision resolution.
 
 CARL leverages the prefix sum construction described in NVIDIA's [Broad-Phase Collision Detection with CUDA](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda) <a href="#reference-le-grand-2007">[2]</a>. The prefix sum converts each broad phase cell's triangle occupancy into offsets/counts, allowing the car-arena and ball-arena collision kernels to determine where a cell's triangle list begins and how many triangles it must test.
 
