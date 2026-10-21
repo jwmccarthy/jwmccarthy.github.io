@@ -59,7 +59,7 @@ Using CARL as our environment framework, we achieve a 77x decrease in the time p
 
 Benchmarks were run on an Intel Core i5-13600K CPU, NVIDIA GeForce RTX 3060 GPU with 12 GiB VRAM, and 32 GiB RAM.
 
-GPUs with more SMs, Tensor cores, etc. would open us up to greater throughput depending on the learning algorithm. VRAM, however, is not the simulation bottleneck, and at reasonable rollouts the observation buffer fits comfortably on the GPU at just a couple hundred MB. The simulation itself allocates just over 20 MB for 4096 envs.
+GPUs with more SMs, Tensor Cores, etc. would open us up to greater throughput depending on the learning algorithm. VRAM, however, is not the simulation bottleneck, and at reasonable rollouts the observation buffer fits comfortably on the GPU at just a couple hundred MB. The simulation itself allocates just over 20 MB for 4,096 envs.
 
 ## Interface
 CARL exposes the underlying simulation via the standard Gymnasium API. It is planned to add support for other ML libraries like JAX and TensorFlow, but the default wrapper at the moment is written in PyTorch. As with all other Gymnasium-wrapped environments, one need only initialize, reset, and step!
@@ -173,10 +173,10 @@ The game state resides entirely on the GPU in a struct-of-arrays layout. During 
 
 SoA is the optimal approach for data storage in GPU applications due to the enforcement of coalesced fetch instructions for contiguous elements. If we were instead to store arrays of structs, each associated with a single game's state, the GPU would be forced to perform strided accesses, leading to more memory transactions. We'd also be pulling in full structs worth of data we may not need at the time.
 
-### Arena Geometry
-The arena mesh is loaded into global memory upon environment initialization, and triangles are accessed via CUDA's cache-optimized read-only load intrinsics. The arena is immediately divided into a 3D broad phase grid which reduces the number of triangle tests during collision resolution.
+triangles are accessed via CUDA's cache-optimized read-only load intrinsics. 
 
-Unlike RocketSim's [bounding volume hierarchy (BVH)](https://en.wikipedia.org/wiki/Bounding_volume_hierarchy) broad phase <a href="#reference-rocketsim">[3]</a>, CARL uses this fixed arena grid and scan-packed ranges to make triangle work per car more regular on the GPU.
+### Arena Geometry
+The arena mesh is loaded into global memory upon environment initialization. In contrast to RocketSim's [bounding volume hierarchy (BVH)](https://en.wikipedia.org/wiki/Bounding_volume_hierarchy) broad phase <a href="#reference-rocketsim">[3]</a>, CARL divides the arena into a 3D broad phase grid of fixed size. The broad phase helps to reduce the number of triangle tests during collision resolution, and the fixed grid in particular enforces greater regularity of the triangle checks on the GPU.
 
 CARL leverages the prefix sum construction described in NVIDIA's [Broad-Phase Collision Detection with CUDA](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-32-broad-phase-collision-detection-cuda) <a href="#reference-le-grand-2007">[6]</a>. The prefix sum converts each broad phase cell's triangle occupancy into offsets/counts, allowing the car-arena and ball-arena collision kernels to determine where a cell's triangle list begins and how many triangles it must test.
 
@@ -185,7 +185,7 @@ CARL leverages the prefix sum construction described in NVIDIA's [Broad-Phase Co
   <figcaption>Initial contents of the broad-phase cell ID array. <a href="#reference-le-grand-2007">[6]</a></figcaption>
 </figure>
 
-It is quick to check both sphere and axis-aligned bounding box (AABB) occupancy, so we can quickly cull most of the triangles in the arena before checking against the car and ball.
+It is quick to check both sphere and axis-aligned bounding box (AABB) occupancy, so we can quickly cull most of the triangles in the arena before checking specific tris against the car and ball.
 
 ### SAT Narrow Phase
 Unlike RocketSim, CARL does not use [GJK](https://en.wikipedia.org/wiki/Gilbert%E2%80%93Johnson%E2%80%93Keerthi_distance_algorithm)/[EPA](https://en.wikipedia.org/wiki/Expanding_polytope_algorithm) <a href="#reference-van-den-bergen-2004">[7]</a>. Instead, it implements the [Separating Axis Theorem (SAT)](https://en.wikipedia.org/wiki/Hyperplane_separation_theorem#Separating_axis_theorem) <a href="#reference-van-den-bergen-2004">[7]</a> to identify car-arena and car-car collisions without iterative support mapping.
