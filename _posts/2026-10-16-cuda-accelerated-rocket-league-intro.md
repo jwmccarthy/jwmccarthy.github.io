@@ -13,7 +13,7 @@ This post introduces CARL, a GPU-resident Rocket League simulator built for rein
 
 ## Benchmarks
 
-PPO was run on both CARL and RLGymPPO C++ to evaluate training throughput. Benchmark runs were configured with the same high-level environment, rollout target, policy/critic sizes, and PPO hyperparameters over 1M decision steps.
+PPO was run on both CARL and RLGymPPO C++ to evaluate training throughput. Benchmark runs were configured with the same high-level environment, rollout target, policy/critic sizes, and PPO hyperparameters over 1M decision steps. Given the benchmarks were run via self-play within the 1v1 game mode, actor counts are double the corresponding number of environments, and the steps scale accordingly. Counts are performed identically between the two frameworks.
 
 Given that this benchmark includes policy forward/backward, critic forward/backward, data transfer overhead, advantage estimates, and so on, we are able to paint a complete picture of the benefits of leveraging CARL on real-world training workloads.
 
@@ -22,24 +22,24 @@ Given that this benchmark includes policy forward/backward, critic forward/backw
     <tr>
       <th style="text-align: center">Framework</th>
       <th style="text-align: center">Actors</th>
-      <th style="text-align: center">Collection ticks/s</th>
-      <th style="text-align: center">Total ticks/s</th>
+      <th style="text-align: center">Collection steps/s</th>
+      <th style="text-align: center">Total steps/s</th>
       <th style="text-align: center">Speedup vs. C++</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td class="framework" rowspan="6">RLGymPPO C++</td><td>256</td><td>213,085</td><td>185,711</td><td>-</td></tr>
-    <tr><td>512</td><td>343,324</td><td>283,170</td><td>-</td></tr>
-    <tr><td>1,024</td><td>636,481</td><td>498,684</td><td>-</td></tr>
-    <tr><td>2,048</td><td>918,495</td><td>658,993</td><td>-</td></tr>
-    <tr><td>4,096</td><td>1,110,675</td><td>766,028</td><td>-</td></tr>
-    <tr><td>8,192</td><td>1,022,951</td><td>726,324</td><td>-</td></tr>
-    <tr><td class="framework" rowspan="6">CARL</td><td>1,024</td><td>1,737,281</td><td>1,505,551</td><td>1.97x</td></tr>
-    <tr><td>2,048</td><td>2,825,148</td><td>2,255,980</td><td>2.94x</td></tr>
-    <tr><td>4,096</td><td>5,276,434</td><td>3,713,999</td><td>4.85x</td></tr>
-    <tr><td>8,192</td><td>8,554,713</td><td>5,073,206</td><td>6.62x</td></tr>
-    <tr><td>16,384</td><td>13,154,913</td><td>6,398,822</td><td>8.35x</td></tr>
-    <tr><td>32,768</td><td>15,954,427</td><td>7,121,066</td><td>9.30x</td></tr>
+    <tr><td class="framework" rowspan="6">RLGymPPO C++</td><td>256</td><td>26,636</td><td>23,214</td><td>-</td></tr>
+    <tr><td>512</td><td>42,916</td><td>35,396</td><td>-</td></tr>
+    <tr><td>1,024</td><td>79,560</td><td>62,336</td><td>-</td></tr>
+    <tr><td>2,048</td><td>114,812</td><td>82,374</td><td>-</td></tr>
+    <tr><td>4,096</td><td>138,834</td><td>95,754</td><td>-</td></tr>
+    <tr><td>8,192</td><td>127,869</td><td>90,791</td><td>-</td></tr>
+    <tr><td class="framework" rowspan="6">CARL</td><td>1,024</td><td>217,160</td><td>188,194</td><td>1.97x</td></tr>
+    <tr><td>2,048</td><td>353,144</td><td>281,998</td><td>2.94x</td></tr>
+    <tr><td>4,096</td><td>659,554</td><td>464,250</td><td>4.85x</td></tr>
+    <tr><td>8,192</td><td>1,069,439</td><td>634,151</td><td>6.62x</td></tr>
+    <tr><td>16,384</td><td>1,644,364</td><td>799,853</td><td>8.35x</td></tr>
+    <tr><td>32,768</td><td>1,994,303</td><td>890,133</td><td>9.30x</td></tr>
   </tbody>
 </table>
 
@@ -64,10 +64,10 @@ Given that this benchmark includes policy forward/backward, critic forward/backw
 </table>
 </details>
 
-Collection and total throughput were measured, where "collection" excludes PPO updates, capturing just the speed of the simulation and forward pass, and "total" includes the time for PPO updates to occur.
+Collection and total throughput were measured in decision steps per second, where "collection" excludes PPO updates, capturing just the speed of the simulation and forward pass, and "total" includes the time for PPO updates to occur.
 
 <figure class="post-figure post-figure-throughput">
-  <img src="{{ '/images/unified-ppo-throughput-log-x-y.svg' | relative_url }}" alt="Unified PPO collection and total physics tick throughput by decision actors for RLGymPPO C++ and CARL">
+  <img src="{{ '/images/unified-ppo-throughput-log-x-y.svg' | relative_url }}" alt="Unified PPO collection and total decision-step throughput by actors for RLGymPPO C++ and CARL">
   <figcaption>Unified one-epoch PPO benchmark. Solid lines measure collection throughput; dotted lines include PPO updates.</figcaption>
 </figure>
 
