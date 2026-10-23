@@ -195,6 +195,10 @@ div.highlighter-rouge.code-block {
   cursor: pointer;
 }
 
+.post-content table th {
+  text-align: center;
+}
+
 .post-content .action-table {
   width: 85%;
   margin-right: auto;
@@ -272,18 +276,7 @@ div.highlighter-rouge.code-block {
   padding: 0.2rem 0.5rem;
 }
 
-.post-content .benchmark-table th:nth-child(2),
-.post-content .benchmark-table th:nth-child(3) {
-  text-align: center;
-}
-
-.post-content .benchmark-table th:nth-child(4) {
-  text-align: right;
-}
-
-.post-content .benchmark-table td:nth-child(2),
-.post-content .benchmark-table td:nth-child(3),
-.post-content .benchmark-table td:nth-child(4) {
+.post-content .benchmark-table td {
   text-align: right;
 }
 
@@ -297,6 +290,11 @@ div.highlighter-rouge.code-block {
 .post-content .benchmark-table td {
   background: #eef6f9;
   border: 1px solid #fff;
+}
+
+.post-content .benchmark-table td.framework {
+  text-align: center;
+  vertical-align: middle;
 }
 
 .post-content .benchmark-table tr:nth-child(even) td {

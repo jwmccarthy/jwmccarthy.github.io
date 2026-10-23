@@ -17,21 +17,31 @@ PPO was run on both CARL and RLGymPPO C++ to evaluate training throughput. Bench
 
 Given that this benchmark includes policy forward/backward, critic forward/backward, data transfer overhead, advantage estimates, and so on, we are able to paint a complete picture of the benefits of leveraging CARL on real-world training workloads.
 
-| Framework | Decision actors | Collection ticks/s | Total ticks/s |
-|---|---:|---:|---:|
-| RLGymPPO C++ | 256 | 213,085 | 185,711 |
-| RLGymPPO C++ | 512 | 343,324 | 283,170 |
-| RLGymPPO C++ | 1,024 | 636,481 | 498,684 |
-| RLGymPPO C++ | 2,048 | 918,495 | 658,993 |
-| RLGymPPO C++ | 4,096 | 1,110,675 | 766,028 |
-| RLGymPPO C++ | 8,192 | 1,022,951 | 726,324 |
-| CARL | 1,024 | 1,737,281 | 1,505,551 |
-| CARL | 2,048 | 2,825,148 | 2,255,980 |
-| CARL | 4,096 | 5,276,434 | 3,713,999 |
-| CARL | 8,192 | 8,554,713 | 5,073,206 |
-| CARL | 16,384 | 13,154,913 | 6,398,822 |
-| CARL | 32,768 | 15,954,427 | 7,121,066 |
-{: .benchmark-table}
+<table class="benchmark-table">
+  <thead>
+    <tr>
+      <th style="text-align: center">Framework</th>
+      <th style="text-align: center">Actors</th>
+      <th style="text-align: center">Collection ticks/s</th>
+      <th style="text-align: center">Total ticks/s</th>
+      <th style="text-align: center">Speedup vs. C++</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="framework" rowspan="6">RLGymPPO C++</td><td>256</td><td>213,085</td><td>185,711</td><td>-</td></tr>
+    <tr><td>512</td><td>343,324</td><td>283,170</td><td>-</td></tr>
+    <tr><td>1,024</td><td>636,481</td><td>498,684</td><td>-</td></tr>
+    <tr><td>2,048</td><td>918,495</td><td>658,993</td><td>-</td></tr>
+    <tr><td>4,096</td><td>1,110,675</td><td>766,028</td><td>-</td></tr>
+    <tr><td>8,192</td><td>1,022,951</td><td>726,324</td><td>-</td></tr>
+    <tr><td class="framework" rowspan="6">CARL</td><td>1,024</td><td>1,737,281</td><td>1,505,551</td><td>1.97x</td></tr>
+    <tr><td>2,048</td><td>2,825,148</td><td>2,255,980</td><td>2.94x</td></tr>
+    <tr><td>4,096</td><td>5,276,434</td><td>3,713,999</td><td>4.85x</td></tr>
+    <tr><td>8,192</td><td>8,554,713</td><td>5,073,206</td><td>6.62x</td></tr>
+    <tr><td>16,384</td><td>13,154,913</td><td>6,398,822</td><td>8.35x</td></tr>
+    <tr><td>32,768</td><td>15,954,427</td><td>7,121,066</td><td>9.30x</td></tr>
+  </tbody>
+</table>
 
 <p class="table-caption">Benchmark code: <a href="https://github.com/jwmccarthy/carl-benchmarks">carl-benchmarks</a></p>
 
