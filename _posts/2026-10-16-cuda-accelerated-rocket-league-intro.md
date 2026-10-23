@@ -73,6 +73,8 @@ Collection and total throughput were measured, where "collection" excludes PPO u
 
 Benchmarks were run on an Intel Core i5-13600K CPU, NVIDIA GeForce RTX 3060 GPU with 12 GiB VRAM, and 32 GiB RAM. GPUs with more SMs, Tensor Cores, etc. would open us up to greater throughput depending on the learning algorithm. VRAM, however, is not the simulation bottleneck, and at reasonable rollouts the observation buffer fits comfortably on the GPU at just a couple hundred MB. The simulation itself allocates just over 20 MB for 4,096 envs.
 
+I'll also note that CARL is still relatively unoptimized end-to-end, so any advice or suggestions are welcome! I feel these speedup multiples can be pushed even further.
+
 ## Interface
 CARL exposes the underlying simulation via the standard Gymnasium API. It is planned to add support for other ML libraries like JAX and TensorFlow, but the default wrapper at the moment is written in PyTorch. As with all other Gymnasium-wrapped environments, one need only initialize, reset, and step!
 ```python
