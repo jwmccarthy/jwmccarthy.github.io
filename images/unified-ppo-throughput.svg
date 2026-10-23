@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="560" viewBox="0 0 920 560" role="img" aria-labelledby="title desc">
+<title id="title">PPO throughput by decision actors</title>
+<desc id="desc">Collection and end-to-end physics tick throughput for RLGymPPO, RLGymPPO C++, and CARL.</desc>
+<rect width="100%" height="100%" fill="#fffdf8"/>
+<style>text{font-family:Arial,sans-serif;fill:#25313c}.axis{font-size:13px}.label{font-size:15px;font-weight:700}.legend{font-size:14px}.grid{stroke:#d9ddd8;stroke-width:1}.axisline{stroke:#4c5963;stroke-width:1.2}</style>
+<line class="grid" x1="104" y1="460.0" x2="866" y2="460.0"/>
+<text class="axis" x="92" y="465.0" text-anchor="end">0m</text>
+<line class="grid" x1="104" y1="403.1" x2="866" y2="403.1"/>
+<text class="axis" x="92" y="408.1" text-anchor="end">2m</text>
+<line class="grid" x1="104" y1="346.3" x2="866" y2="346.3"/>
+<text class="axis" x="92" y="351.3" text-anchor="end">4m</text>
+<line class="grid" x1="104" y1="289.4" x2="866" y2="289.4"/>
+<text class="axis" x="92" y="294.4" text-anchor="end">6m</text>
+<line class="grid" x1="104" y1="232.6" x2="866" y2="232.6"/>
+<text class="axis" x="92" y="237.6" text-anchor="end">8m</text>
+<line class="grid" x1="104" y1="175.7" x2="866" y2="175.7"/>
+<text class="axis" x="92" y="180.7" text-anchor="end">10m</text>
+<line class="grid" x1="104" y1="118.9" x2="866" y2="118.9"/>
+<text class="axis" x="92" y="123.9" text-anchor="end">12m</text>
+<line class="grid" x1="104" y1="62.0" x2="866" y2="62.0"/>
+<text class="axis" x="92" y="67.0" text-anchor="end">14m</text>
+<line class="grid" x1="104.0" y1="62" x2="104.0" y2="460"/>
+<text class="axis" x="104.0" y="485" text-anchor="middle">0</text>
+<line class="grid" x1="199.2" y1="62" x2="199.2" y2="460"/>
+<text class="axis" x="199.2" y="485" text-anchor="middle">2,048</text>
+<line class="grid" x1="294.5" y1="62" x2="294.5" y2="460"/>
+<text class="axis" x="294.5" y="485" text-anchor="middle">4,096</text>
+<line class="grid" x1="389.8" y1="62" x2="389.8" y2="460"/>
+<text class="axis" x="389.8" y="485" text-anchor="middle">6,144</text>
+<line class="grid" x1="485.0" y1="62" x2="485.0" y2="460"/>
+<text class="axis" x="485.0" y="485" text-anchor="middle">8,192</text>
+<line class="grid" x1="580.2" y1="62" x2="580.2" y2="460"/>
+<text class="axis" x="580.2" y="485" text-anchor="middle">10,240</text>
+<line class="grid" x1="675.5" y1="62" x2="675.5" y2="460"/>
+<text class="axis" x="675.5" y="485" text-anchor="middle">12,288</text>
+<line class="grid" x1="770.8" y1="62" x2="770.8" y2="460"/>
+<text class="axis" x="770.8" y="485" text-anchor="middle">14,336</text>
+<line class="grid" x1="866.0" y1="62" x2="866.0" y2="460"/>
+<text class="axis" x="866.0" y="485" text-anchor="middle">16,384</text>
+<line class="axisline" x1="104" y1="460" x2="866" y2="460"/>
+<line class="axisline" x1="104" y1="62" x2="104" y2="460"/>
+<text class="label" x="485.0" y="532" text-anchor="middle">Decision actors</text>
+<text class="label" transform="translate(25 261.0) rotate(-90)" text-anchor="middle">Physics ticks / second</text>
+<text class="label" x="104" y="31">Unified PPO throughput, one epoch</text>
+<polyline fill="none" stroke="#e77a3f" stroke-width="3" points="107.0,458.4 110.0,456.8 115.9,453.9 127.8,450.2 139.7,446.7 151.6,441.9 199.2,433.9 294.5,428.4 485.0,430.9"/>
+<circle cx="107.0" cy="458.4" r="4.6" fill="#e77a3f" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="110.0" cy="456.8" r="4.6" fill="#e77a3f" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="115.9" cy="453.9" r="4.6" fill="#e77a3f" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="127.8" cy="450.2" r="4.6" fill="#e77a3f" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="139.7" cy="446.7" r="4.6" fill="#e77a3f" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="151.6" cy="441.9" r="4.6" fill="#e77a3f" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="199.2" cy="433.9" r="4.6" fill="#e77a3f" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="294.5" cy="428.4" r="4.6" fill="#e77a3f" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="485.0" cy="430.9" r="4.6" fill="#e77a3f" stroke="#e77a3f" stroke-width="2.4"/>
+<polyline fill="none" stroke="#e77a3f" stroke-width="3" stroke-dasharray="7 5" points="107.0,458.5 110.0,457.1 115.9,454.7 127.8,451.9 139.7,449.3 151.6,445.8 199.2,441.3 294.5,438.2 485.0,439.4"/>
+<circle cx="107.0" cy="458.5" r="4.6" fill="#fffdf8" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="110.0" cy="457.1" r="4.6" fill="#fffdf8" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="115.9" cy="454.7" r="4.6" fill="#fffdf8" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="127.8" cy="451.9" r="4.6" fill="#fffdf8" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="139.7" cy="449.3" r="4.6" fill="#fffdf8" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="151.6" cy="445.8" r="4.6" fill="#fffdf8" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="199.2" cy="441.3" r="4.6" fill="#fffdf8" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="294.5" cy="438.2" r="4.6" fill="#fffdf8" stroke="#e77a3f" stroke-width="2.4"/>
+<circle cx="485.0" cy="439.4" r="4.6" fill="#fffdf8" stroke="#e77a3f" stroke-width="2.4"/>
+<polyline fill="none" stroke="#168b79" stroke-width="3" points="151.6,410.6 199.2,379.7 294.5,310.0 485.0,216.8 866.0,86.0"/>
+<circle cx="151.6" cy="410.6" r="4.6" fill="#168b79" stroke="#168b79" stroke-width="2.4"/>
+<circle cx="199.2" cy="379.7" r="4.6" fill="#168b79" stroke="#168b79" stroke-width="2.4"/>
+<circle cx="294.5" cy="310.0" r="4.6" fill="#168b79" stroke="#168b79" stroke-width="2.4"/>
+<circle cx="485.0" cy="216.8" r="4.6" fill="#168b79" stroke="#168b79" stroke-width="2.4"/>
+<circle cx="866.0" cy="86.0" r="4.6" fill="#168b79" stroke="#168b79" stroke-width="2.4"/>
+<polyline fill="none" stroke="#168b79" stroke-width="3" stroke-dasharray="7 5" points="151.6,417.2 199.2,395.9 294.5,354.4 485.0,315.8 866.0,278.1"/>
+<circle cx="151.6" cy="417.2" r="4.6" fill="#fffdf8" stroke="#168b79" stroke-width="2.4"/>
+<circle cx="199.2" cy="395.9" r="4.6" fill="#fffdf8" stroke="#168b79" stroke-width="2.4"/>
+<circle cx="294.5" cy="354.4" r="4.6" fill="#fffdf8" stroke="#168b79" stroke-width="2.4"/>
+<circle cx="485.0" cy="315.8" r="4.6" fill="#fffdf8" stroke="#168b79" stroke-width="2.4"/>
+<circle cx="866.0" cy="278.1" r="4.6" fill="#fffdf8" stroke="#168b79" stroke-width="2.4"/>
+<line x1="615" y1="28" x2="638" y2="28" stroke="#e77a3f" stroke-width="3"/>
+<text class="legend" x="644" y="33">RLGymPPO C++</text>
+<line x1="733" y1="28" x2="756" y2="28" stroke="#168b79" stroke-width="3"/>
+<text class="legend" x="762" y="33">CARL</text>
+<rect x="116" y="59" width="350" height="179" fill="#fffdf8" stroke="#aeb7b4" stroke-width="1.2"/>
+<text class="legend" x="126" y="75">C++ detail: 0–1.2m ticks/s</text>
+<line class="grid" x1="126" y1="216.0" x2="456" y2="216.0"/>
+<text class="axis" x="121" y="220.0" text-anchor="end">0m</text>
+<line class="grid" x1="126" y1="150.0" x2="456" y2="150.0"/>
+<text class="axis" x="121" y="154.0" text-anchor="end">0.6m</text>
+<line class="grid" x1="126" y1="84.0" x2="456" y2="84.0"/>
+<text class="axis" x="121" y="88.0" text-anchor="end">1.2m</text>
+<line class="grid" x1="126.0" y1="84" x2="126.0" y2="216"/>
+<text class="axis" x="126.0" y="233" text-anchor="middle">0</text>
+<line class="grid" x1="291.0" y1="84" x2="291.0" y2="216"/>
+<text class="axis" x="291.0" y="233" text-anchor="middle">2,048</text>
+<line class="grid" x1="456.0" y1="84" x2="456.0" y2="216"/>
+<text class="axis" x="456.0" y="233" text-anchor="middle">4,096</text>
+<polyline fill="none" stroke="#e77a3f" stroke-width="2.6" points="131.2,209.8 136.3,203.7 146.6,192.6 167.2,178.2 187.9,164.5 208.5,146.0 291.0,115.0 456.0,93.8"/>
+<circle cx="131.2" cy="209.8" r="3.8" fill="#e77a3f" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="136.3" cy="203.7" r="3.8" fill="#e77a3f" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="146.6" cy="192.6" r="3.8" fill="#e77a3f" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="167.2" cy="178.2" r="3.8" fill="#e77a3f" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="187.9" cy="164.5" r="3.8" fill="#e77a3f" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="208.5" cy="146.0" r="3.8" fill="#e77a3f" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="291.0" cy="115.0" r="3.8" fill="#e77a3f" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="456.0" cy="93.8" r="3.8" fill="#e77a3f" stroke="#e77a3f" stroke-width="2"/>
+<polyline fill="none" stroke="#e77a3f" stroke-width="2.6" stroke-dasharray="5 4" points="131.2,210.0 136.3,204.6 146.6,195.6 167.2,184.9 187.9,174.7 208.5,161.1 291.0,143.5 456.0,131.7"/>
+<circle cx="131.2" cy="210.0" r="3.8" fill="#fffdf8" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="136.3" cy="204.6" r="3.8" fill="#fffdf8" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="146.6" cy="195.6" r="3.8" fill="#fffdf8" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="167.2" cy="184.9" r="3.8" fill="#fffdf8" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="187.9" cy="174.7" r="3.8" fill="#fffdf8" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="208.5" cy="161.1" r="3.8" fill="#fffdf8" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="291.0" cy="143.5" r="3.8" fill="#fffdf8" stroke="#e77a3f" stroke-width="2"/>
+<circle cx="456.0" cy="131.7" r="3.8" fill="#fffdf8" stroke="#e77a3f" stroke-width="2"/>
+<line x1="105" y1="488" x2="130" y2="488" stroke="#4c5963" stroke-width="3"/>
+<circle cx="117.5" cy="488" r="4.2" fill="#4c5963"/>
+<text class="legend" x="138" y="493">Collection</text>
+<line x1="235" y1="488" x2="260" y2="488" stroke="#4c5963" stroke-width="3" stroke-dasharray="7 5"/>
+<circle cx="247.5" cy="488" r="4.2" fill="#fffdf8" stroke="#4c5963" stroke-width="2"/>
+<text class="legend" x="268" y="493">Collection + PPO update</text>
+</svg>

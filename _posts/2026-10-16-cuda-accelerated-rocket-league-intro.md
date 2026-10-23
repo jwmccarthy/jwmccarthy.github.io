@@ -13,20 +13,24 @@ This post introduces CARL, a GPU-resident Rocket League simulator built for rein
 
 ## Benchmarks
 
-PPO was run on both CARL and RocketSim to evaluate training throughput. Benchmark runs were configured such that the same number of gradient updates were applied over the course of 1M decision steps. This was done by inversely scaling the rollout length by the number of envs while keeping all other parameters the same between runs with the two frameworks in question.
+PPO was run on both CARL and RLGymPPO C++ to evaluate training throughput. Benchmark runs were configured with the same high-level environment, rollout target, policy/critic sizes, and PPO hyperparameters over 1M decision steps.
 
 Given that this benchmark includes policy forward/backward, critic forward/backward, data transfer overhead, advantage estimates, and so on, we are able to paint a complete picture of the benefits of leveraging CARL on real-world training workloads.
 
-| Framework | # Envs | Time (s) | Throughput (transitions/s) |
-|---|---|---|---:|
-| RocketSim | 1 | 475.90 ± 38.55 | 2,145 ± 159 |
-| RocketSim | 4 | 385.78 ± 2.66 | 2,633 ± 18 |
-| RocketSim | 8 | 326.03 ± 4.76 | 3,116 ± 45 |
-| RocketSim | 16 | 286.84 ± 2.16 | 3,542 ± 27 |
-| CARL | 256 | 15.11 ± 0.41 | 67,280 ± 1,830 |
-| CARL | 1,024 | 6.77 ± 0.20 | 150,106 ± 4,334 |
-| CARL | 2,048 | 4.53 ± 0.19 | 224,567 ± 8,963 |
-| <b>CARL</b> | <b>4,096</b> | <b>3.72 ± 0.24</b> | <b>273,635 ± 16,379</b> |
+| Framework | Decision actors | Collection ticks/s | Total ticks/s |
+|---|---:|---:|---:|
+| RLGymPPO C++ | 256 | 213,085 | 185,711 |
+| RLGymPPO C++ | 512 | 343,324 | 283,170 |
+| RLGymPPO C++ | 1,024 | 636,481 | 498,684 |
+| RLGymPPO C++ | 2,048 | 918,495 | 658,993 |
+| RLGymPPO C++ | 4,096 | 1,110,675 | 766,028 |
+| RLGymPPO C++ | 8,192 | 1,022,951 | 726,324 |
+| CARL | 1,024 | 1,737,281 | 1,505,551 |
+| CARL | 2,048 | 2,825,148 | 2,255,980 |
+| CARL | 4,096 | 5,276,434 | 3,713,999 |
+| CARL | 8,192 | 8,554,713 | 5,073,206 |
+| CARL | 16,384 | 13,154,913 | 6,398,822 |
+| CARL | 32,768 | 15,954,427 | 7,121,066 |
 {: .benchmark-table}
 
 <p class="table-caption">Benchmark code: <a href="https://github.com/jwmccarthy/carl-benchmarks">carl-benchmarks</a></p>
@@ -41,20 +45,20 @@ Given that this benchmark includes policy forward/backward, critic forward/backw
   <tbody>
     <tr><td>Algorithm</td><td>PPO</td></tr>
     <tr><td>Total timesteps</td><td>1M</td></tr>
-    <tr><td>Epochs</td><td>10</td></tr>
-    <tr><td>Minibatch size</td><td>32,768</td></tr>
-    <tr><td>Total batch size</td><td>32,768</td></tr>
-    <tr><td>Frameskip</td><td>4</td></tr>
+    <tr><td>Epochs</td><td>1</td></tr>
+    <tr><td>Minibatch size</td><td>25,000</td></tr>
+    <tr><td>Total batch size</td><td>100,000</td></tr>
+    <tr><td>Frameskip</td><td>8</td></tr>
     <tr><td>Max ticks per episode</td><td>36,000</td></tr>
   </tbody>
 </table>
 </details>
 
-Using CARL as our environment framework, we achieve a 77x decrease in the time per transition during training. Predictably, throughput scales with the number of parallel environments.
+Collection and total throughput were measured, where "collection" excludes PPO updates, capturing just the speed of the simulation and forward pass, and "total" includes the time for PPO updates to occur.
 
-<figure class="post-figure post-figure-carl-throughput">
-  <img src="{{ '/images/carl-throughput.svg' | relative_url }}" alt="CARL throughput by number of environments">
-  <figcaption>CARL throughput scaling with the number of parallel environments.</figcaption>
+<figure class="post-figure post-figure-throughput">
+  <img src="{{ '/images/unified-ppo-throughput-log-x-y.svg' | relative_url }}" alt="Unified PPO collection and total physics tick throughput by decision actors for RLGymPPO C++ and CARL">
+  <figcaption>Unified one-epoch PPO benchmark. Solid lines measure collection throughput; dotted lines include PPO updates.</figcaption>
 </figure>
 
 Benchmarks were run on an Intel Core i5-13600K CPU, NVIDIA GeForce RTX 3060 GPU with 12 GiB VRAM, and 32 GiB RAM. GPUs with more SMs, Tensor Cores, etc. would open us up to greater throughput depending on the learning algorithm. VRAM, however, is not the simulation bottleneck, and at reasonable rollouts the observation buffer fits comfortably on the GPU at just a couple hundred MB. The simulation itself allocates just over 20 MB for 4,096 envs.
