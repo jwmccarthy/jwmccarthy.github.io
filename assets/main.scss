@@ -301,6 +301,30 @@ div.highlighter-rouge.code-block {
   background: #f7fbfc;
 }
 
+.post-content .benchmark-table tr.benchmark-cpp td {
+  background: #f2ddd4;
+}
+
+.post-content .benchmark-table tr.benchmark-carl-3060 td {
+  background: #e1ebf0;
+}
+
+.post-content .benchmark-table tr.benchmark-carl-5090 td {
+  background: #e0eee8;
+}
+
+.post-content .benchmark-table tr.benchmark-cpp:nth-child(even) td {
+  background: #f8eee9;
+}
+
+.post-content .benchmark-table tr.benchmark-carl-3060:nth-child(even) td {
+  background: #eff5f8;
+}
+
+.post-content .benchmark-table tr.benchmark-carl-5090:nth-child(even) td {
+  background: #eff7f3;
+}
+
 .table-caption {
   margin-top: 0;
   color: #828282;
