@@ -193,8 +193,6 @@ The game state resides entirely on the GPU in a struct-of-arrays layout. During 
 
 SoA is the optimal approach for data storage in GPU applications due to the enforcement of coalesced fetch instructions for contiguous elements. If we were instead to store arrays of structs, each associated with a single game's state, the GPU would be forced to perform strided accesses, leading to more memory transactions. We'd also be pulling in full structs worth of data we may not need at the time.
 
-triangles are accessed via CUDA's cache-optimized read-only load intrinsics. 
-
 ### Arena Geometry
 The arena mesh is loaded into global memory upon environment initialization. In contrast to RocketSim's [bounding volume hierarchy (BVH)](https://en.wikipedia.org/wiki/Bounding_volume_hierarchy) broad phase <a href="#reference-rocketsim">[3]</a>, CARL divides the arena into a 3D broad phase grid of fixed size. The broad phase helps to reduce the number of triangle tests during collision resolution, and the fixed grid in particular enforces greater regularity of the triangle checks on the GPU.
 
