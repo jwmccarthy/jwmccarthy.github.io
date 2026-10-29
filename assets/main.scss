@@ -412,7 +412,8 @@ div.highlighter-rouge.code-block {
   font-weight: 400;
   letter-spacing: -0.02em;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .site-title,
@@ -423,7 +424,6 @@ div.highlighter-rouge.code-block {
 @media screen and (max-width: 600px) {
   .post-title {
     font-size: 2rem;
-    white-space: normal;
   }
 }
 
